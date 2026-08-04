@@ -14,7 +14,7 @@
 - Then: `competencies` has one row ("Technical Skill"); `primary_functions` has a row for it ("Quality & Testing") referencing that competency; `standards` has rows for that PF at multiple levels (P2–P5) but deliberately none at P6 (the inapplicable-at-level gap); `badges` has a row whose `evidence_required` references a real `instruments` row that exists; `training_units` has a sequence of rows whose `prereqs` arrays only contain ids of earlier-inserted units in that sequence, plus a P7 row for the same competency with no corresponding guided-exercise/autonomous-project training units (the P6/P7 gap).
 
 ## B-2: AC-2 [e2e]: fresh database → migrate → seed → a manual read of the seeded competency returns matching rows across every table, end to end.
-- Given:
-- When:
-- Then:
+- Given: a fresh database with no schema applied.
+- When: `migrate(connectionString)` then `seed(connectionString)` are run in sequence, then a plain read (a fresh `Client` connection, no reuse of the seeding connection) queries for the seeded competency.
+- Then: the read returns matching rows for the competency across `competencies`, `primary_functions`, `standards`, `badges`, `instruments`, and `training_units` — end to end, with no missing-table/column error.
 
