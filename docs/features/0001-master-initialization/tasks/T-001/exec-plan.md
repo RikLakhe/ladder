@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
 approved_at: "2026-08-04"
-planned_behaviors: "2"
+planned_behaviors: "1"
 approved_sha256: "897e744878f4ab3bcf38f7d4cc4cff428ef18369f5e534d1f8b8b1dbc5cf1875"
 ---
 ## Exec Plan — Task T-001
