@@ -14,7 +14,7 @@
 - Then: it returns one entry per competency, each with the competency's name and its correct `primary_functions` count (2 and 0 respectively).
 
 ## B-2: AC-2 [e2e]: Visiting `/` unauthenticated renders the competency list without any login prompt.
-- Given:
-- When:
-- Then:
+- Given: the running app, a database seeded with at least one competency, and no auth session/cookie sent.
+- When: an unauthenticated HTTP GET is made to `/`.
+- Then: the response is 200, the body contains the seeded competency's name, and contains no login/sign-in prompt markup.
 
