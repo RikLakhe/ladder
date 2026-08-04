@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: `GET /api/competencies` returns a JSON array of `{id, name, primaryFunctionCount}`, one entry per competency in `competencies`, count matching rows in `primary_functions`.
-- Given:
-- When:
-- Then:
+- Given: fixture DB with one competency having 2 primary_functions rows and one competency having 0.
+- When: calling the route handler's GET (or issuing an HTTP GET to `/api/competencies` against a running app).
+- Then: response is 200 JSON array with exactly `[{id, name, primaryFunctionCount: 2}, {id, name, primaryFunctionCount: 0}]` (order by name), matching the seeded rows.
 
 ## B-2: AC-2 [e2e]: An unauthenticated request to `GET /api/competencies` returns 200 with the JSON array (no auth required, per TSD S-0002.01 Access).
 - Given:
