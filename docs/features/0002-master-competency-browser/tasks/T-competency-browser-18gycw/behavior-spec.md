@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: `GET /` lists every competency in `competencies` as a card, each showing its name and its count of rows in `primary_functions`.
-- Given:
-- When:
-- Then:
+- Given: a database with one competency that has two `primary_functions` rows and one competency with zero.
+- When: the home-page data function is called.
+- Then: it returns one entry per competency, each with the competency's name and its correct `primary_functions` count (2 and 0 respectively).
 
 ## B-2: AC-2 [e2e]: Visiting `/` unauthenticated renders the competency list without any login prompt.
 - Given:
