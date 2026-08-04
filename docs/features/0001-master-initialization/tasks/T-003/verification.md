@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-04"
+approved_sha256: "e04b50176e699405aa1a6f4ac1d64fdfbad8f20093569febd12eab62610892b4"
+---
 ## Verification — Task T-003 — 2026-08-04
 > Critic anchored to TSD (external spec), NOT to the code. ★GATE: owner confirms/dismisses every flag.
 
@@ -33,5 +38,5 @@
 - [x] ≥1 `e2e` AC present and GREEN (reachable through the running system) — B-2
 - [x] Boundaries non-empty ⇒ a smoke AC exists (real boundary, staging) — B-2 is the smoke/e2e test
 
-**Human verdict:** each item confirmed/dismissed — signed by __ (Path R: + SA)
+**Human verdict:** each item confirmed/dismissed — signed by Rikesh (Path R: + SA)
 **Outcome:** clean → merge | divergence → Amendment (.lane/templates/AMENDMENT.md) → re-spec → re-run
