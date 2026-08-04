@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: running the seed operation against a freshly migrated, empty database populates one competency's full vertical slice (primary functions, standards, a badge whose evidence resolves to a real instrument row, a training sequence whose prereqs only point backward), plus the two intentional gap cases (a level with no standard row; a P6/P7 competency+level with no guided-exercise/autonomous-project rows).
-- Given:
-- When:
-- Then:
+- Given: a freshly migrated, empty database (only `0001_init.sql` applied, no rows in any table).
+- When: `seed(connectionString)` is run once.
+- Then: `competencies` has one row ("Technical Skill"); `primary_functions` has a row for it ("Quality & Testing") referencing that competency; `standards` has rows for that PF at multiple levels (P2–P5) but deliberately none at P6 (the inapplicable-at-level gap); `badges` has a row whose `evidence_required` references a real `instruments` row that exists; `training_units` has a sequence of rows whose `prereqs` arrays only contain ids of earlier-inserted units in that sequence, plus a P7 row for the same competency with no corresponding guided-exercise/autonomous-project training units (the P6/P7 gap).
 
 ## B-2: AC-2 [e2e]: fresh database → migrate → seed → a manual read of the seeded competency returns matching rows across every table, end to end.
 - Given:
