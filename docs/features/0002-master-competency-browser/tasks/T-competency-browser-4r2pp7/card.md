@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
-approved_at: "2026-08-04"
-approved_sha256: "08bba13ffbb340a151d67a929fa9084099e3c32ff82a91f858ef260a3b370b7e"
+approved_at: "2026-08-05"
+approved_sha256: "47d6f52d981982a14bd05f6b53311ae6ebf0d62890ee155254d1a7465ff1e261"
 ---
 ## Task T-competency-browser-4r2pp7 — View functional analysis and badges for a primary function
 **Parent:** story S-0002.04 · feature 0002-master-competency-browser (docs/features/0002-master-competency-browser/ — its PRD + TSD)
@@ -10,8 +10,10 @@ approved_sha256: "08bba13ffbb340a151d67a929fa9084099e3c32ff82a91f858ef260a3b370b
 - [ ] AC-1 [behavior]: A primary function's page exposes its `functional_analyses` content by level, filtered to that `pf_id`.
 - [ ] AC-2 [behavior]: A primary function's page lists badges (name + level) filtered to that `pf_id`; a primary function with no rows in either table renders an explicit empty state.
 - [ ] AC-3 [e2e]: Navigating from a primary function to its functional-analysis/badges view renders data sourced from `functional_analyses` and `badges` for that `pf_id`.
+- [ ] AC-4 [behavior]: `GET /api/primary-functions/:pfId/functional-analysis` returns a JSON array of `{level, body}` for that `pf_id` (per TSD S-0002.04 Interfaces).
+- [ ] AC-5 [behavior]: `GET /api/primary-functions/:pfId/badges` returns a JSON array of `{id, name, level}` for that `pf_id` (per TSD S-0002.04 Interfaces).
 **End-to-end AC:** AC-3 [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1, AC-2, AC-3  ← ordered; first = tracer bullet
+**Tests:** AC-1, AC-2, AC-3, AC-4, AC-5  ← ordered; first = tracer bullet
 <!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
 **Test scope:** tests/T-competency-browser-4r2pp7/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
 <!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
