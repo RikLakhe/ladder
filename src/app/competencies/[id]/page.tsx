@@ -25,7 +25,8 @@ export default async function CompetencyPage({
       <ul>
         {primaryFunctions.map((pf) => (
           <li key={pf.id}>
-            <Link href={`/primary-functions/${pf.id}/standard`}>{pf.name}</Link>
+            <Link href={`/primary-functions/${pf.id}`}>{pf.name}</Link>{" "}
+            (<Link href={`/primary-functions/${pf.id}/standard`}>Standard</Link>)
           </li>
         ))}
       </ul>
