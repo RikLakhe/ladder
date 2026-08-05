@@ -48,8 +48,8 @@ export async function seed(connectionString: string): Promise<void> {
     const instrumentId = instrument.rows[0].id;
 
     await client.query(
-      "INSERT INTO badges (pf_id, level, evidence_required) VALUES ($1, $2, $3)",
-      [pfId, "P3", JSON.stringify({ instrument_id: instrumentId })]
+      "INSERT INTO badges (pf_id, name, level, evidence_required) VALUES ($1, $2, $3, $4)",
+      [pfId, "Seed Badge", "P3", JSON.stringify({ instrument_id: instrumentId })]
     );
 
     // Training sequence: each unit's prereqs only point to earlier-sequenced units.

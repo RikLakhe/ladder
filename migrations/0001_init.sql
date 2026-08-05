@@ -35,10 +35,12 @@ CREATE TABLE IF NOT EXISTS functional_analyses (
 CREATE TABLE IF NOT EXISTS badges (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   pf_id uuid NOT NULL REFERENCES primary_functions(id),
-  name text NOT NULL,
   level text NOT NULL,
   evidence_required jsonb
 );
+
+ALTER TABLE badges ADD COLUMN IF NOT EXISTS name text NOT NULL DEFAULT '';
+ALTER TABLE badges ALTER COLUMN name DROP DEFAULT;
 
 CREATE TABLE IF NOT EXISTS instruments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
