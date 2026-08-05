@@ -14,14 +14,14 @@
 - Then: returns exactly that PF's standards rows, ordered P2, P4, P7 (level order), with none of the other PF's rows.
 
 ## B-2: AC-2 [behavior]: `?level=<level>` narrows the view to that level's criteria only; a level with no `standards` row renders an explicit empty state, not an error.
-- Given:
-- When:
-- Then:
+- Given: fixture DB with a primary function having a `standards` row at P2 only (no P4 row).
+- When: calling the data query function for that `pf_id` with `level="P2"`, and separately with `level="P4"`.
+- Then: `level="P2"` returns exactly one row (`{level: "P2", body: ...}`); `level="P4"` returns an empty array (not an error, not a thrown exception).
 
 ## B-3: AC-3 [e2e]: Navigating from a primary-function pill to its standard doc renders content for that `pf_id`.
-- Given:
-- When:
-- Then:
+- Given: running app, seeded DB with one competency, one primary function under it, and one `standards` row for that PF at level P2.
+- When: unauthenticated GET `/competencies/:id`, then GET `/primary-functions/:pfId/standard` for that PF's id (following the PF pill's link).
+- Then: competency page's PF pill links to `/primary-functions/:pfId/standard`; that page returns 200 and renders the standard's body text for that `pf_id`.
 
 ## B-4: AC-4 [behavior]: `GET /api/primary-functions/:pfId/standard` returns a JSON array of `{level, body}` ordered by level for that `pf_id`; `?level=<level>` narrows the JSON response to that level's row only (per TSD S-0002.03 Interfaces).
 - Given:

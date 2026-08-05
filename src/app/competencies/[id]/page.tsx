@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCompetencyById } from "../../../lib/competencies";
 import { getPrimaryFunctionsForCompetency } from "../../../lib/primary-functions";
@@ -23,7 +24,9 @@ export default async function CompetencyPage({
       <h1>{competency.name}</h1>
       <ul>
         {primaryFunctions.map((pf) => (
-          <li key={pf.id}>{pf.name}</li>
+          <li key={pf.id}>
+            <Link href={`/primary-functions/${pf.id}/standard`}>{pf.name}</Link>
+          </li>
         ))}
       </ul>
     </main>
