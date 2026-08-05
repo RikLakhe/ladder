@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: `GET /competencies/:id` shows only primary functions whose `competency_id` equals `:id`.
-- Given:
-- When:
-- Then:
+- Given: fixture DB with two competencies, each with its own set of primary_functions rows.
+- When: calling the data function for a given competency id (or requesting `/competencies/:id`).
+- Then: returns exactly that competency's primary functions, none from the other competency.
 
 ## B-2: AC-3 [e2e]: Clicking a competency card on the home page navigates to that competency's page and shows its primary functions.
 - Given:
@@ -32,5 +32,5 @@
 > Not standalone behaviors to drive. An invariant usually holds as a property of a
 > behavior above (state which) or is locked by a guard test recorded off-ledger with
 > `lane red --regression`. Non-functional ACs are validated out-of-band (load test, etc.).
-- AC-2 [invariant]: Primary functions of other competencies never appear on this page. — coverage:
+- AC-2 [invariant]: Primary functions of other competencies never appear on this page. — coverage: B-1 (query scoped by competency_id; test asserts absence of the other competency's PFs).
 
