@@ -1,0 +1,31 @@
+import { Client } from "pg";
+
+export type Standard = {
+  level: string;
+  body: string | null;
+};
+
+const LEVEL_RANK = "CASE level WHEN 'P2' THEN 2 WHEN 'P3' THEN 3 WHEN 'P4' THEN 4 WHEN 'P5' THEN 5 WHEN 'P6' THEN 6 WHEN 'P7' THEN 7 ELSE 99 END";
+
+export async function getStandardsForPrimaryFunction(
+  connectionString: string,
+  pfId: string,
+  level?: string
+): Promise<Standard[]> {
+  const client = new Client({ connectionString });
+  await client.connect();
+  try {
+    const result = level
+      ? await client.query(
+          `SELECT level, body FROM standards WHERE pf_id = $1 AND level = $2 ORDER BY ${LEVEL_RANK}`,
+          [pfId, level]
+        )
+      : await client.query(
+          `SELECT level, body FROM standards WHERE pf_id = $1 ORDER BY ${LEVEL_RANK}`,
+          [pfId]
+        );
+    return result.rows.map((row) => ({ level: row.level, body: row.body }));
+  } finally {
+    await client.end();
+  }
+}

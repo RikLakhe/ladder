@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: `GET /primary-functions/:pfId/standard` renders performance criteria from `standards` grouped by level, in level order (P2–P7), for that `pf_id`.
-- Given:
-- When:
-- Then:
+- Given: fixture DB with two primary functions, each with `standards` rows at levels P2, P4, P7 (inserted out of level order), with distinct `body` text.
+- When: calling the data query function for one primary function's `pf_id` (no level filter).
+- Then: returns exactly that PF's standards rows, ordered P2, P4, P7 (level order), with none of the other PF's rows.
 
 ## B-2: AC-2 [behavior]: `?level=<level>` narrows the view to that level's criteria only; a level with no `standards` row renders an explicit empty state, not an error.
 - Given:
