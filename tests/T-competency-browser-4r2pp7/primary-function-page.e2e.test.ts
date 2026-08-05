@@ -80,7 +80,7 @@ afterAll(async () => {
   devServer.kill();
 });
 
-describe("B-5: primary function page renders functional analysis and badges", () => {
+describe("B-3: primary function page renders functional analysis and badges", () => {
   it("competency page links to /primary-functions/:pfId", async () => {
     const res = await fetch(`${BASE_URL}/competencies/${competencyId}`);
     const html = await res.text();

@@ -62,7 +62,7 @@ afterAll(async () => {
   await client.end();
 });
 
-describe("B-4: GET /api/primary-functions/:pfId/badges", () => {
+describe("B-5: GET /api/primary-functions/:pfId/badges", () => {
   it("returns exactly the target PF's badges rows, none of another PF's", async () => {
     const response = await GET(new Request("http://localhost/api/primary-functions/x/badges"), {
       params: Promise.resolve({ pfId: pfAId }),

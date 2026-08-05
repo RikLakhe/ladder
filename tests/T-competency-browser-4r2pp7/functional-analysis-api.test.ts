@@ -62,7 +62,7 @@ afterAll(async () => {
   await client.end();
 });
 
-describe("B-3: GET /api/primary-functions/:pfId/functional-analysis", () => {
+describe("B-4: GET /api/primary-functions/:pfId/functional-analysis", () => {
   it("returns exactly the target PF's functional_analyses rows, none of another PF's", async () => {
     const response = await GET(new Request("http://localhost/api/primary-functions/x/functional-analysis"), {
       params: Promise.resolve({ pfId: pfAId }),
