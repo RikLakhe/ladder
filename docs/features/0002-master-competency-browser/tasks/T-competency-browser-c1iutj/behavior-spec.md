@@ -24,7 +24,7 @@
 - Then: competency page's PF pill links to `/primary-functions/:pfId/standard`; that page returns 200 and renders the standard's body text for that `pf_id`.
 
 ## B-4: AC-4 [behavior]: `GET /api/primary-functions/:pfId/standard` returns a JSON array of `{level, body}` ordered by level for that `pf_id`; `?level=<level>` narrows the JSON response to that level's row only (per TSD S-0002.03 Interfaces).
-- Given:
-- When:
-- Then:
+- Given: fixture DB with two primary functions, each with `standards` rows at levels P2 and P7.
+- When: calling the route handler's GET for one PF's id with no query, and separately with `?level=P2`.
+- Then: no-query response is 200 JSON array of exactly that PF's `{level, body}` rows in level order; `?level=P2` response is 200 JSON array of exactly the one matching row.
 
