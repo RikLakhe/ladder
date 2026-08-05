@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
-approved_at: "2026-08-04"
-approved_sha256: "6164e97ab69fd0dbe8a07dbc0376c20db5300de37329e36285111a3faa8463ec"
+approved_at: "2026-08-05"
+approved_sha256: "16227c6d9835826e22e3aeb829cc9e63184913d3d21d638ed3a1ad3305338eda"
 ---
 ## Task T-competency-browser-c1iutj — View a standard document by level
 **Parent:** story S-0002.03 · feature 0002-master-competency-browser (docs/features/0002-master-competency-browser/ — its PRD + TSD)
@@ -10,8 +10,9 @@ approved_sha256: "6164e97ab69fd0dbe8a07dbc0376c20db5300de37329e36285111a3faa8463
 - [ ] AC-1 [behavior]: `GET /primary-functions/:pfId/standard` renders performance criteria from `standards` grouped by level, in level order (P2–P7), for that `pf_id`.
 - [ ] AC-2 [behavior]: `?level=<level>` narrows the view to that level's criteria only; a level with no `standards` row renders an explicit empty state, not an error.
 - [ ] AC-3 [e2e]: Navigating from a primary-function pill to its standard doc renders content for that `pf_id`.
+- [ ] AC-4 [behavior]: `GET /api/primary-functions/:pfId/standard` returns a JSON array of `{level, body}` ordered by level for that `pf_id`; `?level=<level>` narrows the JSON response to that level's row only (per TSD S-0002.03 Interfaces).
 **End-to-end AC:** AC-3 [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1, AC-2, AC-3  ← ordered; first = tracer bullet
+**Tests:** AC-1, AC-2, AC-3, AC-4  ← ordered; first = tracer bullet
 <!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
 **Test scope:** tests/T-competency-browser-c1iutj/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
 <!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
