@@ -19,9 +19,9 @@
 - Then: home page card links to `/competencies/:id`; that page returns 200 and renders the competency's primary function names.
 
 ## B-3: AC-4 [behavior]: `GET /api/competencies/:id/primary-functions` returns a JSON array of `{id, name}` for primary functions whose `competency_id` equals `:id` (per TSD S-0002.02 Interfaces).
-- Given:
-- When:
-- Then:
+- Given: fixture DB with two competencies, each with its own primary_functions rows.
+- When: calling the route handler's GET for a given competency id.
+- Then: response is 200 JSON array of exactly that competency's `{id, name}` primary functions, none from the other competency.
 
 ## B-4: AC-5 [behavior]: unknown competency id returns a 404 / not-found state, for both the page and the API.
 - Given:
