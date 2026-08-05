@@ -14,9 +14,9 @@
 - Then: returns exactly that competency's primary functions, none from the other competency.
 
 ## B-2: AC-3 [e2e]: Clicking a competency card on the home page navigates to that competency's page and shows its primary functions.
-- Given:
-- When:
-- Then:
+- Given: running app, seeded DB with one competency and its primary functions.
+- When: unauthenticated GET `/` then GET `/competencies/:id` for that competency's id (following the card's link).
+- Then: home page card links to `/competencies/:id`; that page returns 200 and renders the competency's primary function names.
 
 ## B-3: AC-4 [behavior]: `GET /api/competencies/:id/primary-functions` returns a JSON array of `{id, name}` for primary functions whose `competency_id` equals `:id` (per TSD S-0002.02 Interfaces).
 - Given:

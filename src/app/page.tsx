@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCompetenciesWithPfCount } from "../lib/competencies";
 
 const DATABASE_URL =
@@ -10,7 +11,9 @@ export default async function HomePage() {
     <main>
       {competencies.map((competency) => (
         <article key={competency.id}>
-          <h2>{competency.name}</h2>
+          <Link href={`/competencies/${competency.id}`}>
+            <h2>{competency.name}</h2>
+          </Link>
           <p>{competency.pfCount} primary functions</p>
         </article>
       ))}
