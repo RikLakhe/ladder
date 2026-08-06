@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: Competency page shows name, domain, PF pills, and a tab strip (Standard/Assessment/Training/Evidence); switching tabs swaps the panel client-side, no reload.
-- Given:
-- When:
-- Then:
+- Given: `<CompetencyTabs>` rendered with distinct panel content for Standard/Assessment/Training/Evidence tabs.
+- When: user clicks the "Assessment" tab button.
+- Then: the Assessment panel content is shown and the Standard panel content is no longer shown, with no navigation/page reload (component state only).
 
 ## B-2: AC-2 [behavior]: Standard tab renders from the real standards API; Assessment/Training/Evidence tabs render from a mock data service when no real API exists.
 - Given:
