@@ -14,9 +14,9 @@
 - Then: it returns both rows ordered most-recent-first (so `rows[0]` is the most recent), and does not include the other entity's row.
 
 ## B-2: AC-2 [behavior]: A history control lists all `document_versions` rows for that entity in reverse-chronological order; an entity with zero versions shows a "no history" state, not an error.
-- Given:
-- When:
-- Then:
+- Given: an entity (`entity_table='standards'`, `entity_id=<uuid>`) has zero `document_versions` rows.
+- When: `getDocumentVersions(connectionString, 'standards', entityId)` is called for that entity.
+- Then: it returns `[]` (empty array), not an error/throw.
 
 ## B-3: AC-4 [behavior]: `GET /api/documents/:entityTable/:entityId/versions` returns a JSON array of `{changeNote, changedBy, createdAt}` ordered most-recent-first for that entity (per TSD S-0002.05 Interfaces).
 - Given:
