@@ -19,14 +19,14 @@
 - Then: the response HTML contains the shell's header marker ("Ladder") and a card for each seeded competency name.
 
 ## B-3: AC-2 [behavior]: A competency page renders inside the same shared shell and lists that competency's primary functions as clickable pills, each linking to its primary-function page.
-- Given:
-- When:
-- Then:
+- Given: a seeded competency with one primary function, on a running server.
+- When: `GET /competencies/:id` is requested.
+- Then: the response HTML contains the shell's header marker ("Ladder"), the primary function's name, and an `<a href="/primary-functions/:pfId">` link to its primary-function page.
 
 ## B-4: AC-3 [behavior]: A primary-function page renders its Standard content (grouped by level) behind a level-tab control (P2–P7): selecting a tab shows only that level's standard/functional-analysis/badges content, with no full-page navigation required.
-- Given:
-- When:
-- Then:
+- Given: a seeded primary function with a Standard, Functional Analysis, and Badge at level P2, and a distinct Standard/FA/Badge at level P3, on a running server.
+- When: `GET /primary-functions/:pfId?level=P2` is requested.
+- Then: the response HTML contains a tab strip (`role="tablist"` with a `role="tab"` per P2–P7, P2 marked active via `aria-selected="true"`) plus the P2 standard/FA/badge content, and does not contain the P3 standard/FA/badge content.
 
 ## B-5: AC-4 [e2e]: Navigating Home → Competency → Primary Function → a level tab on a running server reaches content sourced from the DB for the selected level, with the shared header/sidebar present at every step.
 - Given:

@@ -1,45 +1,81 @@
+import Link from "next/link";
 import { getFunctionalAnalysesForPrimaryFunction } from "../../../lib/functional-analyses";
 import { getBadgesForPrimaryFunction } from "../../../lib/badges";
+import { getStandardsForPrimaryFunction } from "../../../lib/standards";
+import type { Level } from "../../../components/LevelTag";
 
 const DATABASE_URL =
   process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
 
+const LEVELS: Level[] = ["P2", "P3", "P4", "P5", "P6", "P7"];
+
 export default async function PrimaryFunctionPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ pfId: string }>;
+  searchParams: Promise<{ level?: string }>;
 }) {
   const { pfId } = await params;
-  const analyses = await getFunctionalAnalysesForPrimaryFunction(DATABASE_URL, pfId);
-  const badges = await getBadgesForPrimaryFunction(DATABASE_URL, pfId);
+  const { level: rawLevel } = await searchParams;
+  const level = rawLevel ?? "P2";
+
+  const [standards, analyses, badges] = await Promise.all([
+    getStandardsForPrimaryFunction(DATABASE_URL, pfId, level),
+    getFunctionalAnalysesForPrimaryFunction(DATABASE_URL, pfId),
+    getBadgesForPrimaryFunction(DATABASE_URL, pfId),
+  ]);
+
+  const levelAnalyses = analyses.filter((analysis) => analysis.level === level);
+  const levelBadges = badges.filter((badge) => badge.level === level);
 
   return (
     <main>
       <h1>Primary Function</h1>
+      <div role="tablist">
+        {LEVELS.map((tabLevel) => (
+          <Link
+            key={tabLevel}
+            href={`?level=${tabLevel}`}
+            role="tab"
+            aria-selected={tabLevel === level}
+          >
+            {tabLevel}
+          </Link>
+        ))}
+      </div>
+      <section>
+        <h2>Standard</h2>
+        {standards.length === 0 ? (
+          <p>No standard defined for this level.</p>
+        ) : (
+          <ul>
+            {standards.map((standard) => (
+              <li key={standard.level}>{standard.body}</li>
+            ))}
+          </ul>
+        )}
+      </section>
       <section>
         <h2>Functional Analysis</h2>
-        {analyses.length === 0 ? (
+        {levelAnalyses.length === 0 ? (
           <p>No functional analysis defined.</p>
         ) : (
           <ul>
-            {analyses.map((analysis) => (
-              <li key={analysis.level}>
-                <strong>{analysis.level}</strong>: {analysis.body}
-              </li>
+            {levelAnalyses.map((analysis) => (
+              <li key={analysis.level}>{analysis.body}</li>
             ))}
           </ul>
         )}
       </section>
       <section>
         <h2>Badges</h2>
-        {badges.length === 0 ? (
+        {levelBadges.length === 0 ? (
           <p>No badges defined.</p>
         ) : (
           <ul>
-            {badges.map((badge) => (
-              <li key={badge.id}>
-                {badge.name} ({badge.level})
-              </li>
+            {levelBadges.map((badge) => (
+              <li key={badge.id}>{badge.name}</li>
             ))}
           </ul>
         )}

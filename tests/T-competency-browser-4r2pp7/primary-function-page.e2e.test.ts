@@ -88,7 +88,7 @@ describe("B-3: primary function page renders functional analysis and badges", ()
   });
 
   it("primary function page returns 200 and renders functional analysis and badge data", async () => {
-    const res = await fetch(`${BASE_URL}/primary-functions/${pfId}`);
+    const res = await fetch(`${BASE_URL}/primary-functions/${pfId}?level=P4`);
     expect(res.status).toBe(200);
     const html = await res.text();
     expect(html).toContain("Designs system boundaries.");
