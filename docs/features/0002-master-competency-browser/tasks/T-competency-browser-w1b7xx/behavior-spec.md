@@ -19,9 +19,9 @@
 - Then: it returns `[]` (empty array), not an error/throw.
 
 ## B-3: AC-4 [behavior]: `GET /api/documents/:entityTable/:entityId/versions` returns a JSON array of `{changeNote, changedBy, createdAt}` ordered most-recent-first for that entity (per TSD S-0002.05 Interfaces).
-- Given:
-- When:
-- Then:
+- Given: a `standards` row with 2 `document_versions` rows at different timestamps, and another entity with its own unrelated row, via a running Next.js route handler.
+- When: `GET /api/documents/standards/:entityId/versions` is requested for the first entity.
+- Then: the response is a JSON array of `{changeNote, changedBy, createdAt}` objects, most-recent-first, containing only that entity's 2 rows.
 
 ## B-4: AC-3 [e2e]: Opening the history control on a real doc with ≥2 versions lists them in reverse-chronological order.
 - Given:
