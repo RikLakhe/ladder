@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
 approved_at: "2026-08-06"
-approved_sha256: "f6aaa77f08882b424bb73ffa28ca38e5389bb7b804698ad52f5e963516bd08f5"
+approved_sha256: "9ab92f6c924db9dbe6223654d6280214f16aeb4ce55aaa2f6ee8d80f3c1d5143"
 ---
 # PRD 0004 — Frontend Shell (full app build against HTML mock)
 > User stories + acceptance criteria + success metrics. Signed off by PM + SA + DS.
@@ -100,10 +100,11 @@ As an admin I want a login and edit flow so that the content-management path is 
 **Acceptance criteria:**
 - [ ] AC-1 [behavior] — `/admin/login` shows a username/password form; hardcoded credentials `system` / `TEST@123` sign in as admin, any other combination shows an invalid-credentials error.
 - [ ] AC-2 [behavior] — While signed in as admin, an admin-mode banner (email + logout) persists across public pages; logout returns to the public app.
-- [ ] AC-3 [behavior] — An admin editor screen for at least one entity type shows form → required change-note → diff preview → confirm-save, against a mock data service shaped per `design/05-admin-cms.md`.
-- [ ] AC-4 [e2e] — Login with `system`/`TEST@123` → banner appears → open editor → preview → confirm-save → logout, all without a dead link or console error.
+- [ ] AC-3 [behavior] — Each entity type (competency, primary function, standard, assessment, training item, badge) has both an add form and an edit form, reachable from that entity's admin listing/detail; each shows form → required change-note → diff preview → confirm-save, against a mock data service shaped per `design/05-admin-cms.md`.
+- [ ] AC-4 [invariant] — Add and edit forms for every entity type share one generic editor component (fields config per entity type), not one bespoke form per entity — so later real-CRUD work extends the config, not the component.
+- [ ] AC-5 [e2e] — Login with `system`/`TEST@123` → banner appears → add a new entity of one type → preview → confirm-save → edit an existing entity of another type → preview → confirm-save → logout, all without a dead link or console error.
 
-**Success metric:** the full login-to-logout admin loop completes in one session without hitting a missing route.
+**Success metric:** every listed entity type has a working add and edit form reachable from the admin UI in the same session, with no bespoke one-off form components.
 
 ---
 **Out of scope (per Briefing):** replacing already-working real-data pages/routes with mock data; real backend/migration work for badges/training/history/admin (0003 and future features); real auth email delivery; pixel-perfect mobile polish.
