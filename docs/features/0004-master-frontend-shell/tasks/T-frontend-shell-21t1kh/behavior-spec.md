@@ -14,9 +14,9 @@
 - Then: the Assessment panel content is shown and the Standard panel content is no longer shown, with no navigation/page reload (component state only).
 
 ## B-2: AC-2 [behavior]: Standard tab renders from the real standards API; Assessment/Training/Evidence tabs render from a mock data service when no real API exists.
-- Given:
-- When:
-- Then:
+- Given: a seeded competency with a real standard row, and mock assessment/training fixtures keyed to that competency id, but no evidence fixture for it.
+- When: the competency page is requested.
+- Then: the Standard panel shows the real standard text, the Assessment/Training panels show the mock fixture content, and the Evidence panel shows `<EmptyState>` (AC-3 coverage) since no mock evidence exists for that id.
 
 ## B-3: AC-4 [e2e]: Clicking a PF pill navigates to that PF's page with the level tab strip.
 - Given:
