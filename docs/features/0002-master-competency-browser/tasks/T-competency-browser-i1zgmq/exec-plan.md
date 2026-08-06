@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
 approved_at: "2026-08-06"
-planned_behaviors: 4
+planned_behaviors: 5
 approved_sha256: "f77b6ea6a94b6ed10de317ca84a2b5477ab36a7d87f51cc8edf57c0c9331f91a"
 ---
 ## Exec Plan — Task T-competency-browser-i1zgmq

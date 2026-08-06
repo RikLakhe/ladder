@@ -13,17 +13,22 @@
 - When: `<Shell>` is rendered.
 - Then: it renders the app name ("Ladder"), a sidebar `<nav>` containing a link per given competency, and the given children — proving the shell building block AC-1's shared-shell requirement builds on.
 
-## B-2: AC-2 [behavior]: A competency page renders inside the same shared shell and lists that competency's primary functions as clickable pills, each linking to its primary-function page.
+## B-2: AC-1 [behavior]: The home page renders inside a shared app shell — a header (app name + search input) and a left sidebar — and lists each competency as a card within that shell.
+- Given: two seeded `competencies` rows, on a running server.
+- When: `GET /` is requested.
+- Then: the response HTML contains the shell's header marker ("Ladder") and a card for each seeded competency name.
+
+## B-3: AC-2 [behavior]: A competency page renders inside the same shared shell and lists that competency's primary functions as clickable pills, each linking to its primary-function page.
 - Given:
 - When:
 - Then:
 
-## B-3: AC-3 [behavior]: A primary-function page renders its Standard content (grouped by level) behind a level-tab control (P2–P7): selecting a tab shows only that level's standard/functional-analysis/badges content, with no full-page navigation required.
+## B-4: AC-3 [behavior]: A primary-function page renders its Standard content (grouped by level) behind a level-tab control (P2–P7): selecting a tab shows only that level's standard/functional-analysis/badges content, with no full-page navigation required.
 - Given:
 - When:
 - Then:
 
-## B-4: AC-4 [e2e]: Navigating Home → Competency → Primary Function → a level tab on a running server reaches content sourced from the DB for the selected level, with the shared header/sidebar present at every step.
+## B-5: AC-4 [e2e]: Navigating Home → Competency → Primary Function → a level tab on a running server reaches content sourced from the DB for the selected level, with the shared header/sidebar present at every step.
 - Given:
 - When:
 - Then:

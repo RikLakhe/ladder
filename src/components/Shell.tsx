@@ -37,11 +37,7 @@ export function Shell({
         >
           Ladder
         </Link>
-        <form
-          role="search"
-          style={{ flex: 1, maxWidth: 440 }}
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form role="search" style={{ flex: 1, maxWidth: 440 }}>
           <input
             type="text"
             placeholder="Search all docs..."
