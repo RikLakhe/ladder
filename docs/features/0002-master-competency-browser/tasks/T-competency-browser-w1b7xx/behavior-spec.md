@@ -24,7 +24,7 @@
 - Then: the response is a JSON array of `{changeNote, changedBy, createdAt}` objects, most-recent-first, containing only that entity's 2 rows.
 
 ## B-4: AC-3 [e2e]: Opening the history control on a real doc with ≥2 versions lists them in reverse-chronological order.
-- Given:
-- When:
-- Then:
+- Given: a `standards` row for a given `pfId`/`level` has 2 `document_versions` rows at different timestamps, rendered via `/primary-functions/:pfId/standard?level=X` on a running server.
+- When: the page is fetched and its history control is present (rendered inline for this test, since there is no browser automation in this suite).
+- Then: the page shows "last updated" matching the most recent version's timestamp, and the history list shows both versions in reverse-chronological order; a standard with zero versions shows a "no history" state instead of an error.
 

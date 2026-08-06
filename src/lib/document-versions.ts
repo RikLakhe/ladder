@@ -21,7 +21,7 @@ export async function getDocumentVersions(
     return result.rows.map((row) => ({
       changeNote: row.change_note,
       changedBy: row.changed_by,
-      createdAt: row.created_at,
+      createdAt: row.created_at.toISOString(),
     }));
   } finally {
     await client.end();
