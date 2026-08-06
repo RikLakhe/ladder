@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: The home page renders inside a shared app shell — a header (app name + search input) and a left sidebar — and lists each competency as a card within that shell.
-- Given:
-- When:
-- Then:
+- Given: a `<Shell>` component given a list of competencies and arbitrary children.
+- When: `<Shell>` is rendered.
+- Then: it renders the app name ("Ladder"), a sidebar `<nav>` containing a link per given competency, and the given children — proving the shell building block AC-1's shared-shell requirement builds on.
 
 ## B-2: AC-2 [behavior]: A competency page renders inside the same shared shell and lists that competency's primary functions as clickable pills, each linking to its primary-function page.
 - Given:
