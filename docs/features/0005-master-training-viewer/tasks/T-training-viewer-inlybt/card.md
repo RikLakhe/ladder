@@ -1,11 +1,17 @@
-## Task T-training-viewer-inlybt — <title>
-**Parent:** story S-0005-master-training-viewer.nn · feature 0005-master-training-viewer (docs/features/0005-master-training-viewer-*/ — its PRD + TSD)
-**Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
-**Acceptance criteria:** (tag each `behavior`/`invariant`/`non-functional`/`e2e`; behavior ACs = observable outcome through an interface — NO "calls X / saves to table Y / uses lib Z")
-- [ ] AC-1 [behavior]: <observable outcome through interface>
-**End-to-end AC:** AC-<n> [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1  ← ordered; first = tracer bullet
-<!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
-**Test scope:** tests/T-training-viewer-inlybt/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
-<!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
+---
+approved_by: "unknown"
+approved_at: "2026-08-07"
+approved_sha256: "833470870aa54318e15e33bddbb843d81f7525f12508b1f6d2ff83f21936bcd7"
+---
+## Task T-training-viewer-inlybt — DB migration: training_units table
+**Parent:** story S-0005.04 · feature 0005-master-training-viewer (docs/features/0005-master-training-viewer/PRD.md + TSD.md)
+**Slice:** migration + seed — no viewer code, but blocks all other training-viewer tasks
+**Acceptance criteria:**
+- [ ] AC-1 [invariant]: `training_units` table exists with columns `id, competency_id, type, level, sequence_order, content, prereqs jsonb`; all new columns nullable or defaulted.
+- [ ] AC-2 [invariant]: Re-running migration on an already-migrated DB produces no error and no duplicate columns/constraints.
+- [ ] AC-3 [invariant]: RLS allows public SELECT on `training_units`; no auth required to read rows.
+- [ ] AC-4 [e2e]: After migration, seeded training_units rows for at least one competency+level are returned by a public GET request with no auth.
+**End-to-end AC:** AC-4 [e2e] — seeded rows queryable via public API after migration applied.
+**Tests:** AC-1, AC-2, AC-3, AC-4
+**Test scope:** tests/T-training-viewer-inlybt/
 **Done =** reviewable PR, all tests pass, links to chain. One PR per task (default).
