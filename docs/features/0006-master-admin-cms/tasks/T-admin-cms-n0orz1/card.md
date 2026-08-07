@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-07"
+approved_sha256: "9e45ac3c71f4d50c22a198072df5550ff60eed4c917fb8a0156c2fdf2289d986"
+---
 ## Task T-admin-cms-n0orz1 — Shared save flow
 **Parent:** story S-0006.02 · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms/ — its PRD + TSD)
 **Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
