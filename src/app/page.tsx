@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCompetenciesWithPfCount } from "../lib/competencies";
+import { HomePanels } from "../components/HomePanels";
 
 const DATABASE_URL =
   process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
@@ -9,6 +10,7 @@ export default async function HomePage() {
 
   return (
     <main>
+      <HomePanels />
       {competencies.map((competency) => (
         <article key={competency.id}>
           <Link href={`/competencies/${competency.id}`}>
