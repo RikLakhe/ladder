@@ -1,7 +1,22 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import BadgesPage from "../../src/app/badges/page";
-import CompetencyPage from "../../src/app/competencies/[id]/page";
+
+vi.mock("../../src/lib/competencies", () => ({
+  getCompetencyById: vi.fn().mockResolvedValue({
+    id: "demo",
+    name: "Demo Competency",
+    domains: ["Engineering"],
+  }),
+}));
+
+vi.mock("../../src/lib/primary-functions", () => ({
+  getPrimaryFunctionsForCompetency: vi.fn().mockResolvedValue([]),
+}));
+
+vi.mock("../../src/lib/standards", () => ({
+  getStandardsForPrimaryFunction: vi.fn().mockResolvedValue([]),
+}));
 
 afterEach(cleanup);
 
@@ -15,7 +30,8 @@ describe("B-3: Badge card links navigate to badge detail", () => {
     expect(linkP4.getAttribute("href")).toBe("/badges/DEMO-P4");
   });
 
-  it("CompetencyPage assessment tab shows badge cards with links to /badges/:badgeCode", async () => {
+  it("CompetencyPage assessment tab shows badge links for the competency's badges", async () => {
+    const CompetencyPage = (await import("../../src/app/competencies/[id]/page")).default;
     const page = await CompetencyPage({ params: Promise.resolve({ id: "demo" }) });
     render(page);
     const links = screen.getAllByRole("link", { name: /DEMO-P/i });
