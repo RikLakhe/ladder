@@ -19,7 +19,7 @@
 - Then: a P3→P4 transition column appears under the competency's heading; the row for that PF shows the P3 body as "before" and P4 body as "after" text
 
 ## B-3: AC-3 [e2e]: Clicking a PF row in either view navigates to that PF's page at the matching level.
-- Given:
-- When:
-- Then:
+- Given: a competency with a PF that has P3 and P4 standards, seeded; Level View rendered at level=P3, Transition Guide rendered
+- When: the PF row's link is followed in each view (Level View's row, Transition Guide's P3→P4 row)
+- Then: Level View's link resolves to /primary-functions/:pfId?level=P3 rendering the P3 body; Transition Guide's link resolves to /primary-functions/:pfId?level=P4 rendering the P4 body
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getAllStandardsGrouped } from "../../lib/standards";
 
 const DATABASE_URL =
@@ -65,10 +66,13 @@ export default async function TransitionGuidePage() {
               <li key={`${t.pfId}-${t.fromLevel}-${t.toLevel}`}>
                 <details>
                   <summary>
-                    {t.pfName}: {t.fromLevel} → {t.toLevel}
+                    <Link href={`/primary-functions/${t.pfId}?level=${t.toLevel}`}>
+                      {t.pfName}
+                    </Link>
+                    {`: ${t.fromLevel} → ${t.toLevel}`}
                   </summary>
-                  <p>Before: {t.before}</p>
-                  <p>After: {t.after}</p>
+                  <p>{`Before: ${t.before}`}</p>
+                  <p>{`After: ${t.after}`}</p>
                 </details>
               </li>
             ))}
