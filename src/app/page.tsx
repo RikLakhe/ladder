@@ -14,6 +14,7 @@ export default async function HomePage() {
           <Link href={`/competencies/${competency.id}`}>
             <h2>{competency.name}</h2>
           </Link>
+          <p>{competency.domains.join(", ")}</p>
           <p>{competency.pfCount} primary functions</p>
         </article>
       ))}

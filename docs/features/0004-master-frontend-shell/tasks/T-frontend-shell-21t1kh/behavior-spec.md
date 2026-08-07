@@ -19,9 +19,9 @@
 - Then: the Standard panel shows the real standard text, the Assessment/Training panels show the mock fixture content, and the Evidence panel shows `<EmptyState>` (AC-3 coverage) since no mock evidence exists for that id.
 
 ## B-3: AC-4 [e2e]: Clicking a PF pill navigates to that PF's page with the level tab strip.
-- Given:
-- When:
-- Then:
+- Given: a running app with a seeded competency and one primary function under it.
+- When: the competency page is fetched, then the PF pill's href is followed to the PF page.
+- Then: the competency page's PF pill links to `/primary-functions/:pfId`, and that PF page returns 200 and renders a level tab strip.
 
 ## Invariants & non-functional ACs (NOT RED→GREEN cycles)
 > Not standalone behaviors to drive. An invariant usually holds as a property of a

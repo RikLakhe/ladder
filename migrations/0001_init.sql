@@ -42,6 +42,10 @@ CREATE TABLE IF NOT EXISTS badges (
 ALTER TABLE badges ADD COLUMN IF NOT EXISTS name text NOT NULL DEFAULT '';
 ALTER TABLE badges ALTER COLUMN name DROP DEFAULT;
 
+-- domains: a competency can span multiple domains (e.g. development, devops, ai, data);
+-- distinct from environment/deployment domains like dev/qa, which are out of scope here.
+ALTER TABLE competencies ADD COLUMN IF NOT EXISTS domains text[] NOT NULL DEFAULT '{}';
+
 CREATE TABLE IF NOT EXISTS instruments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   pf_id uuid NOT NULL REFERENCES primary_functions(id),

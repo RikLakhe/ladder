@@ -5,8 +5,8 @@ export async function seed(connectionString: string): Promise<void> {
   await client.connect();
   try {
     const competency = await client.query(
-      "INSERT INTO competencies (name) VALUES ($1) RETURNING id",
-      ["Technical Skill"]
+      "INSERT INTO competencies (name, domains) VALUES ($1, $2) RETURNING id",
+      ["Technical Skill", ["development", "devops"]]
     );
     const competencyId = competency.rows[0].id;
 

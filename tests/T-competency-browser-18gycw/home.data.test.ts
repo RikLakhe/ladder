@@ -59,7 +59,20 @@ describe("B-1: home page data lists every competency with its primary-function c
 
     const withPfsRow = rows.find((r) => r.id === withPfsId);
     const emptyRow = rows.find((r) => r.id === emptyId);
-    expect(withPfsRow).toEqual({ id: withPfsId, name: "Technical Skill", pfCount: 2 });
-    expect(emptyRow).toEqual({ id: emptyId, name: "Leadership", pfCount: 0 });
+    expect(withPfsRow).toEqual({ id: withPfsId, name: "Technical Skill", domains: [], pfCount: 2 });
+    expect(emptyRow).toEqual({ id: emptyId, name: "Leadership", domains: [], pfCount: 0 });
+  });
+
+  it("returns a competency's domains, which may hold multiple values", async () => {
+    const multi = await client.query(
+      "INSERT INTO competencies (name, domains) VALUES ($1, $2) RETURNING id",
+      ["Full Stack", ["development", "devops", "ai", "data"]]
+    );
+    const multiId = multi.rows[0].id;
+
+    const rows = await getCompetenciesWithPfCount(ADMIN_URL);
+    const multiRow = rows.find((r) => r.id === multiId);
+
+    expect(multiRow?.domains).toEqual(["development", "devops", "ai", "data"]);
   });
 });
