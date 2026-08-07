@@ -61,7 +61,7 @@ beforeAll(async () => {
 afterAll(async () => {
   if (server?.pid) {
     await new Promise<void>((resolve) => {
-      server.on('exit', () => resolve());
+      server.on('exit', () => setTimeout(resolve, 2000));
       server.on('error', () => resolve());
       setTimeout(resolve, 10_000);
       try {
