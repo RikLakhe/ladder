@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-07"
+approved_sha256: "042779c63742e56452a715a643502be74529f0d674a0685bcac8fba7fafa3d3b"
+---
 ## Task T-admin-cms-e9l1qm — Standard editor
 **Parent:** story S-0006.04 · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms/ — its PRD + TSD)
 **Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
