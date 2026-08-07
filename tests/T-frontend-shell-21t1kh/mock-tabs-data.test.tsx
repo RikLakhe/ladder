@@ -6,10 +6,13 @@ import { getEvidenceForCompetency } from "../../src/lib/mock/evidence";
 import { EmptyState } from "../../src/components/EmptyState";
 import { CompetencyTabs } from "../../src/components/CompetencyTabs";
 
-describe("B-2: mock tab data services return null when no fixture, and EmptyState covers it", () => {
-  it("mock getters return null for a competency id with no fixture", () => {
-    expect(getAssessmentForCompetency("unseeded-id")).toBeNull();
-    expect(getTrainingForCompetency("unseeded-id")).toBeNull();
+describe("B-2: mock tab data services return content or null, and EmptyState covers the null case", () => {
+  it("assessment and training mock getters return default mock content for any competency id", () => {
+    expect(getAssessmentForCompetency("unseeded-id")?.summary).toBeTruthy();
+    expect(getTrainingForCompetency("unseeded-id")?.summary).toBeTruthy();
+  });
+
+  it("evidence mock getter returns null when no fixture exists for the id", () => {
     expect(getEvidenceForCompetency("unseeded-id")).toBeNull();
   });
 

@@ -4,7 +4,7 @@ approved_at: "2026-08-06"
 # planned_behaviors — machine-read count of RED→GREEN cycles (B-N). Leave empty to let
 # lane infer from B-N labels below; SET it when an AC becomes a regression guard so
 # `lane next` knows the remaining count (frontmatter edits need no re-approval).
-planned_behaviors: ""
+planned_behaviors: 2
 approved_sha256: "ee8c6235881558b059d184763bac731288830bca428cd7d7b683105b9c6d09f9"
 ---
 ## Exec Plan — Task T-frontend-shell-21t1kh
