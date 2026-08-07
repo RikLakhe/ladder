@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import BadgesPage from "../../src/app/badges/page";
 
 vi.mock("../../src/lib/competencies", () => ({
@@ -34,6 +34,7 @@ describe("B-3: Badge card links navigate to badge detail", () => {
     const CompetencyPage = (await import("../../src/app/competencies/[id]/page")).default;
     const page = await CompetencyPage({ params: Promise.resolve({ id: "demo" }) });
     render(page);
+    fireEvent.click(screen.getByRole("button", { name: "Assessment" }));
     const links = screen.getAllByRole("link", { name: /DEMO-P/i });
     const hrefs = links.map((l) => l.getAttribute("href"));
     expect(hrefs).toContain("/badges/DEMO-P3");
