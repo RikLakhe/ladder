@@ -14,9 +14,9 @@
 - Then: unfiltered — both "DEMO-P3" and "DEMO-P4" visible; `?level=P3` — "DEMO-P3" visible, "DEMO-P4" absent; each card shows badge_code, name, tier, and certifies text
 
 ## B-2: AC-2 [behavior]: Opening a badge card shows full detail (certifies, completion bar, verifier/co-signer, evidence refs resolved-or-broken-link, status legend).
-- Given:
-- When:
-- Then:
+- Given: `DEMO-P3` fixture has `cosigner_required: true`, `verifier_role: "Engineering Lead"`, `completion_bar: "2 of 3 tasks complete"`, and one evidence ref that resolves to instrument row text `"Completed foundational assessment."`; `DEMO-P4` fixture has `cosigner_required: false` and one evidence ref that does NOT resolve (broken link)
+- When: `BadgeDetailPage` rendered for `badgeCode: "DEMO-P3"` and for `badgeCode: "DEMO-P4"`
+- Then: DEMO-P3 — co-signer indicator present (`data-testid="cosigner-indicator"`), certifies text, completion bar text, verifier text, resolved evidence row text, status legend (`data-testid="badge-status-legend"`); DEMO-P4 — no co-signer indicator, broken-link text (`/evidence link broken/i`) present (never dropped)
 
 ## B-3: AC-3 [e2e]: Clicking a badge card on the Badges page or a competency's Assessment tab navigates to that badge's detail page.
 - Given:
