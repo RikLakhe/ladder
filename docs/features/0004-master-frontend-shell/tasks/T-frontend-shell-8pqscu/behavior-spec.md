@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: Every page renders inside a shared shell: header (home link, search input, level selector, current-level indicator) + left nav (Home, Level View, Transition Guide, Badges, Version History, expandable competency list).
-- Given:
-- When:
-- Then:
+- Given: a Shell rendered with a competency list and page content as children
+- When: it renders
+- Then: header shows a "Ladder" home link, a search input, a level selector, and a current-level indicator; left nav shows Home, Level View, Transition Guide, Badges, Version History links, plus each competency as a link; the given children render inside main content
 
 ## B-2: AC-2 [behavior]: A breadcrumb reflecting current route position renders above content on every non-home page.
 - Given:
