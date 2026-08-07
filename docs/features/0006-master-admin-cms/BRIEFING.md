@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
 approved_at: "2026-08-07"
-approved_sha256: "ca260dc6cf1d2cd0a0515261b54797741b0f5a9a08163fc5a17eb5ed3a931490"
+approved_sha256: "2e3d561b575c1db127bdb4cdb6df26f9b041a31a6b4c85b099e275a75a6b1c11"
 ---
 # Briefing 0006 — Admin CMS
 > Scratch pad — flesh the idea out before committing to a PRD.
@@ -34,6 +34,7 @@ We will build a `/admin/*` CMS behind magic-link auth that lets provisioned edit
 - Rollback/restore-to-version action (read-only history in PRD 04; restore deferred post-v1)
 - Bulk import/export UI (migration scripts handle bulk import separately)
 - Multi-admin concurrent-edit conflict resolution (last-write-wins acceptable v1)
+- Auth infrastructure itself (magic-link sign-in, middleware, RLS, admin_users table — owned by auth feature, this feature depends on it)
 - Self-serve admin signup or fine-grained per-role permissions (single `editor` role, provisioning is manual via Supabase console)
 - SSO / company-directory login (magic-link only in v1)
 
