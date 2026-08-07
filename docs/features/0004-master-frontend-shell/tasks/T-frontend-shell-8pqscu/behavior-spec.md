@@ -24,7 +24,7 @@
 - Then: the modal is shown on mount; after picking a level the modal closes, the current-level indicator shows that level, and it is persisted to sessionStorage so a subsequent mount (level already stored) does not show the modal
 
 ## B-4: AC-4 [e2e]: From any page, every nav-sidebar link and header logo link navigates to a real, rendering page — no dead links.
-- Given:
-- When:
-- Then:
+- Given: the running app, with Shell's static nav links (Home, Level View, Transition Guide, Badges, Version History) and header logo link
+- When: each linked route is rendered
+- Then: each resolves to a page component that renders without throwing (no 404/dead route)
 
