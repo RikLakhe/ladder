@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-07"
+approved_sha256: "3f13ae7aa4a359d2167cadbf7fb72d2524ee0f1f641dff9dbe206e7efb35db73"
+---
 ## Verification — Task T-frontend-shell-8pqscu — 2026-08-07
 > Critic anchored to TSD (external spec), NOT to the code. ★GATE: owner confirms/dismisses every flag.
 
@@ -8,7 +13,7 @@
 - AC-4 (e2e nav-link reachability): new stub routes `src/app/level-view/page.tsx`, `src/app/transition-guide/page.tsx`, `src/app/badges/page.tsx`, `src/app/version-history/page.tsx` each render without throwing, matching the nav links added in AC-1. Proven by `tests/T-frontend-shell-8pqscu/nav-routes.test.tsx`.
 
 ⚠️ **Divergent:** deviation + severity (shallow/deep)
-- Competency list in nav is a flat scrollable list, not an "expandable" list as the TSD wording suggests — shallow, low-risk, wording ambiguity rather than a functional gap. Not blocking.
+- none — resolved. Competency list is now expandable/collapsible via a toggle button (`src/components/CompetencyNavList.tsx`), matching TSD's "expandable competency list" wording. Proven by `tests/T-frontend-shell-8pqscu/competency-nav-list.test.tsx` and the updated `tests/T-frontend-shell-8pqscu/shell-header-nav.test.tsx`.
 
 🚨 **Suspected hallucination:** flag for human (false positives expected — do NOT reject PR on this alone)
 - none found
@@ -23,6 +28,7 @@
 | B-2: breadcrumb | ✅ (re-anchored once for cleanup fix) | ✅ | ✅ | ✅ | ✅ (no mocks needed) |
 | B-3: level-set modal | ✅ | ✅ | ✅ | ✅ | ✅ (no mocks needed) |
 | B-4: e2e nav routes | ✅ | ✅ | ✅ | ✅ | ✅ (no mocks needed) |
+| B-5: expandable competency list | ✅ (re-anchored once to cover shell-header-nav.test.tsx toggle assertion) | ✅ | ✅ | ✅ | ✅ (no mocks needed) |
 
 **Critic checklist:** (checkboxes — `done` only enforces checkboxes; resolve each)
 - [x] Mocks only at boundaries — no asserts on internal collaborators / call-counts
