@@ -62,6 +62,43 @@ export async function getStandardsAtLevel(
   }
 }
 
+export type StandardAllLevelsRow = {
+  competencyId: string;
+  competencyName: string;
+  pfId: string;
+  pfName: string;
+  level: string;
+  body: string;
+};
+
+export async function getAllStandardsGrouped(
+  connectionString: string
+): Promise<StandardAllLevelsRow[]> {
+  const client = new Client({ connectionString });
+  await client.connect();
+  try {
+    const result = await client.query(
+      `SELECT c.id AS competency_id, c.name AS competency_name,
+              pf.id AS pf_id, pf.name AS pf_name, s.level, s.body
+       FROM standards s
+       JOIN primary_functions pf ON pf.id = s.pf_id
+       JOIN competencies c ON c.id = pf.competency_id
+       ORDER BY c.name, pf.name, ${LEVEL_RANK}`,
+      []
+    );
+    return result.rows.map((row) => ({
+      competencyId: row.competency_id,
+      competencyName: row.competency_name,
+      pfId: row.pf_id,
+      pfName: row.pf_name,
+      level: row.level,
+      body: row.body,
+    }));
+  } finally {
+    await client.end();
+  }
+}
+
 export async function getStandardsForPrimaryFunction(
   connectionString: string,
   pfId: string,

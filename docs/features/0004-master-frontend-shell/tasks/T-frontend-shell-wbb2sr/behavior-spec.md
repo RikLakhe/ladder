@@ -14,9 +14,9 @@
 - Then: a P2–P7 tab strip is shown with P3 marked selected; the PF with a P3 standard appears under its competency's heading showing its criteria snippet; the PF with no P3 standard does not appear as a broken/empty row
 
 ## B-2: AC-2 [behavior]: Transition Guide shows a grid of level-transition columns per competency; each row expands to show full before/after text and how it's assessed.
-- Given:
-- When:
-- Then:
+- Given: one competency seeded with a PF having standards at P3 and P4
+- When: the Transition Guide page is rendered
+- Then: a P3→P4 transition column appears under the competency's heading; the row for that PF shows the P3 body as "before" and P4 body as "after" text
 
 ## B-3: AC-3 [e2e]: Clicking a PF row in either view navigates to that PF's page at the matching level.
 - Given:
