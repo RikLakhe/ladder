@@ -80,7 +80,7 @@ afterAll(async () => {
   await client.end();
   if (devServer?.pid) {
     await new Promise<void>((resolve) => {
-      devServer.on('exit', () => resolve());
+      devServer.on('exit', () => setTimeout(resolve, 2000));
       devServer.on('error', () => resolve());
       setTimeout(resolve, 10_000);
       try {
