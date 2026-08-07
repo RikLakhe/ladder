@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: Level View shows a P2–P7 tab strip; selecting a level lists every applicable PF's criteria snippet at that level, grouped by competency.
-- Given:
-- When:
-- Then:
+- Given: two competencies seeded, each with a PF; one PF has a standard at P3, the other has no standard at P3
+- When: the Level View page is rendered with level=P3 selected
+- Then: a P2–P7 tab strip is shown with P3 marked selected; the PF with a P3 standard appears under its competency's heading showing its criteria snippet; the PF with no P3 standard does not appear as a broken/empty row
 
 ## B-2: AC-2 [behavior]: Transition Guide shows a grid of level-transition columns per competency; each row expands to show full before/after text and how it's assessed.
 - Given:
