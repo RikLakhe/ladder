@@ -14,9 +14,9 @@
 - Then: header shows a "Ladder" home link, a search input, a level selector, and a current-level indicator; left nav shows Home, Level View, Transition Guide, Badges, Version History links, plus each competency as a link; the given children render inside main content
 
 ## B-2: AC-2 [behavior]: A breadcrumb reflecting current route position renders above content on every non-home page.
-- Given:
-- When:
-- Then:
+- Given: the current route is a non-home path, e.g. `/competencies/c1`
+- When: Breadcrumb renders for that path
+- Then: it shows a breadcrumb trail with a "Home" crumb followed by a crumb per path segment; on the home path (`/`) it renders nothing
 
 ## B-3: AC-3 [behavior]: First-visit-this-session shows the level-set modal (role + level picker); dismissing/completing it sets the level indicator and the modal doesn't reappear that session.
 - Given:

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { ShellBreadcrumb } from "./ShellBreadcrumb";
 
 export type ShellCompetency = { id: string; name: string };
 
@@ -128,7 +129,10 @@ export function Shell({
             </Link>
           ))}
         </nav>
-        <main style={{ flex: 1, minWidth: 0 }}>{children}</main>
+        <main style={{ flex: 1, minWidth: 0 }}>
+          <ShellBreadcrumb />
+          {children}
+        </main>
       </div>
     </div>
   );
