@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-07"
+approved_sha256: "bf372c3dc570c3f507c438bfefa79c153850dac59f5a2c8637fff9890066b86d"
+---
 ## Task T-admin-cms-egyhki — Badge editor
 **Parent:** story S-0006.05 · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms/ — its PRD + TSD)
 **Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
