@@ -69,13 +69,18 @@ beforeAll(async () => {
   await waitForServer(30_000);
 }, 40_000);
 
-afterAll(() => {
+afterAll(async () => {
   if (server?.pid) {
-    try {
-      process.kill(-server.pid, "SIGTERM");
-    } catch {
-      // already exited
-    }
+    await new Promise<void>((resolve) => {
+      server.on('exit', () => resolve());
+      server.on('error', () => resolve());
+      setTimeout(resolve, 10_000);
+      try {
+        process.kill(-server.pid, "SIGTERM");
+      } catch {
+        resolve();
+      }
+    });
   }
 });
 
