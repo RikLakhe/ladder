@@ -67,13 +67,25 @@ beforeAll(async () => {
   devServer = spawn("npx", ["next", "dev", "-p", String(PORT)], {
     cwd: process.cwd(),
     stdio: "ignore",
+    detached: true,
   });
   await waitForServer();
 }, 60000);
 
 afterAll(async () => {
   await client.end();
-  devServer.kill();
+  if (devServer?.pid) {
+    await new Promise<void>((resolve) => {
+      devServer.on('exit', () => resolve());
+      devServer.on('error', () => resolve());
+      setTimeout(resolve, 10_000);
+      try {
+        process.kill(-devServer.pid, "SIGTERM");
+      } catch {
+        resolve();
+      }
+    });
+  }
 });
 
 describe("B-5: full Home -> Competency -> Primary Function -> level tab navigation", () => {

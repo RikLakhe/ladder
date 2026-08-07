@@ -3,7 +3,7 @@ import { spawn, type ChildProcess } from "node:child_process";
 import { Client } from "pg";
 import { migrate } from "../../scripts/migrate";
 
-const PORT = 34130;
+const PORT = 34135;
 const BASE_URL = `http://localhost:${PORT}`;
 const ADMIN_URL =
   process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
@@ -58,13 +58,18 @@ beforeAll(async () => {
   await waitForServer(30_000);
 }, 40_000);
 
-afterAll(() => {
+afterAll(async () => {
   if (server?.pid) {
-    try {
-      process.kill(-server.pid, "SIGTERM");
-    } catch {
-      // already exited
-    }
+    await new Promise<void>((resolve) => {
+      server.on('exit', () => resolve());
+      server.on('error', () => resolve());
+      setTimeout(resolve, 10_000);
+      try {
+        process.kill(-server.pid, "SIGTERM");
+      } catch {
+        resolve();
+      }
+    });
   }
 });
 

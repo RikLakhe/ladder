@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-07"
+approved_sha256: "56b6f4c7bb760c1e126c135e9e7272b0eef6538da7548847c5a2fddb9e3c90eb"
+---
 ## Task T-admin-cms-j8dy4p — Admin navigation shell
 **Parent:** story S-0006.01 · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms/ — its PRD + TSD)
 **Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)

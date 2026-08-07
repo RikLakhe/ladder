@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-07"
+approved_sha256: "1d3f11220f9470d7ef7cfa16f25669e39b6d5aa598dee5399c6e001521cf835f"
+---
 ## Task T-admin-cms-8j8plr — Simple entity editors: Competency, Primary Function, Functional Analysis
 **Parent:** story S-0006.03 · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms/ — its PRD + TSD)
 **Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
