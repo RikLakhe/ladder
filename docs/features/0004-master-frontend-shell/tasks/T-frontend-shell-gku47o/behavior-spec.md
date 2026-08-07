@@ -8,10 +8,11 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: A competency's Training tab / detail page renders the correct subtype view (Learning Path/Concept Notes/Guided Exercises/Autonomous Projects/Onboarding Track) from a mock data service.
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): AC-1 [behavior]: concept_notes subtype renders content; no PrereqStepper.
+- Given: `<TrainingUnitView>` rendered with a concept_notes fixture `{ id: "u1", competencyId: "c1", type: "concept_notes", level: "P3", sequenceOrder: 1, content: "Learn the basics of X.", prereqs: [] }` and `allUnits={[fixture]}`
+- When: rendered
+- Then: the output contains the text "Learn the basics of X."
+- And: no element with `data-testid="prereq-stepper"` is present
 
 ## B-2: AC-2 [behavior]: Learning Path shows prerequisites + ordered sequence with level gates; other subtypes show their own structured fields (goal/setup/steps, brief/AC, day/week/month).
 - Given:
