@@ -11,8 +11,7 @@ type Props = {
 export function TrainingUnitView({ unit, allUnits }: Props) {
   const showStepper =
     unit.type === "guided_exercise" ||
-    unit.type === "autonomous_project" ||
-    unit.type === "learning_path";
+    unit.type === "autonomous_project";
 
   return (
     <div>

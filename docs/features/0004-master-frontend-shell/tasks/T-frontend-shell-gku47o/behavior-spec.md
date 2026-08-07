@@ -14,10 +14,26 @@
 - Then: the output contains the text "Learn the basics of X."
 - And: no element with `data-testid="prereq-stepper"` is present
 
-## B-2: AC-2 [behavior]: Learning Path shows prerequisites + ordered sequence with level gates; other subtypes show their own structured fields (goal/setup/steps, brief/AC, day/week/month).
-- Given:
-- When:
-- Then:
+## B-2: AC-2 [behavior]: guided_exercise shows PrereqStepper (valid prereq and forward-ref); learning_path shows ordered items with level labels; EmptyState no-simulated-training variant has correct copy.
+- Given: four cases — (A) guided_exercise with a valid backward prereq, (B) guided_exercise with an invalid forward-ref prereq, (C) a learning_path unit with two prereqs, (D) the EmptyState "no-simulated-training" variant
+- When: each is rendered via `<TrainingUnitView>` / `<EmptyState>`
+- Then: (A) shows PrereqStepper with prereq content and no sequencing warning; (B) shows a "⚠ sequencing issue" warning; (C) shows an ordered list of 2 items each with level + content; (D) shows the no-simulated-training copy
+
+- Given A (guided_exercise, backward prereq): `<TrainingUnitView>` rendered with fixture `{ id: "ge1", competencyId: "c1", type: "guided_exercise", level: "P3", sequenceOrder: 2, content: "Guided kata.", prereqs: ["cn1"] }` and `allUnits` containing `{ id: "cn1", ..., sequenceOrder: 1, content: "Concept notes.", prereqs: [] }`
+- When: rendered
+- Then: `data-testid="prereq-stepper"` is present; "Concept notes." text is visible; no "⚠ sequencing issue" text
+
+- Given B (guided_exercise, forward prereq): same `allUnits` but unit is `{ id: "ge-bad", ..., sequenceOrder: 2, prereqs: ["ap1"] }` and allUnits includes `{ id: "ap1", sequenceOrder: 5, content: "AP." }`
+- When: rendered
+- Then: "⚠ sequencing issue" text is present in the stepper
+
+- Given C (learning_path): `<TrainingUnitView>` with `{ id: "lp1", type: "learning_path", sequenceOrder: 10, prereqs: ["cn1", "ge1"] }` and allUnits containing cn1 (level "P3", content "Concept notes.", seq 1) and ge1 (level "P3", content "Guided kata.", seq 2)
+- When: rendered
+- Then: an ordered list (`<ol>`) is present; it contains 2 list items; each item shows the unit's level ("P3") and content text
+
+- Given D (EmptyState variant): `<EmptyState variant="no-simulated-training" />` rendered
+- When: rendered
+- Then: contains "Growth at this level is demonstrated through real project scope, not simulated exercises."
 
 ## B-3: AC-3 [e2e]: Navigating from a competency's Training tab to a specific item renders that item's detail page.
 - Given:
