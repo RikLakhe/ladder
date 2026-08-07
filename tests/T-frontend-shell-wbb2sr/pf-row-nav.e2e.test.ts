@@ -60,6 +60,10 @@ beforeAll(async () => {
     "INSERT INTO standards (pf_id, level, body) VALUES ($1, $2, $3)",
     [pfId, "P3", "Writes correct, tested code for well-scoped tasks."]
   );
+  await client.query(
+    "INSERT INTO standards (pf_id, level, body) VALUES ($1, $2, $3)",
+    [pfId, "P4", "Writes correct, tested code for ambiguous tasks."]
+  );
 
   await client.end();
 
@@ -80,7 +84,7 @@ afterAll(() => {
   }
 });
 
-describe("B-3: PF row in Level View links to that PF's page at the matching level", () => {
+describe("B-3: PF row in either view links to that PF's page at the matching level", () => {
   it("Level View P3 tab contains a link to the PF's page at level=P3, and following it renders the P3 standard", async () => {
     const levelViewRes = await fetch(`${BASE_URL}/level-view?level=P3`);
     expect(levelViewRes.status).toBe(200);
@@ -91,5 +95,17 @@ describe("B-3: PF row in Level View links to that PF's page at the matching leve
     expect(pfRes.status).toBe(200);
     const pfHtml = await pfRes.text();
     expect(pfHtml).toContain("Writes correct, tested code for well-scoped tasks.");
+  });
+
+  it("Transition Guide's P3->P4 row contains a link to the PF's page at level=P4, and following it renders the P4 standard", async () => {
+    const guideRes = await fetch(`${BASE_URL}/transition-guide`);
+    expect(guideRes.status).toBe(200);
+    const guideHtml = await guideRes.text();
+    expect(guideHtml).toContain(`href="/primary-functions/${pfId}?level=P4"`);
+
+    const pfRes = await fetch(`${BASE_URL}/primary-functions/${pfId}?level=P4`);
+    expect(pfRes.status).toBe(200);
+    const pfHtml = await pfRes.text();
+    expect(pfHtml).toContain("Writes correct, tested code for ambiguous tasks.");
   });
 });

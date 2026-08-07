@@ -21,6 +21,7 @@ const TABLES = [
 ];
 
 let server: ChildProcess;
+let pfId: string;
 
 async function waitForServer(timeoutMs: number): Promise<void> {
   const deadline = Date.now() + timeoutMs;
@@ -54,13 +55,14 @@ beforeAll(async () => {
     "INSERT INTO primary_functions (competency_id, name) VALUES ($1, $2) RETURNING id",
     [competencyId, "Coding"]
   );
+  pfId = pf.rows[0].id;
   await client.query(
     "INSERT INTO standards (pf_id, level, body) VALUES ($1, $2, $3)",
-    [pf.rows[0].id, "P3", "Writes correct, tested code for well-scoped tasks."]
+    [pfId, "P3", "Writes correct, tested code for well-scoped tasks."]
   );
   await client.query(
     "INSERT INTO standards (pf_id, level, body) VALUES ($1, $2, $3)",
-    [pf.rows[0].id, "P4", "Writes correct, tested code for ambiguous tasks."]
+    [pfId, "P4", "Writes correct, tested code for ambiguous tasks."]
   );
 
   await client.end();
@@ -89,10 +91,10 @@ describe("B-2: Transition Guide shows level-transition columns per competency wi
     const body = await res.text();
 
     expect(body).toContain("Technical Skill");
-    expect(body).toContain("Coding");
-    expect(body).toContain("P3");
-    expect(body).toContain("P4");
-    expect(body).toContain("Writes correct, tested code for well-scoped tasks.");
-    expect(body).toContain("Writes correct, tested code for ambiguous tasks.");
+    expect(body).toMatch(/P3\s*→\s*P4/);
+    expect(body).toContain(`href="/primary-functions/${pfId}?level=P4"`);
+    expect(body).toContain("Before: Writes correct, tested code for well-scoped tasks.");
+    expect(body).toContain("After: Writes correct, tested code for ambiguous tasks.");
+    expect(body).not.toMatch(/Before: Writes correct, tested code for ambiguous tasks\./);
   });
 });
