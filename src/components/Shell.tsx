@@ -1,10 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ShellBreadcrumb } from "./ShellBreadcrumb";
+import { LevelBar } from "./LevelBar";
 
 export type ShellCompetency = { id: string; name: string };
-
-const LEVELS = ["L1", "L2", "L3", "L4", "L5"];
 
 const STATIC_NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -72,40 +71,7 @@ export function Shell({
             }}
           />
         </form>
-        <label
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            fontSize: 13,
-            color: "oklch(30% 0.02 260)",
-          }}
-        >
-          Level
-          <select
-            aria-label="Level"
-            defaultValue=""
-            style={{
-              height: 32,
-              borderRadius: 6,
-              border: "1px solid oklch(88% 0.005 260)",
-              padding: "0 8px",
-              fontSize: 13,
-            }}
-          >
-            <option value="" disabled>
-              Select level
-            </option>
-            {LEVELS.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </label>
-        <span data-testid="current-level-indicator" style={{ fontSize: 13, fontWeight: 600 }}>
-          —
-        </span>
+        <LevelBar />
       </header>
       <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
         <nav

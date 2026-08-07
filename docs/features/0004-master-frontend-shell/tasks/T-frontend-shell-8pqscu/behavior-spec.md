@@ -19,9 +19,9 @@
 - Then: it shows a breadcrumb trail with a "Home" crumb followed by a crumb per path segment; on the home path (`/`) it renders nothing
 
 ## B-3: AC-3 [behavior]: First-visit-this-session shows the level-set modal (role + level picker); dismissing/completing it sets the level indicator and the modal doesn't reappear that session.
-- Given:
-- When:
-- Then:
+- Given: no level is stored for this session
+- When: LevelBar mounts, and the user picks a level in the modal
+- Then: the modal is shown on mount; after picking a level the modal closes, the current-level indicator shows that level, and it is persisted to sessionStorage so a subsequent mount (level already stored) does not show the modal
 
 ## B-4: AC-4 [e2e]: From any page, every nav-sidebar link and header logo link navigates to a real, rendering page — no dead links.
 - Given:
