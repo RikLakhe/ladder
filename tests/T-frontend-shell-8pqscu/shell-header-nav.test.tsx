@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Shell } from "../../src/components/Shell";
 
 describe("B-1: Shell renders header (home, search, level selector, current-level indicator) and full left nav", () => {
@@ -20,6 +20,9 @@ describe("B-1: Shell renders header (home, search, level selector, current-level
     expect(screen.getByRole("link", { name: "Transition Guide" })).toBeDefined();
     expect(screen.getByRole("link", { name: "Badges" })).toBeDefined();
     expect(screen.getByRole("link", { name: "Version History" })).toBeDefined();
+
+    expect(screen.queryByRole("link", { name: "Engineering" })).toBeNull();
+    fireEvent.click(screen.getByText("Competencies"));
     expect(screen.getByRole("link", { name: "Engineering" })).toBeDefined();
 
     expect(screen.getByText("page-content")).toBeDefined();
