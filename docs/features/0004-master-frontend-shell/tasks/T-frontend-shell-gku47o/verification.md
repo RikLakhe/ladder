@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-07"
+approved_sha256: "189454256b2b72d3d1bf59546913dda7191552ff2473992b9befbbdaf04f2d79"
+---
 ## Verification — T-frontend-shell-gku47o — 2026-08-07
 > Critic anchored to TSD (external spec), NOT to the code. ★GATE: owner confirms/dismisses every flag.
 
