@@ -1,11 +1,13 @@
-## Task T-admin-cms-8j8plr — <title>
-**Parent:** story S-0006-master-admin-cms.nn · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms-*/ — its PRD + TSD)
+## Task T-admin-cms-8j8plr — Simple entity editors: Competency, Primary Function, Functional Analysis
+**Parent:** story S-0006.03 · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms/ — its PRD + TSD)
 **Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
-**Acceptance criteria:** (tag each `behavior`/`invariant`/`non-functional`/`e2e`; behavior ACs = observable outcome through an interface — NO "calls X / saves to table Y / uses lib Z")
-- [ ] AC-1 [behavior]: <observable outcome through interface>
-**End-to-end AC:** AC-<n> [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1  ← ordered; first = tracer bullet
-<!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
-**Test scope:** tests/T-admin-cms-8j8plr/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
-<!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
+**Acceptance criteria:**
+- [ ] AC-1 [behavior] — Competency editor presents `name` and `description` fields. Both required; blank submission shows an inline error per field.
+- [ ] AC-2 [behavior] — Primary Function editor presents `pf_number`, `slug`, `name`, `domain_classification`, and `competency_id` (select from existing competencies). All required; blank submission shows an inline error per field.
+- [ ] AC-3 [behavior] — Functional Analysis editor presents `content`, `coverage_check`, and `competency_id` (select from existing competencies). All required; blank submission shows an inline error per field.
+- [ ] AC-4 [behavior] — Each editor participates in the shared save flow: change note required, diff preview shown, atomic transaction producing a `document_versions` row.
+- [ ] AC-5 [e2e] — An admin creates a new Competency, edits a Primary Function's name, and updates a Functional Analysis's content. Each save produces a `document_versions` row and updated values appear on the listing page.
+
+**Tests:** AC-1, AC-2, AC-3, AC-4, AC-5
+**Test scope:** tests/T-admin-cms-8j8plr/
 **Done =** reviewable PR, all tests pass, links to chain. One PR per task (default).

@@ -1,11 +1,12 @@
-## Task T-admin-cms-j8dy4p — <title>
-**Parent:** story S-0006-master-admin-cms.nn · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms-*/ — its PRD + TSD)
+## Task T-admin-cms-j8dy4p — Admin navigation shell
+**Parent:** story S-0006.01 · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms/ — its PRD + TSD)
 **Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
-**Acceptance criteria:** (tag each `behavior`/`invariant`/`non-functional`/`e2e`; behavior ACs = observable outcome through an interface — NO "calls X / saves to table Y / uses lib Z")
-- [ ] AC-1 [behavior]: <observable outcome through interface>
-**End-to-end AC:** AC-<n> [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1  ← ordered; first = tracer bullet
-<!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
-**Test scope:** tests/T-admin-cms-j8dy4p/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
-<!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
+**Acceptance criteria:**
+- [ ] AC-1 [behavior] — All `/admin/*` pages render a persistent top bar showing the authenticated admin's display name or email and a logout button. Public pages outside `/admin/*` never render this chrome.
+- [ ] AC-2 [behavior] — The admin area surfaces a listing page for each entity type (Competency, Primary Function, Standard, Badge, Instrument, Training Unit, Functional Analysis). Each listing shows the entity's primary identifier and a link to its edit form.
+- [ ] AC-3 [behavior] — Clicking logout ends the admin session and redirects to `/admin/login`. The top bar is not rendered on the destination page.
+- [ ] AC-4 [e2e] — An authenticated admin navigates to `/admin`, sees all 7 entity type listings, clicks into a Competency, and reaches the edit form without error.
+
+**Tests:** AC-1, AC-2, AC-3, AC-4
+**Test scope:** tests/T-admin-cms-j8dy4p/
 **Done =** reviewable PR, all tests pass, links to chain. One PR per task (default).

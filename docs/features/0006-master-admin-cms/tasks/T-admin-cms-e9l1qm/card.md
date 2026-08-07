@@ -1,11 +1,13 @@
-## Task T-admin-cms-e9l1qm — <title>
-**Parent:** story S-0006-master-admin-cms.nn · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms-*/ — its PRD + TSD)
+## Task T-admin-cms-e9l1qm — Standard editor
+**Parent:** story S-0006.04 · feature 0006-master-admin-cms (docs/features/0006-master-admin-cms/ — its PRD + TSD)
 **Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
-**Acceptance criteria:** (tag each `behavior`/`invariant`/`non-functional`/`e2e`; behavior ACs = observable outcome through an interface — NO "calls X / saves to table Y / uses lib Z")
-- [ ] AC-1 [behavior]: <observable outcome through interface>
-**End-to-end AC:** AC-<n> [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1  ← ordered; first = tracer bullet
-<!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
-**Test scope:** tests/T-admin-cms-e9l1qm/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
-<!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
+**Acceptance criteria:**
+- [ ] AC-1 [behavior] — Standard editor presents `level` (P2–P7 selector), `pf_id` (select from existing PFs), `scope`, `required_knowledge`, and `evidence_guide` (text). All required.
+- [ ] AC-2 [behavior] — `performance_criteria` is a repeatable-list control: add/remove individual text items; stored as a jsonb array. No single freeform textarea exists for this field.
+- [ ] AC-3 [behavior] — `hiring_signals` is a repeatable-list control: add/remove individual text items; stored as a jsonb array. No single freeform textarea exists for this field.
+- [ ] AC-4 [behavior] — Editor participates in the shared save flow: change note required, diff preview shown, atomic transaction.
+- [ ] AC-5 [e2e] — An admin adds two `performance_criteria` items and one `hiring_signals` item to a Standard and saves. A `document_versions` row is produced. Querying the Standard row returns `performance_criteria` and `hiring_signals` as jsonb arrays with the correct item counts.
+
+**Tests:** AC-1, AC-2, AC-3, AC-4, AC-5
+**Test scope:** tests/T-admin-cms-e9l1qm/
 **Done =** reviewable PR, all tests pass, links to chain. One PR per task (default).
