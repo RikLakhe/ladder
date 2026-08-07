@@ -28,3 +28,8 @@
 - When: each linked route is rendered
 - Then: each resolves to a page component that renders without throwing (no 404/dead route)
 
+## B-5: AC-1 [behavior]: The competency list in the left nav is expandable/collapsible, not a flat always-shown list.
+- Given: a Shell rendered with more than one competency
+- When: the nav first renders
+- Then: the competency list is collapsed behind a toggle control (e.g. "Competencies" disclosure); competency links are not present until the toggle is activated; activating it reveals the competency links, activating it again hides them
+

@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ShellBreadcrumb } from "./ShellBreadcrumb";
 import { LevelBar } from "./LevelBar";
+import { CompetencyNavList } from "./CompetencyNavList";
 
 export type ShellCompetency = { id: string; name: string };
 
@@ -89,11 +90,7 @@ export function Shell({
               {link.label}
             </Link>
           ))}
-          {competencies.map((competency) => (
-            <Link key={competency.id} href={`/competencies/${competency.id}`} style={navLinkStyle}>
-              {competency.name}
-            </Link>
-          ))}
+          <CompetencyNavList competencies={competencies} />
         </nav>
         <main style={{ flex: 1, minWidth: 0 }}>
           <ShellBreadcrumb />
