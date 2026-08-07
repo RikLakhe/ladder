@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: Badges page lists badge cards (scope/competency/level filters) with code, name, tier, certifies snippet — from a mock data service.
-- Given:
-- When:
-- Then:
+- Given: `src/lib/mock/badges.ts` exports `getBadges(filters?: { level?: string })` and contains at least two fixtures: `{ id: "demo-p3", competencyId: "demo", level: "P3", badge_code: "DEMO-P3", name: "P3 Demo Badge", tier: "Bronze", certifies: "Demonstrates P3 core skills." }` and `{ id: "demo-p4", competencyId: "demo", level: "P4", badge_code: "DEMO-P4", name: "P4 Demo Badge", tier: "Silver", certifies: "Demonstrates P4 core skills." }`
+- When: `BadgesPage` (async server component) rendered with `searchParams={}` AND with `searchParams={{ level: "P3" }}`
+- Then: unfiltered — both "DEMO-P3" and "DEMO-P4" visible; `?level=P3` — "DEMO-P3" visible, "DEMO-P4" absent; each card shows badge_code, name, tier, and certifies text
 
 ## B-2: AC-2 [behavior]: Opening a badge card shows full detail (certifies, completion bar, verifier/co-signer, evidence refs resolved-or-broken-link, status legend).
 - Given:
