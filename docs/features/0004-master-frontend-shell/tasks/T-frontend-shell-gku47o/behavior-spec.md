@@ -36,7 +36,7 @@
 - Then: contains "Growth at this level is demonstrated through real project scope, not simulated exercises."
 
 ## B-3: AC-3 [e2e]: Navigating from a competency's Training tab to a specific item renders that item's detail page.
-- Given:
-- When:
-- Then:
+- Given: the training detail route `/competencies/[id]/training/[unitId]/page.tsx` is loaded with `id="demo"` and `unitId="tu-cn-1"` (concept_notes fixture from the mock)
+- When: the server component is rendered
+- Then: the page output contains the unit's content text ("Understand the core principles of the domain.") and no `data-testid="prereq-stepper"` is present (concept_notes has no stepper)
 
