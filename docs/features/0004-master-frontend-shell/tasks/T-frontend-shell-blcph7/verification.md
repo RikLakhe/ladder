@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-08"
+approved_sha256: "97c17cfcfe6ee73acc2930622df3daf133e9b11558da4ac171c7f1cef005b522"
+---
 ## Verification — Task T-frontend-shell-blcph7 — 2026-08-08
 > Critic anchored to TSD (external spec), NOT to the code. ★GATE: owner confirms/dismisses every flag.
 
