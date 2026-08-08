@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { SearchBox } from "../../src/components/SearchBox";
 import { buildSearchIndex } from "../../src/lib/search";
@@ -28,11 +28,11 @@ describe("B-2: SearchBox shows results list on submit", () => {
     const input = screen.getByRole("searchbox");
     fireEvent.change(input, { target: { value: "backend" } });
     fireEvent.submit(input.closest("form")!);
-    expect(screen.getByRole("list")).toBeInTheDocument();
+    expect(screen.getByRole("list")).toBeTruthy();
     const items = screen.getAllByRole("listitem");
     expect(items.length).toBeGreaterThan(0);
-    expect(screen.getByText(/Backend Development/i)).toBeInTheDocument();
-    expect(screen.getByText(/primary-function/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Backend Development/i).length).toBeGreaterThan(0);
+    screen.getByText(/primary-function/i);
   });
 
   it("shows badge result with snippet on exact code match", () => {
@@ -40,8 +40,8 @@ describe("B-2: SearchBox shows results list on submit", () => {
     const input = screen.getByRole("searchbox");
     fireEvent.change(input, { target: { value: "SE-P3" } });
     fireEvent.submit(input.closest("form")!);
-    expect(screen.getByText(/SE-P3/)).toBeInTheDocument();
-    expect(screen.getByText(/backend proficiency/i)).toBeInTheDocument();
+    screen.getByText(/SE-P3/);
+    screen.getByText(/backend proficiency/i);
   });
 
   it("shows no results message when query matches nothing", () => {
@@ -49,7 +49,7 @@ describe("B-2: SearchBox shows results list on submit", () => {
     const input = screen.getByRole("searchbox");
     fireEvent.change(input, { target: { value: "xyznotfound" } });
     fireEvent.submit(input.closest("form")!);
-    expect(screen.queryByRole("list")).not.toBeInTheDocument();
-    expect(screen.getByText(/no results/i)).toBeInTheDocument();
+    expect(screen.queryByRole("list")).toBeNull();
+    screen.getByText(/no results/i);
   });
 });
