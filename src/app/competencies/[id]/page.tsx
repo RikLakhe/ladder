@@ -6,6 +6,7 @@ import { getStandardsForPrimaryFunction } from "../../../lib/standards";
 import { getAssessmentForCompetency } from "../../../lib/mock/assessments";
 import { getTrainingForCompetency } from "../../../lib/mock/training";
 import { getEvidenceForCompetency } from "../../../lib/mock/evidence";
+import { getBadgesForCompetency } from "../../../lib/mock/badges";
 import { CompetencyTabs } from "../../../components/CompetencyTabs";
 import { EmptyState } from "../../../components/EmptyState";
 
@@ -30,6 +31,7 @@ export default async function CompetencyPage({
   const assessment = getAssessmentForCompetency(id);
   const training = getTrainingForCompetency(id);
   const evidence = getEvidenceForCompetency(id);
+  const badges = getBadgesForCompetency(id);
 
   return (
     <main>
@@ -63,7 +65,21 @@ export default async function CompetencyPage({
           )
         }
         assessment={
-          assessment ? <p>{assessment.summary}</p> : <EmptyState variant="no-assessment" />
+          badges.length > 0 ? (
+            <ul>
+              {badges.map((badge) => (
+                <li key={badge.id}>
+                  <Link href={`/badges/${badge.badge_code}`}>
+                    {badge.badge_code} — {badge.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : assessment ? (
+            <p>{assessment.summary}</p>
+          ) : (
+            <EmptyState variant="no-assessment" />
+          )
         }
         training={training ? <p>{training.summary}</p> : <EmptyState variant="no-training" />}
         evidence={evidence ? <p>{evidence.summary}</p> : <EmptyState variant="no-evidence" />}

@@ -19,7 +19,7 @@
 - Then: DEMO-P3 — co-signer indicator present (`data-testid="cosigner-indicator"`), certifies text, completion bar text, verifier text, resolved evidence row text, status legend (`data-testid="badge-status-legend"`); DEMO-P4 — no co-signer indicator, broken-link text (`/evidence link broken/i`) present (never dropped)
 
 ## B-3: AC-3 [e2e]: Clicking a badge card on the Badges page or a competency's Assessment tab navigates to that badge's detail page.
-- Given:
-- When:
-- Then:
+- Given: `BadgesPage` renders mock badge fixtures; `CompetencyPage` assessment tab renders `getBadgesForCompetency("demo")` as badge cards
+- When: `BadgesPage` rendered and `CompetencyPage` for competencyId="demo" rendered
+- Then: each badge card in BadgesPage is an `<a>` with `href="/badges/DEMO-P3"` and `href="/badges/DEMO-P4"`; each badge card in CompetencyPage assessment tab is an `<a>` with the same hrefs
 

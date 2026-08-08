@@ -78,6 +78,10 @@ export function getBadgeById(id: string): MockBadge | null {
   return FIXTURES.find((b) => b.id === id) ?? null;
 }
 
+export function getBadgesForCompetency(competencyId: string): MockBadge[] {
+  return FIXTURES.filter((b) => b.competencyId === competencyId);
+}
+
 export function resolveEvidence(
   ref: MockEvidenceRef
 ): { text: string } | { broken: true } {

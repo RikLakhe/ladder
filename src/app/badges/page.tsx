@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getBadges } from "../../lib/mock/badges";
 
 export default async function BadgesPage({
@@ -14,10 +15,12 @@ export default async function BadgesPage({
       <ul>
         {badges.map((badge) => (
           <li key={badge.id}>
-            <span>{badge.badge_code}</span>
-            <span>{badge.name}</span>
-            <span>{badge.tier}</span>
-            <span>{badge.certifies}</span>
+            <Link href={`/badges/${badge.badge_code}`}>
+              <span>{badge.badge_code}</span>
+              <span>{badge.name}</span>
+              <span>{badge.tier}</span>
+              <span>{badge.certifies}</span>
+            </Link>
           </li>
         ))}
       </ul>
