@@ -6,7 +6,7 @@ import { execSync } from "node:child_process";
 // All ports reserved by e2e test files in this worktree
 const TEST_PORTS = [
   34127, 34128, 34129, 34130, 34131, 34132, 34133, 34134, 34135,
-  34210, 34211, 34212, 34213, 34260, 34270, 34271, 34272, 34301, 34302,
+  34210, 34211, 34212, 34213, 34260, 34270, 34271, 34272, 34301, 34302, 34310,
 ];
 
 function pidsOnPorts(ports: number[]): string[] {
