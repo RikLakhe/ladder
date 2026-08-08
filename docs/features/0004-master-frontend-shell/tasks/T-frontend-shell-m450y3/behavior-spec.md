@@ -8,18 +8,17 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: Submitting the header search shows a results list (competency, PF, doc type, title, matched snippet).
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): AC-1+AC-2 [behavior]: Search index query functions return typed results with href, title, snippet
+- Given: a search index built from competencies, PFs, and mock badges
+- When: queried with an exact badge code, a partial PF name, or a non-matching string
+- Then: exact badge-code match returns a result with type="badge" and href="/badges/{code}"; partial PF-name match returns type="primary-function" and href containing the PF id; no-match returns an empty array; every result has type, title, snippet, href fields
 
-## B-2: AC-2 [behavior]: An exact badge-code match and a partial PF-name match both return results.
-- Given:
-- When:
-- Then:
+## B-2: AC-1 [behavior]: Submitting the header search shows a results list (competency, PF, doc type, title, matched snippet).
+- Given: a SearchBox component rendered with a pre-built index
+- When: user types a query and submits the form
+- Then: a results list appears showing each match's doc type, title, and snippet
 
 ## B-3: AC-3 [e2e]: Clicking a search result navigates to the corresponding PF page with the correct level tab selected.
-- Given:
-- When:
-- Then:
-
+- Given: the running app with search wired to real data
+- When: user submits a search that matches a PF and clicks the result
+- Then: the browser navigates to the PF page at the correct level tab
