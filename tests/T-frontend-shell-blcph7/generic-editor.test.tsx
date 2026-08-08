@@ -1,7 +1,9 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
 import { GenericEntityEditor } from "../../src/components/GenericEntityEditor";
 import type { FieldConfig } from "../../src/components/GenericEntityEditor";
+
+afterEach(cleanup);
 
 const competencyConfig: FieldConfig[] = [{ key: "name", label: "Name", type: "text" }];
 
