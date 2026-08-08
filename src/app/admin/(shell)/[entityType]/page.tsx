@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { listEntities } from "../../../lib/mock/cms";
-import type { EntityType } from "../../../lib/mock/cms";
+import { listEntities } from "../../../../lib/mock/cms";
+import type { EntityType } from "../../../../lib/mock/cms";
 
 export default async function EntityListPage({
   params,

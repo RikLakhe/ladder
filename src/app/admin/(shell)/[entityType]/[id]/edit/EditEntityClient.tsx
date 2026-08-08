@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { GenericEntityEditor } from "../../../../../components/GenericEntityEditor";
-import { editorConfigs } from "../../../../../lib/admin-editor-config";
-import type { EntityType } from "../../../../../lib/mock/cms";
+import { GenericEntityEditor } from "../../../../../../components/GenericEntityEditor";
+import { editorConfigs } from "../../../../../../lib/admin-editor-config";
+import type { EntityType } from "../../../../../../lib/mock/cms";
 
 export default function EditEntityClient({
   entityType,

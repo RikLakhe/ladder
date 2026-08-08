@@ -2,9 +2,10 @@ export type EntityType =
   | "competency"
   | "primary-function"
   | "standard"
-  | "assessment"
-  | "training-item"
-  | "badge";
+  | "badge"
+  | "instrument"
+  | "training-unit"
+  | "functional-analysis";
 
 export type Entity = Record<string, string> & { id: string };
 
@@ -22,12 +23,13 @@ function seed(type: EntityType, entities: Omit<Entity, "id">[]) {
 seed("competency", [{ name: "Leadership" }, { name: "Communication" }]);
 seed("primary-function", [{ name: "Engineering", competency_id: "competency-1" }]);
 seed("standard", [{ body: "Leads team meetings", level: "3", pf_id: "primary-function-1" }]);
-seed("assessment", [{ competency_id: "competency-1", summary: "360 review" }]);
-seed("training-item", [{ competency_id: "competency-1", summary: "Leadership course" }]);
 seed("badge", [
   { name: "Junior Engineer", level: "1", pf_id: "primary-function-1" },
   { name: "Senior Engineer", level: "3", pf_id: "primary-function-1" },
 ]);
+seed("instrument", [{ name: "Leadership 360 Survey", competency_id: "competency-1" }]);
+seed("training-unit", [{ name: "Leadership Foundations", competency_id: "competency-1" }]);
+seed("functional-analysis", [{ name: "Engineering Capability Map", competency_id: "competency-1" }]);
 
 export function listEntities(type: EntityType): Entity[] {
   return Array.from(store.get(type)?.values() ?? []);

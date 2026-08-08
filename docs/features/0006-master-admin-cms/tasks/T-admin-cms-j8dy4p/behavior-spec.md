@@ -13,10 +13,10 @@
 - When: a page under the `(shell)` group (e.g. the admin dashboard) is rendered; and separately when the login page is rendered
 - Then: the shell layout output includes AdminBanner showing the admin identity string and a "Logout" button; the login page output contains no "Logout" button
 
-## B-2: AC-2 [behavior] — The admin area surfaces a listing page for each entity type (Competency, Primary Function, Standard, Badge, Instrument, Training Unit, Functional Analysis). Each listing shows the entity's primary identifier and a link to its edit form.
-- Given:
-- When:
-- Then:
+## B-2: AC-2 [behavior] — The admin dashboard at `/admin` lists all 7 entity types (Competency, Primary Function, Standard, Badge, Instrument, Training Unit, Functional Analysis) with human-readable labels and links to `/admin/<slug>`; an individual entity listing at `/admin/<slug>` shows each entity's name and a link to its edit form.
+- Given: the admin dashboard page component has an ENTITY_TYPES array containing exactly the 7 TSD-specified slugs with human-readable labels; the mock CMS store contains seed data for all 7 types including instrument, training-unit, and functional-analysis
+- When: the admin dashboard is rendered (with a valid admin_session cookie present)
+- Then: the rendered output contains exactly 7 links whose hrefs are `/admin/competency`, `/admin/primary-function`, `/admin/standard`, `/admin/badge`, `/admin/instrument`, `/admin/training-unit`, `/admin/functional-analysis`; and the link text for each uses the human-readable label (e.g. "Competency", "Training Unit")
 
 ## B-3: AC-3 [behavior] — Clicking logout ends the admin session and redirects to `/admin/login`. The top bar is not rendered on the destination page.
 - Given:
