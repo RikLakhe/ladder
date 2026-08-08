@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
 approved_at: "2026-08-08"
-planned_behaviors: 4
+planned_behaviors: 3
 approved_sha256: "f87c3ae57de6703ce28a4d362be4a81b8e78be865694be8cca1a97305ebe0f0e"
 ---
 ## Exec Plan — Task T-admin-cms-j8dy4p
