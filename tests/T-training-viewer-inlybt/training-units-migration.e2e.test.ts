@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { ChildProcess, spawn } from "node:child_process";
 import { Client } from "pg";
 import { migrate } from "../../scripts/migrate";
+import { seed } from "../../scripts/seed";
 
 const PORT = 34199;
 const BASE_URL = `http://localhost:${PORT}`;
@@ -48,6 +49,7 @@ beforeAll(async () => {
   for (const table of TABLES) {
     await client.query(`TRUNCATE TABLE ${table} CASCADE`);
   }
+  await seed(ADMIN_URL);
 
   devServer = spawn("npx", ["next", "dev", "-p", String(PORT)], {
     cwd: process.cwd(),
