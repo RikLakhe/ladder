@@ -53,16 +53,17 @@ export async function seed(connectionString: string): Promise<void> {
     );
 
     // Training sequence: each unit's prereqs only point to earlier-sequenced units.
-    const sequence: { level: string; note: string }[] = [
-      { level: "P2", note: "Write testable code + unit tests, in a client's own conventions" },
-      { level: "P3", note: "Unaided edge-case and error-path test coverage" },
-      { level: "P4", note: "Multi-layer test suite for a full feature" },
+    const sequence: { level: string; type: string; order: number; content: string }[] = [
+      { level: "P2", type: "guided_exercise", order: 1, content: "Write testable code + unit tests, in a client's own conventions" },
+      { level: "P3", type: "guided_exercise", order: 2, content: "Unaided edge-case and error-path test coverage" },
+      { level: "P4", type: "autonomous_project", order: 3, content: "Multi-layer test suite for a full feature" },
     ];
     const insertedIds: string[] = [];
     for (const unit of sequence) {
       const row = await client.query(
-        "INSERT INTO training_units (competency_id, level, prereqs) VALUES ($1, $2, $3) RETURNING id",
-        [competencyId, unit.level, JSON.stringify(insertedIds)]
+        `INSERT INTO training_units (competency_id, type, level, sequence_order, content, prereqs)
+         VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
+        [competencyId, unit.type, unit.level, unit.order, unit.content, JSON.stringify(insertedIds)]
       );
       insertedIds.push(row.rows[0].id);
     }
@@ -77,9 +78,7 @@ if (require.main === module) {
   const connectionString =
     process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
   seed(connectionString)
-    .then(() => {
-      console.log("seed applied");
-    })
+    .then(() => console.log("seed applied"))
     .catch((err) => {
       console.error(err);
       process.exit(1);
