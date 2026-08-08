@@ -7,5 +7,6 @@ export default defineConfig({
     environment: "jsdom",
     fileParallelism: false,
     pool: "forks",
+    setupFiles: ["./tests/global-drain.ts"],
   },
 });
