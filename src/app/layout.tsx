@@ -9,12 +9,13 @@ const DATABASE_URL =
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const competencies = await getCompetenciesWithPfCount(DATABASE_URL);
   const cookieStore = await cookies();
-  const isAdmin = cookieStore.has("admin_session");
+  const adminSession = cookieStore.get("admin_session")?.value ?? "";
+  const isAdmin = !!adminSession;
 
   return (
     <html lang="en">
       <body>
-        <Shell competencies={competencies} adminBanner={isAdmin ? <AdminBanner /> : undefined}>
+        <Shell competencies={competencies} adminBanner={isAdmin ? <AdminBanner adminEmail={`Signed in as ${adminSession}`} /> : undefined}>
           {children}
         </Shell>
       </body>

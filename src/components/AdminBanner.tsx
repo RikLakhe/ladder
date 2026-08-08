@@ -1,9 +1,13 @@
 "use client";
 
-export function AdminBanner() {
+import { useRouter } from "next/navigation";
+
+export function AdminBanner({ adminEmail }: { adminEmail: string }) {
+  const router = useRouter();
+
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" });
-    window.location.reload();
+    router.push("/admin/login");
   }
 
   return (
@@ -18,7 +22,7 @@ export function AdminBanner() {
         fontSize: 13,
       }}
     >
-      <span>Signed in as system</span>
+      <span>{adminEmail}</span>
       <button
         onClick={handleLogout}
         style={{
