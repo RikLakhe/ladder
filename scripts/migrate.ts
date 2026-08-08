@@ -10,6 +10,7 @@ export async function migrate(connectionString: string): Promise<void> {
     await client.connect();
     try {
       await client.query(sql);
+      await client.end();
       return;
     } catch (err: unknown) {
       await client.end();
