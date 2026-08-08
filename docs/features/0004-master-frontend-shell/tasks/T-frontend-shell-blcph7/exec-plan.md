@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
 approved_at: "2026-08-07"
-planned_behaviors: ""
+planned_behaviors: 4
 approved_sha256: "13c67b055e87a77a02df1f5fa6378b01434d9b64a2f54bcf0e6aebed887fbea3"
 ---
 ## Exec Plan — Task T-frontend-shell-blcph7
