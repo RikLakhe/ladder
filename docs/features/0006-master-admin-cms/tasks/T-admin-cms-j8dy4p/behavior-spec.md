@@ -19,12 +19,12 @@
 - Then: the rendered output contains exactly 7 links whose hrefs are `/admin/competency`, `/admin/primary-function`, `/admin/standard`, `/admin/badge`, `/admin/instrument`, `/admin/training-unit`, `/admin/functional-analysis`; and the link text for each uses the human-readable label (e.g. "Competency", "Training Unit")
 
 ## B-3: AC-3 [behavior] — Clicking logout ends the admin session and redirects to `/admin/login`. The top bar is not rendered on the destination page.
-- Given:
-- When:
-- Then:
+- Given: AdminBanner is rendered with a valid `adminEmail` prop; `fetch` is mocked; `useRouter().push` is mocked; the login page lives outside the `(shell)` route group and renders no Logout button
+- When: the user clicks the "Logout" button in AdminBanner
+- Then: `fetch` is called once with path `/api/admin/logout` and method `POST`; after the fetch resolves, `router.push("/admin/login")` is called
 
 ## B-4: AC-4 [e2e] — An authenticated admin navigates to `/admin`, sees all 7 entity type listings, clicks into a Competency, and reaches the edit form without error.
-- Given:
-- When:
-- Then:
+- Given: `editorConfigs` in `src/lib/admin-editor-config.ts` has field definitions for every entity type the dashboard links to; the CMS API routes at `/api/admin/cms/[entityType]` and `/api/admin/cms/[entityType]/[id]` accept all 7 slugs as valid types
+- When: the editor config is read for a new entity type (instrument, training-unit, or functional-analysis); and when the API handler validates those same slugs
+- Then: `editorConfigs["instrument"]`, `editorConfigs["training-unit"]`, and `editorConfigs["functional-analysis"]` each return a non-empty field array (not undefined); and the API route `isValidType` function returns true for all 7 slugs including the three new ones
 
