@@ -25,12 +25,25 @@ const navLinkStyle = {
 export function Shell({
   competencies,
   children,
+  adminBanner,
 }: {
   competencies: ShellCompetency[];
   children: ReactNode;
+  adminBanner?: ReactNode;
 }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      {adminBanner && (
+        <div
+          style={{
+            background: "oklch(93% 0.04 250)",
+            borderBottom: "1px solid oklch(85% 0.05 250)",
+            padding: "6px 20px",
+          }}
+        >
+          {adminBanner}
+        </div>
+      )}
       <header
         style={{
           height: 56,
