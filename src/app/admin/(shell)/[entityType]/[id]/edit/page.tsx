@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect, notFound } from "next/navigation";
 import EditEntityClient from "./EditEntityClient";
-import { getEntity } from "../../../../../lib/mock/cms";
-import type { EntityType } from "../../../../../lib/mock/cms";
+import { getEntity } from "../../../../../../lib/mock/cms";
+import type { EntityType } from "../../../../../../lib/mock/cms";
 
 export default async function EditEntityPage({
   params,

@@ -12,17 +12,21 @@ export const editorConfigs: Record<EntityType, FieldConfig[]> = {
     { key: "level", label: "Level", type: "text" },
     { key: "pf_id", label: "Primary Function ID", type: "text" },
   ],
-  assessment: [
-    { key: "competency_id", label: "Competency ID", type: "text" },
-    { key: "summary", label: "Summary", type: "text" },
-  ],
-  "training-item": [
-    { key: "competency_id", label: "Competency ID", type: "text" },
-    { key: "summary", label: "Summary", type: "text" },
-  ],
   badge: [
     { key: "name", label: "Name", type: "text" },
     { key: "level", label: "Level", type: "text" },
     { key: "pf_id", label: "Primary Function ID", type: "text" },
+  ],
+  instrument: [
+    { key: "name", label: "Name", type: "text" },
+    { key: "competency_id", label: "Competency ID", type: "text" },
+  ],
+  "training-unit": [
+    { key: "name", label: "Name", type: "text" },
+    { key: "competency_id", label: "Competency ID", type: "text" },
+  ],
+  "functional-analysis": [
+    { key: "name", label: "Name", type: "text" },
+    { key: "competency_id", label: "Competency ID", type: "text" },
   ],
 };

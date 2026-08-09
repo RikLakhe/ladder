@@ -5,9 +5,10 @@ const VALID_TYPES = new Set<EntityType>([
   "competency",
   "primary-function",
   "standard",
-  "assessment",
-  "training-item",
   "badge",
+  "instrument",
+  "training-unit",
+  "functional-analysis",
 ]);
 
 function isValidType(t: string): t is EntityType {
