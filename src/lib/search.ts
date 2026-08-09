@@ -17,6 +17,7 @@ type Badge = {
   name: string;
   certifies?: string;
   level?: string;
+  pfId?: string;
 };
 
 export function buildSearchIndex({
@@ -53,11 +54,15 @@ export function buildSearchIndex({
   for (const b of badges) {
     const title = `${b.badge_code} — ${b.name}`;
     const snippet = b.certifies ? b.certifies.slice(0, 80) : b.name.slice(0, 80);
+    const href =
+      b.pfId && b.level
+        ? `/primary-functions/${b.pfId}?level=${b.level}`
+        : `/badges/${b.badge_code}`;
     entries.push({
       type: "badge",
       title,
       snippet,
-      href: `/badges/${b.badge_code}`,
+      href,
       _searchText: `${b.badge_code} ${b.name} ${b.certifies ?? ""}`.toLowerCase(),
       _exactCode: b.badge_code.toLowerCase(),
     });

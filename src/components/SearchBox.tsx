@@ -4,13 +4,19 @@ import { useState } from "react";
 import Link from "next/link";
 import { queryIndex, type SearchEntry, type SearchResult } from "../lib/search";
 
-export function SearchBox({ index }: { index: SearchEntry[] }) {
+export function SearchBox({ index }: { index?: SearchEntry[] }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[] | null>(null);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setResults(queryIndex(index, query));
+    if (index !== undefined) {
+      setResults(queryIndex(index, query));
+    } else {
+      const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+      const data: SearchResult[] = await res.json();
+      setResults(data);
+    }
   }
 
   return (

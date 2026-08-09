@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { ShellBreadcrumb } from "./ShellBreadcrumb";
 import { LevelBar } from "./LevelBar";
 import { CompetencyNavList } from "./CompetencyNavList";
+import { SearchBox } from "./SearchBox";
 
 export type ShellCompetency = { id: string; name: string };
 
@@ -69,22 +70,7 @@ export function Shell({
         >
           Ladder
         </Link>
-        <form role="search" style={{ flex: 1, maxWidth: 440 }}>
-          <input
-            type="text"
-            placeholder="Search all docs..."
-            style={{
-              width: "100%",
-              height: 32,
-              borderRadius: 6,
-              border: "1px solid oklch(88% 0.005 260)",
-              padding: "0 10px",
-              fontSize: 13,
-              background: "oklch(97% 0.003 260)",
-              outline: "none",
-            }}
-          />
-        </form>
+        <SearchBox />
         <LevelBar />
       </header>
       <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
