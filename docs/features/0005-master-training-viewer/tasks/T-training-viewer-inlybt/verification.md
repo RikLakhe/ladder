@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-09"
+approved_sha256: "b2b05ef1e6216425081d2c5a930ec9df69f9bb6584b4e9bd42288d4cc7924e17"
+---
 ## Verification — Task T-training-viewer-inlybt — 2026-08-09
 > Critic anchored to TSD (external spec), NOT to the code. ★GATE: owner confirms/dismisses every flag.
 
