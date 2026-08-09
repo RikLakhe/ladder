@@ -5,6 +5,21 @@ export type PrimaryFunction = {
   name: string;
 };
 
+export async function getAllPrimaryFunctions(
+  connectionString: string
+): Promise<PrimaryFunction[]> {
+  const client = new Client({ connectionString });
+  await client.connect();
+  try {
+    const result = await client.query(
+      `SELECT id, name FROM primary_functions ORDER BY name`
+    );
+    return result.rows.map((row) => ({ id: row.id, name: row.name }));
+  } finally {
+    await client.end();
+  }
+}
+
 export async function getPrimaryFunctionsForCompetency(
   connectionString: string,
   competencyId: string
