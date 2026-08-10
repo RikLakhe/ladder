@@ -1,7 +1,7 @@
 ---
-approved_by: ""
-approved_at: ""
-approved_sha256: ""
+approved_by: "unknown"
+approved_at: "2026-08-10"
+approved_sha256: "97a8128fd1a1bf28f97cc1e693821c1ddafd87777595e7683999184b702e72e2"
 ---
 ## Exec Plan — Task T-assessment-badge-viewer-b69y3s
 > Authored during planning, before any code. ★GATE: DEV/SA approve via `lane approve` BEFORE any code (lane writes the stamp). Resolve all ambiguities first.
