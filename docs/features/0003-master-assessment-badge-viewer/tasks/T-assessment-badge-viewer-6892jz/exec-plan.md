@@ -2,7 +2,7 @@
 approved_by: "unknown"
 approved_at: "2026-08-10"
 approved_sha256: "fb9cb9119be43e0cab7373717385fe9d388b611493a16edf0730a98079e8ea2b"
-planned_behaviors: ""
+planned_behaviors: "1"
 ---
 ## Exec Plan — Task T-assessment-badge-viewer-6892jz
 > Authored during planning, before any code. GATE: approve via `lane approve` BEFORE any code.
