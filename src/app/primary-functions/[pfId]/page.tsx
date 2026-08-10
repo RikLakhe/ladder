@@ -3,6 +3,7 @@ import { getFunctionalAnalysesForPrimaryFunction } from "../../../lib/functional
 import { getBadgesForPrimaryFunction } from "../../../lib/badges";
 import { getStandardsForPrimaryFunction } from "../../../lib/standards";
 import type { Level } from "../../../components/LevelTag";
+import { BadgeCard } from "../../../components/BadgeCard";
 
 const DATABASE_URL =
   process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
@@ -17,17 +18,16 @@ export default async function PrimaryFunctionPage({
   searchParams: Promise<{ level?: string }>;
 }) {
   const { pfId } = await params;
-  const { level: rawLevel } = await searchParams;
-  const level = rawLevel ?? "P2";
+  const { level } = await searchParams;
 
   const [standards, analyses, badges] = await Promise.all([
     getStandardsForPrimaryFunction(DATABASE_URL, pfId, level),
     getFunctionalAnalysesForPrimaryFunction(DATABASE_URL, pfId),
-    getBadgesForPrimaryFunction(DATABASE_URL, pfId),
+    getBadgesForPrimaryFunction(DATABASE_URL, pfId, level),
   ]);
 
   const levelAnalyses = analyses.filter((analysis) => analysis.level === level);
-  const levelBadges = badges.filter((badge) => badge.level === level);
+  const levelBadges = badges;
 
   return (
     <main>
@@ -75,7 +75,15 @@ export default async function PrimaryFunctionPage({
         ) : (
           <ul>
             {levelBadges.map((badge) => (
-              <li key={badge.id}>{badge.name}</li>
+              <li key={badge.id}>
+                {badge.badgeCode ? (
+                  <Link href={`/primary-functions/${pfId}/badges/${badge.badgeCode}`}>
+                    <BadgeCard badge={badge} />
+                  </Link>
+                ) : (
+                  <BadgeCard badge={badge} />
+                )}
+              </li>
             ))}
           </ul>
         )}
