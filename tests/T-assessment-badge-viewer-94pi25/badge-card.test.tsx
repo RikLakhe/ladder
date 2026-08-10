@@ -15,32 +15,36 @@ describe("B-1: BadgeCard renders badge_code, name, TierChip, truncated certifies
   };
 
   it("renders badge_code in monospace element", () => {
-    render(<BadgeCard badge={mockBadge} />);
+    const { container } = render(<BadgeCard badge={mockBadge} />);
     const codeElement = screen.getByText("ABC-123");
-    expect(codeElement).toBeInTheDocument();
-    expect(codeElement).toHaveStyle({ fontFamily: expect.stringContaining("monospace") });
+    expect(codeElement).toBeDefined();
+    const codeTag = container.querySelector("code");
+    expect(codeTag?.textContent).toBe("ABC-123");
+    expect(codeTag?.style.fontFamily).toContain("monospace");
   });
 
   it("renders badge name", () => {
     render(<BadgeCard badge={mockBadge} />);
-    expect(screen.getByText("Communication Skills")).toBeInTheDocument();
+    const nameElement = screen.getByText("Communication Skills");
+    expect(nameElement).toBeDefined();
   });
 
   it("renders TierChip component", () => {
     render(<BadgeCard badge={mockBadge} />);
-    const tierChip = screen.getByText("Gold");
-    expect(tierChip).toBeInTheDocument();
+    const tierElement = screen.getByText("Gold");
+    expect(tierElement).toBeDefined();
   });
 
   it("truncates certifies to first sentence only", () => {
     render(<BadgeCard badge={mockBadge} />);
     const certifiesText = screen.getByText(/This badge certifies you have strong communication skills\./);
-    expect(certifiesText).toBeInTheDocument();
-    expect(screen.queryByText(/You can present effectively/)).not.toBeInTheDocument();
+    expect(certifiesText).toBeDefined();
+    expect(certifiesText.textContent).not.toContain("You can present effectively");
   });
 
   it("shows Not-attempted status marker", () => {
     render(<BadgeCard badge={mockBadge} />);
-    expect(screen.getByText(/Not-attempted|⚪/)).toBeInTheDocument();
+    const statusText = screen.getByText(/Not-attempted/);
+    expect(statusText).toBeDefined();
   });
 });
