@@ -37,6 +37,7 @@ export default async function CompetencyPage({
     <main>
       <h1>{competency.name}</h1>
       <p>{competency.domains.join(", ")}</p>
+      <Link href={`/version-history?entityType=competency&entityId=${id}`}>View History</Link>
       <ul>
         {primaryFunctions.map((pf) => (
           <li key={pf.id}>

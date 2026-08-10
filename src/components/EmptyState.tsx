@@ -4,7 +4,8 @@ export type EmptyStateVariant =
   | "no-training"
   | "no-assessment"
   | "no-evidence"
-  | "no-simulated-training";
+  | "no-simulated-training"
+  | "no-history-yet";
 
 const COPY: Record<EmptyStateVariant, string> = {
   "no-standard": "No standard defined for this level yet.",
@@ -14,6 +15,7 @@ const COPY: Record<EmptyStateVariant, string> = {
   "no-evidence": "No evidence recorded for this competency yet.",
   "no-simulated-training":
     "Growth at this level is demonstrated through real project scope, not simulated exercises.",
+  "no-history-yet": "No history yet — changes will appear here after the first edit.",
 };
 
 export function EmptyState({ variant }: { variant: EmptyStateVariant }) {
