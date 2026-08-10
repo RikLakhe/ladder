@@ -45,6 +45,8 @@ ALTER TABLE badges ADD COLUMN IF NOT EXISTS badge_code text;
 ALTER TABLE badges ADD COLUMN IF NOT EXISTS tier text;
 ALTER TABLE badges ADD COLUMN IF NOT EXISTS certifies text;
 
+ALTER TABLE badges ADD COLUMN IF NOT EXISTS badge_code TEXT;
+
 -- domains: a competency can span multiple domains (e.g. development, devops, ai, data);
 -- distinct from environment/deployment domains like dev/qa, which are out of scope here.
 ALTER TABLE competencies ADD COLUMN IF NOT EXISTS domains text[] NOT NULL DEFAULT '{}';
