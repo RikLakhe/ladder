@@ -9,9 +9,9 @@
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: The badge detail page shows a fixed legend listing 🟢 Earned-eligible, 🟡 Blocked-assignment-limited, ⚪ Not-attempted, each with a one-line explanation.
-- Given:
-- When:
-- Then:
+- Given: BadgeStatusLegend component is imported and rendered
+- When: component mounts
+- Then: it displays three divs containing "🟢 Earned-eligible — All criteria met, ready for assessment", "🟡 Blocked-assignment-limited — Assignment quota reached, cannot be assessed this cycle", and "⚪ Not-attempted — No assessment attempt has been made" in that exact order
 
 ## B-2: AC-2 [e2e]: The legend renders identically (same three states, same order) on every badge detail page, regardless of that badge's own data.
 - Given:

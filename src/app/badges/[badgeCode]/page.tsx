@@ -1,4 +1,5 @@
 import { getBadgeByCode, resolveEvidence } from "../../../lib/mock/badges";
+import { BadgeStatusLegend } from "../../../components/BadgeStatusLegend";
 
 export default async function BadgeDetailPage({
   params,
@@ -30,11 +31,7 @@ export default async function BadgeDetailPage({
           return <li key={i}>{result.text}</li>;
         })}
       </ul>
-      <div data-testid="badge-status-legend">
-        <span>🟢 Awarded</span>
-        <span>🟡 In progress</span>
-        <span>⚪ Not attempted</span>
-      </div>
+      <BadgeStatusLegend />
     </main>
   );
 }
