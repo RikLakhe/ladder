@@ -72,6 +72,7 @@ describe("B-3: E2E — Badge detail page renders from database", () => {
     serverProcess = spawn("npm", ["run", "dev", "--", "--port", PORT.toString()], {
       cwd: process.cwd(),
       stdio: "pipe",
+      env: { ...process.env, DATABASE_URL },
     });
 
     // Wait for server to start
