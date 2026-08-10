@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "vitest run"
+    "test": "vitest run",
+    "dev:qa": "DATABASE_URL=postgresql://ladder:ladder@localhost:55433/ladder_qa next dev",
+    "db:qa:up": "docker compose up -d db-qa",
+    "db:qa:down": "docker compose stop db-qa",
+    "seed:qa": "DATABASE_URL=postgresql://ladder:ladder@localhost:55433/ladder_qa npx tsx scripts/migrate.ts && DATABASE_URL=postgresql://ladder:ladder@localhost:55433/ladder_qa npx tsx scripts/seed-content.ts"
   },
   "dependencies": {
     "next": "^15.0.0",
