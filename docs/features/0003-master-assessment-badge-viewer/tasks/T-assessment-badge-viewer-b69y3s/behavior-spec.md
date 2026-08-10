@@ -8,10 +8,10 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: Visiting `/[competency]/[pf]/badges/[badgeCode]` renders header (badge_code, name, TierChip, level), the full certifies sentence, and `completion_bar` rendered verbatim as pass criterion text.
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): [unit] Co-signer indicator renders when cosigner_required=true, absent when false (no DB needed)
+- Given: BadgeDetail component with cosignerRequired prop
+- When: cosignerRequired=true
+- Then: element with data-testid="cosigner-indicator" is present; when cosignerRequired=false, element is absent
 
 ## B-2: AC-2 [behavior]: Verifier section shows `verifier_role` text; co-signer indicator + tooltip renders only when `cosigner_required` is true, absent otherwise.
 - Given:
