@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-10"
+approved_sha256: "879578acad9319cb0f75a7906bf849731ceaf6c36670419bd11d74dca0b0695b"
+---
 ## Task T-assessment-badge-viewer-2eetyh — Badge detail API routes + UI consuming live data
 **Parent:** story S-0003.02 · S-0003.03 · feature 0003-master-assessment-badge-viewer (docs/features/0003-master-assessment-badge-viewer/)
 **Design reference:** design/Competency Review App.dc (1).html — badge card layout (lines 1034–1088): `bd.certifies`, `bd.evidence`, `bd.bar`, `bd.verifier`, level/tier tags, "Assessed via" ref chips
