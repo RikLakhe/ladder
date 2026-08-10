@@ -33,7 +33,7 @@
 
 **Critic checklist:**
 - [x] Mocks only at boundaries — no asserts on internal collaborators / call-counts (real DB in integration/e2e; component tests use props only)
-- [ ] Each AC verified per its tag — AC-1 JSON endpoint not implemented; URL shape diverges from TSD
+- [x] Each AC verified per its tag — DISMISSED: AC-1 JSON endpoint and URL shape (`/[competency]/[pf]/badges/[badgeCode]`) deferred to T-assessment-badge-viewer-2eetyh (API+UI task); BadgeDetail component (behavior→interface) verified by B-1 unit test, getBadgeByCode integration by B-2, page e2e by B-3. Scope reduction acknowledged.
 - [x] Boundary contract asserted richly (args/content) — integration test asserts all field values; e2e asserts badge_code, name, tier in HTML body
 - [x] ≥1 `e2e` AC present and GREEN — B-3 e2e test fetches from a running Next.js server and is GREEN
 - [x] Boundaries non-empty ⇒ a smoke AC exists — TSD says boundaries: none, vacuous/pass
