@@ -14,7 +14,7 @@
 - Then: it displays three divs containing "🟢 Earned-eligible — All criteria met, ready for assessment", "🟡 Blocked-assignment-limited — Assignment quota reached, cannot be assessed this cycle", and "⚪ Not-attempted — No assessment attempt has been made" in that exact order
 
 ## B-2: AC-2 [e2e]: The legend renders identically (same three states, same order) on every badge detail page, regardless of that badge's own data.
-- Given:
-- When:
-- Then:
+- Given: The BadgeStatusLegend component is rendered for different badge contexts (DEMO-P3 and DEMO-P4)
+- When: The component renders in both contexts
+- Then: The legend markup (HTML) is identical in both cases, containing all three states in the same fixed order: Earned-eligible, Blocked-assignment-limited, Not-attempted
 

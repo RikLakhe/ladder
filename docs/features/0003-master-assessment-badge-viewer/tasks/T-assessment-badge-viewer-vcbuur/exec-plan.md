@@ -1,7 +1,7 @@
 ---
 approved_by: "unknown"
 approved_at: "2026-08-10"
-planned_behaviors: ""
+planned_behaviors: "1"
 approved_sha256: "419d8638cc7a0703ba1ded6ab427fb67c732b96eca2c1a574b0099a467ff0f46"
 ---
 ## Exec Plan — Task T-assessment-badge-viewer-vcbuur
