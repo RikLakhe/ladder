@@ -7,9 +7,9 @@ afterEach(cleanup);
 describe("B-1: BadgeStatusLegend renders 3 entries in fixed order", () => {
   it("renders all three status entries", () => {
     render(<BadgeStatusLegend />);
-    expect(screen.getByText(/Earned-eligible/)).toBeInTheDocument();
-    expect(screen.getByText(/Blocked-assignment-limited/)).toBeInTheDocument();
-    expect(screen.getByText(/Not-attempted/)).toBeInTheDocument();
+    screen.getByText(/Earned-eligible/);
+    screen.getByText(/Blocked-assignment-limited/);
+    screen.getByText(/Not-attempted/);
   });
 
   it("renders entries in correct order (Earned-eligible first, Not-attempted last)", () => {
