@@ -14,12 +14,12 @@
 - Then: element with data-testid="cosigner-indicator" is present; when cosignerRequired=false, element is absent
 
 ## B-2: AC-2 [behavior]: Verifier section shows `verifier_role` text; co-signer indicator + tooltip renders only when `cosigner_required` is true, absent otherwise.
-- Given:
-- When:
-- Then:
+- Given: a database with a seeded badge having badge_code, tier, certifies, completion_bar, verifier_role and cosigner_required=true; a second badge with cosigner_required=false; and no badge for code "UNKNOWN"
+- When: getBadgeByCode(connectionString, badgeCode) is called for each
+- Then: returns full BadgeDetail object with all fields correctly mapped; cosignerRequired=true for the first badge, false for the second; returns null for unknown code
 
 ## B-3: AC-3 [e2e]: Clicking a badge card on the PF page navigates to that badge's detail page with matching badge_code/name/tier.
-- Given:
-- When:
-- Then:
+- Given: a seeded badge with badge_code="B69-TEST", name, tier, cosigner_required=true in the database; Next.js dev server running on PORT 34321
+- When: GET /badges/B69-TEST is fetched from the running server
+- Then: response status 200; HTML body contains the badge_code, badge name, and tier text
 
