@@ -9,6 +9,8 @@ export async function GET(
   { params }: { params: Promise<{ pfId: string }> }
 ) {
   const { pfId } = await params;
-  const badges = await getBadgesForPrimaryFunction(DATABASE_URL, pfId);
+  const url = new URL(request.url);
+  const level = url.searchParams.get("level") ?? undefined;
+  const badges = await getBadgesForPrimaryFunction(DATABASE_URL, pfId, level);
   return NextResponse.json(badges);
 }
