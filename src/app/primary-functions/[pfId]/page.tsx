@@ -2,6 +2,9 @@ import Link from "next/link";
 import { getFunctionalAnalysesForPrimaryFunction } from "../../../lib/functional-analyses";
 import { getBadgesForPrimaryFunction } from "../../../lib/badges";
 import { getStandardsForPrimaryFunction } from "../../../lib/standards";
+import { getPrimaryFunctionById } from "../../../lib/primary-functions";
+import { getTrainingUnitsForCompetencyAndLevel } from "../../../lib/training-units";
+import { TrainingSection } from "../../../components/TrainingSection";
 import type { Level } from "../../../components/LevelTag";
 
 const DATABASE_URL =
@@ -20,10 +23,15 @@ export default async function PrimaryFunctionPage({
   const { level: rawLevel } = await searchParams;
   const level = rawLevel ?? "P2";
 
-  const [standards, analyses, badges] = await Promise.all([
+  const pf = await getPrimaryFunctionById(DATABASE_URL, pfId);
+
+  const [standards, analyses, badges, trainingUnits] = await Promise.all([
     getStandardsForPrimaryFunction(DATABASE_URL, pfId, level),
     getFunctionalAnalysesForPrimaryFunction(DATABASE_URL, pfId),
     getBadgesForPrimaryFunction(DATABASE_URL, pfId),
+    pf
+      ? getTrainingUnitsForCompetencyAndLevel(DATABASE_URL, pf.competency_id, level)
+      : Promise.resolve([]),
   ]);
 
   const levelAnalyses = analyses.filter((analysis) => analysis.level === level);
@@ -67,6 +75,10 @@ export default async function PrimaryFunctionPage({
             ))}
           </ul>
         )}
+      </section>
+      <section>
+        <h2>Training</h2>
+        <TrainingSection units={trainingUnits} />
       </section>
       <section>
         <h2>Badges</h2>
