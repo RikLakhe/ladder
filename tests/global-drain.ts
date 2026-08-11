@@ -1,12 +1,14 @@
 import { beforeAll } from "vitest";
 import { rmSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
 
 // All ports reserved by e2e test files in this worktree
 const TEST_PORTS = [
   34127, 34128, 34129, 34130, 34131, 34132, 34133, 34134, 34135,
   34210, 34211, 34212, 34213, 34260, 34270, 34271, 34272, 34301, 34302, 34310,
+  34321, 34322,
 ];
 
 function pidsOnPorts(ports: number[]): string[] {
@@ -46,9 +48,16 @@ beforeAll(async () => {
     }
   }
 
-  // Clear the webpack compile cache so each test gets a clean route compile.
-  const cacheDir = join(process.cwd(), ".next", "cache");
-  if (existsSync(cacheDir)) {
-    rmSync(cacheDir, { recursive: true, force: true });
+  // Clear the entire .next output so each suite gets a clean compile.
+  // Clearing only .next/cache is insufficient — .next/server retains
+  // stale RSC output from prior dev-server runs in the same worktree.
+  const nextDirs = [
+    join(process.cwd(), ".next"),
+    join(dirname(fileURLToPath(import.meta.url)), "..", ".next"),
+  ];
+  for (const dir of nextDirs) {
+    if (existsSync(dir)) {
+      rmSync(dir, { recursive: true, force: true });
+    }
   }
 });

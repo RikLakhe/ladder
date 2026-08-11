@@ -85,6 +85,7 @@ describe("B-3 + B-4: Badge detail page renders live DB data and evidence chips",
       cwd: WORKTREE_ROOT,
       stdio: "pipe",
       env: { ...process.env, DATABASE_URL },
+      detached: true,
     });
 
     await new Promise<void>((resolve) => {
@@ -100,7 +101,9 @@ describe("B-3 + B-4: Badge detail page renders live DB data and evidence chips",
   }, 90000);
 
   afterAll(async () => {
-    serverProcess?.kill();
+    if (serverProcess?.pid) {
+      try { process.kill(-serverProcess.pid, "SIGKILL"); } catch { serverProcess.kill(); }
+    }
     await client.end();
   });
 
