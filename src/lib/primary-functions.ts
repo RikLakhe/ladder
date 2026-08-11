@@ -20,6 +20,25 @@ export async function getAllPrimaryFunctions(
   }
 }
 
+export async function getPrimaryFunctionById(
+  connectionString: string,
+  pfId: string
+): Promise<(PrimaryFunction & { competency_id: string }) | null> {
+  const client = new Client({ connectionString });
+  await client.connect();
+  try {
+    const result = await client.query(
+      `SELECT id, name, competency_id FROM primary_functions WHERE id = $1`,
+      [pfId]
+    );
+    if (result.rows.length === 0) return null;
+    const row = result.rows[0];
+    return { id: row.id, name: row.name, competency_id: row.competency_id };
+  } finally {
+    await client.end();
+  }
+}
+
 export async function getPrimaryFunctionsForCompetency(
   connectionString: string,
   competencyId: string
