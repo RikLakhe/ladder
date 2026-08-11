@@ -42,8 +42,8 @@ describe("B-2: GET /api/badges/:badgeCode/evidence returns ordered EvidenceResul
 
     // Seed an instrument with a known row
     const instrRes = await client.query(
-      `INSERT INTO instruments (name, rows) VALUES ($1, $2::jsonb) RETURNING id`,
-      ["Test Instrument", JSON.stringify([{ key: "k1", text: "row text" }])]
+      `INSERT INTO instruments (pf_id, name, rows) VALUES ($1, $2, $3::jsonb) RETURNING id`,
+      [pfRes.rows[0].id, "Test Instrument", JSON.stringify([{ key: "k1", text: "row text" }])]
     );
     goodInstrumentId = instrRes.rows[0].id;
     missingInstrumentId = "00000000-0000-0000-0000-000000000001";
