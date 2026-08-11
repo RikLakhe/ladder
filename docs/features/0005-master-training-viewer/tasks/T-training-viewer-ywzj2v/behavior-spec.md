@@ -8,18 +8,18 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: `GET /api/competencies/:competencyId/reference-card?level=X` returns a JSON array of `{badgeCode, badgeName, trainingUnitId, trainingUnitName, instrumentId, instrumentName}`, one entry per join of badges → training_units → instruments for the requested competency+level; no rows from other competency_ids or levels appear.
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet) [unit]: Pagination pure function
+- Given: an array of rows and a page number and page size
+- When: `paginate(rows, page, pageSize)` is called
+- Then: page 1 returns rows 0..pageSize-1; page 2 returns rows pageSize..2*pageSize-1; last page returns remainder; out-of-bounds returns empty; empty input returns empty
 
-## B-2: AC-2 [behavior]: Reference card page renders a paginated table of badge_code → training unit name → instrument name rows; total row count is shown; rows exceeding page size do not render outside the viewport.
-- Given:
-- When:
-- Then:
+## B-2 [integration]: `getReferenceCardRows(db, competencyId, level)` returns joined badge/training_unit/instrument rows from real DB
+- Given: a seeded DB with >40 joined rows for competency+level
+- When: `getReferenceCardRows` is called for that competency+level
+- Then: all >40 rows returned; no rows from other competency_ids or levels appear; empty competency returns empty array
 
-## B-3: AC-3 [e2e]: A user views the reference card for a seeded competency+level with more than 40 joined rows and sees a paginated table — first page row count ≤ page size, all rows reachable by paging through, no crash.
-- Given:
-- When:
-- Then:
+## B-3 [e2e]: Reference card page renders paginated table for seeded competency+level
+- Given: a dev server running with seeded competency+level having >40 joined rows
+- When: user navigates to `/competencies/[id]/reference-card?level=P3`
+- Then: paginated table visible with first page ≤20 rows; total count shown; next-page button works; all rows reachable; no crash
 
