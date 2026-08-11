@@ -1,3 +1,8 @@
+---
+approved_by: "unknown"
+approved_at: "2026-08-11"
+approved_sha256: "a790a486d4aeccde0edce3f39ccf7c26c646aea6c2a798184ca1c48d16d856ed"
+---
 ## Verification — Task T-assessment-badge-viewer-2eetyh — 2026-08-11
 > Critic anchored to TSD (external spec), NOT to the code. ★GATE: owner confirms/dismisses every flag.
 
