@@ -45,6 +45,12 @@ export function TrainingListView({ units, level }: Props) {
             (unit.type === "guided_exercise" || unit.type === "autonomous_project") &&
             prereqUnits.length > 0;
 
+          const allUnitRefs = units.map((u) => ({
+            id: u.id,
+            sequenceOrder: u.sequenceOrder,
+            content: u.name,
+          }));
+
           return (
             <li key={unit.id} data-testid="training-unit-row">
               <span data-testid={`training-unit-row-${unit.id}`}>
@@ -54,16 +60,9 @@ export function TrainingListView({ units, level }: Props) {
               </span>
               {showStepper && (
                 <PrereqStepper
-                  prereqUnits={prereqUnits.map((u) => ({
-                    id: u.id,
-                    name: u.name,
-                    sequenceOrder: u.sequenceOrder,
-                  }))}
-                  currentUnit={{
-                    id: unit.id,
-                    name: unit.name,
-                    sequenceOrder: unit.sequenceOrder,
-                  }}
+                  allUnits={allUnitRefs}
+                  prereqIds={unit.prereqIds}
+                  currentSequenceOrder={unit.sequenceOrder}
                 />
               )}
             </li>
