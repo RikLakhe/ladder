@@ -1,6 +1,8 @@
-import { getBadgeByCode, resolveEvidence } from "../../../lib/badges";
-import { getBadgeByCode as getMockBadgeByCode, resolveEvidence as resolveMockEvidence } from "../../../lib/mock/badges";
+import { getBadgeByCode, getEvidenceForBadge } from "../../../lib/badges";
 import { BadgeStatusLegend } from "../../../components/BadgeStatusLegend";
+
+const DATABASE_URL =
+  process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
 
 export default async function BadgeDetailPage({
   params,
@@ -8,46 +10,14 @@ export default async function BadgeDetailPage({
   params: Promise<{ badgeCode: string }>;
 }) {
   const { badgeCode } = await params;
-  const DATABASE_URL = process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
 
-  // Try to fetch from database first
-  let badge = null;
-  try {
-    badge = await getBadgeByCode(DATABASE_URL, badgeCode);
-  } catch (error) {
-    // If database query fails, try mock data
-    console.error("Database query failed, falling back to mock data:", error);
-  }
-
-  // Fall back to mock data if not found in database (for backward compatibility)
-  if (!badge) {
-    const mockBadge = getMockBadgeByCode(badgeCode);
-    if (mockBadge) {
-      badge = {
-        badgeCode: mockBadge.badge_code,
-        name: mockBadge.name,
-        tier: mockBadge.tier,
-        level: mockBadge.level,
-        certifies: mockBadge.certifies,
-        completionBar: mockBadge.completion_bar,
-        verifierRole: mockBadge.verifier_role,
-        cosignerRequired: mockBadge.cosigner_required,
-        evidenceRequired: mockBadge.evidence_required,
-      };
-    }
-  }
+  const badge = await getBadgeByCode(DATABASE_URL, badgeCode);
 
   if (!badge) {
     return <main><p>Badge not found.</p></main>;
   }
 
-  // Resolve evidence references
-  const resolvedEvidence = badge.evidenceRequired
-    ? badge.evidenceRequired.map((ref) => {
-        const result = resolveMockEvidence(ref);
-        return { ref, result };
-      })
-    : [];
+  const evidence = await getEvidenceForBadge(DATABASE_URL, badgeCode);
 
   return (
     <main>
@@ -60,14 +30,27 @@ export default async function BadgeDetailPage({
       {badge.cosignerRequired && (
         <span data-testid="cosigner-indicator">Co-signer required</span>
       )}
-      <ul>
-        {resolvedEvidence.map((item, i) => {
-          if ("broken" in item.result) {
-            return <li key={i}>⚠ evidence link broken</li>;
-          }
-          return <li key={i}>{item.result.text}</li>;
-        })}
-      </ul>
+      {evidence.length > 0 && (
+        <section>
+          <h2>Assessed via</h2>
+          <ul>
+            {evidence.map((entry, i) =>
+              entry.resolved ? (
+                <li key={i}>
+                  <details>
+                    <summary data-testid="evidence-resolved">{entry.instrumentId} / {entry.rowKey}</summary>
+                    <p>{entry.rowText}</p>
+                  </details>
+                </li>
+              ) : (
+                <li key={i}>
+                  <span data-testid="evidence-broken">evidence link broken — {entry.instrumentId} / {entry.rowKey}</span>
+                </li>
+              )
+            )}
+          </ul>
+        </section>
+      )}
       <BadgeStatusLegend />
     </main>
   );
