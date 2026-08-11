@@ -1,7 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { Client } from "pg";
 import { ChildProcess, spawn } from "child_process";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
 import { migrate } from "../../scripts/migrate";
+
+const WORKTREE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../");
 
 const PORT = 34322;
 const DATABASE_URL =
@@ -78,7 +82,7 @@ describe("B-3 + B-4: Badge detail page renders live DB data and evidence chips",
     );
 
     serverProcess = spawn("npm", ["run", "dev", "--", "--port", PORT.toString()], {
-      cwd: process.cwd(),
+      cwd: WORKTREE_ROOT,
       stdio: "pipe",
       env: { ...process.env, DATABASE_URL },
     });
