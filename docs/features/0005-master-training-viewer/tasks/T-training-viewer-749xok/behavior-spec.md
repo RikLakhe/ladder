@@ -8,10 +8,10 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: `GET /api/competencies/:competencyId/training?level=X` returns a JSON array of `{id, type, level, sequenceOrder, name}` for that competency+level, grouped by fixed type order (concept_notes → guided_exercise → autonomous_project → onboarding → reference_card) then `sequence_order`; no rows from other competency_ids or levels appear.
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): `computeHasSequencingIssue(unit, allUnitsById)` pure function — unit function that detects when a unit has a prerequisite with a higher sequence_order.
+- Given: a unit with sequence_order and prereqs (jsonb array of {training_unit_id}), and a Map of all units by id
+- When: computeHasSequencingIssue is called with the unit and allUnitsById
+- Then: returns true if any prereq has sequence_order > unit.sequence_order; false if all prereqs have sequence_order <= unit.sequence_order or no prereqs exist
 
 ## B-2: AC-2 [behavior]: Training sub-slot inside the PF page level tab renders one row per unit showing sequenceOrder and name, grouped by type in the fixed order.
 - Given:

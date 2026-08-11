@@ -22,3 +22,27 @@ export async function getTrainingUnits(connectionString: string): Promise<Traini
     await client.end();
   }
 }
+
+export function computeHasSequencingIssue(
+  unit: { sequence_order: number | null; prereqs: unknown },
+  allUnitsById: Map<string, { sequence_order: number | null }>
+): boolean {
+  if (!unit.prereqs) return false;
+  const prereqsArray = Array.isArray(unit.prereqs) ? unit.prereqs : [];
+  if (prereqsArray.length === 0) return false;
+
+  for (const prereq of prereqsArray) {
+    const prereqId = (prereq as { training_unit_id?: string }).training_unit_id;
+    if (!prereqId) continue;
+    const prereqUnit = allUnitsById.get(prereqId);
+    if (
+      prereqUnit &&
+      prereqUnit.sequence_order !== null &&
+      unit.sequence_order !== null &&
+      prereqUnit.sequence_order > unit.sequence_order
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
