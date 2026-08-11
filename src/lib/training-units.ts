@@ -17,6 +17,7 @@ export interface TrainingUnitRow {
   sequenceOrder: number;
   name: string;
   hasSequencingIssue: boolean;
+  prereqIds: string[];
 }
 
 const TYPE_ORDER: Record<string, number> = {
@@ -81,14 +82,21 @@ export async function getTrainingUnitsForCompetencyAndLevel(
     const rows = result.rows;
     const unitsById = new Map(rows.map((r) => [r.id, r]));
 
-    const withIssues = rows.map((unit) => ({
-      id: unit.id,
-      type: unit.type || "unknown",
-      level: unit.level,
-      sequenceOrder: unit.sequence_order || 0,
-      name: unit.content || "",
-      hasSequencingIssue: computeHasSequencingIssue(unit, unitsById),
-    }));
+    const withIssues = rows.map((unit) => {
+      const prereqsArray = Array.isArray(unit.prereqs) ? unit.prereqs : [];
+      const prereqIds = prereqsArray
+        .map((p) => (p as { training_unit_id?: string }).training_unit_id)
+        .filter((id): id is string => Boolean(id));
+      return {
+        id: unit.id,
+        type: unit.type || "unknown",
+        level: unit.level,
+        sequenceOrder: unit.sequence_order || 0,
+        name: unit.content || "",
+        hasSequencingIssue: computeHasSequencingIssue(unit, unitsById),
+        prereqIds,
+      };
+    });
 
     withIssues.sort((a, b) => {
       const typeOrderA = TYPE_ORDER[a.type] ?? 99;

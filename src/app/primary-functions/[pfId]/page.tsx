@@ -30,7 +30,7 @@ export default async function PrimaryFunctionPage({
     getFunctionalAnalysesForPrimaryFunction(DATABASE_URL, pfId),
     getBadgesForPrimaryFunction(DATABASE_URL, pfId, level),
     pf
-      ? getTrainingUnitsForCompetencyAndLevel(DATABASE_URL, pf.competency_id, level)
+      ? getTrainingUnitsForCompetencyAndLevel(DATABASE_URL, pf.competency_id, level ?? "P4")
       : Promise.resolve([]),
   ]);
 
