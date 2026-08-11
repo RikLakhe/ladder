@@ -10,6 +10,24 @@ export interface TrainingUnit {
   prereqs: unknown;
 }
 
+export interface TrainingUnitRow {
+  id: string;
+  type: string;
+  level: string;
+  sequenceOrder: number;
+  name: string;
+  hasSequencingIssue: boolean;
+}
+
+const TYPE_ORDER: Record<string, number> = {
+  concept_notes: 0,
+  guided_exercise: 1,
+  autonomous_project: 2,
+  onboarding: 3,
+  reference_card: 4,
+  learning_path: 99,
+};
+
 export async function getTrainingUnits(connectionString: string): Promise<TrainingUnit[]> {
   const client = new Client({ connectionString });
   await client.connect();
@@ -45,4 +63,42 @@ export function computeHasSequencingIssue(
     }
   }
   return false;
+}
+
+export async function getTrainingUnitsForCompetencyAndLevel(
+  connectionString: string,
+  competencyId: string,
+  level: string
+): Promise<TrainingUnitRow[]> {
+  const client = new Client({ connectionString });
+  await client.connect();
+  try {
+    const result = await client.query<TrainingUnit>(
+      "SELECT id, competency_id, type, level, sequence_order, content, prereqs FROM training_units WHERE competency_id = $1 AND level = $2 ORDER BY sequence_order ASC NULLS LAST",
+      [competencyId, level]
+    );
+
+    const rows = result.rows;
+    const unitsById = new Map(rows.map((r) => [r.id, r]));
+
+    const withIssues = rows.map((unit) => ({
+      id: unit.id,
+      type: unit.type || "unknown",
+      level: unit.level,
+      sequenceOrder: unit.sequence_order || 0,
+      name: unit.content || "",
+      hasSequencingIssue: computeHasSequencingIssue(unit, unitsById),
+    }));
+
+    withIssues.sort((a, b) => {
+      const typeOrderA = TYPE_ORDER[a.type] ?? 99;
+      const typeOrderB = TYPE_ORDER[b.type] ?? 99;
+      if (typeOrderA !== typeOrderB) return typeOrderA - typeOrderB;
+      return a.sequenceOrder - b.sequenceOrder;
+    });
+
+    return withIssues;
+  } finally {
+    await client.end();
+  }
 }

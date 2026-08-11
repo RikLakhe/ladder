@@ -13,18 +13,18 @@
 - When: computeHasSequencingIssue is called with the unit and allUnitsById
 - Then: returns true if any prereq has sequence_order > unit.sequence_order; false if all prereqs have sequence_order <= unit.sequence_order or no prereqs exist
 
-## B-2: AC-2 [behavior]: Training sub-slot inside the PF page level tab renders one row per unit showing sequenceOrder and name, grouped by type in the fixed order.
-- Given:
-- When:
-- Then:
+## B-2: `GET /api/competencies/:competencyId/training?level=X` returns training units ordered by type then sequence_order, with hasSequencingIssue flag
+- Given: A seeded database with training_units for a competency at a specific level, some with forward prerequisites (sequencing issues)
+- When: GET /api/competencies/:competencyId/training?level=P3 is called
+- Then: Returns JSON array of {id, type, level, sequenceOrder, name, hasSequencingIssue} for that competency+level only, ordered by type (concept_notes → guided_exercise → autonomous_project → onboarding → reference_card) then sequence_order; units with forward prereqs have hasSequencingIssue:true
 
-## B-3: AC-3 [behavior]: A unit whose prereqs contain any training_unit_id with a higher sequence_order than itself renders a visible sequencing-issue warning on that row and is never omitted from the list.
-- Given:
-- When:
-- Then:
+## B-3: PF page training section renders rows grouped by type, with sequencing-issue warning visible
+- Given: A <TrainingSection> component with TrainingUnitRow[] including units with hasSequencingIssue:true
+- When: The component is rendered
+- Then: Renders one row per unit showing sequenceOrder and name; rows grouped by type headers in fixed order; rows with hasSequencingIssue:true display "⚠ sequencing issue" warning text; empty units array renders gracefully
 
-## B-4: AC-4 [e2e]: A user navigating to a PF page and selecting a level tab sees the training unit list without error for all seeded competencies.
-- Given:
-- When:
-- Then:
+## B-4: E2E full navigation to PF page with training section and sequencing-issue warning visible
+- Given: A running app with seeded competencies, primary functions, and training_units (including a unit with forward prereq)
+- When: A user navigates to /primary-functions/:pfId?level=P3
+- Then: Page loads without error; training <section> is visible with rows; row with hasSequencingIssue shows "⚠" warning; no crash or 500 error
 
