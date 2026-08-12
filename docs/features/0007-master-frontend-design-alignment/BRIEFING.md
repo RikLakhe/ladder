@@ -2,30 +2,37 @@
 approved_by: ""
 approved_at: ""
 ---
-# Briefing 0007 — <title>
-> Scratch pad — flesh the idea out before committing to a PRD.
-> ★ Gate: stakeholder (PM / SA / client) approves before any PRD work begins.
-> Approve by running `lane approve` — lane writes the stamp after your y/N confirm.
-> Do NOT edit the frontmatter fields by hand; a hand-typed stamp does not count.
+# Briefing 0007 — Frontend Design Alignment
 
 ## Why
-<!-- What problem does this solve? For whom? Why now? -->
+The current UI was built iteratively and has drifted from the 5 PRD docs in `design/`. Pages are structurally misplaced (Standard/Badge/Training tabs sit at competency level instead of PF+level-tab level), data is missing (description, FA summary, badge counts, instrument row resolution), and several components defined in the PRDs were never wired up. Users see an incomplete and structurally incorrect product.
 
 ## Hypothesis
-<!-- What we think we're building — two to three sentences. Not a spec. -->
+Align every page and component to the 5 PRDs (`design/01–05`). The spine is PRD 01 (route structure, PF level-tab layout, EmptyState variants, TierChip). PRD 02–04 slot into that spine. This is a read-only frontend pass — no schema changes, no auth changes.
 
 ## Mocks / references
-<!-- Figma links, wireframes, prior art, anything that helps visualize the idea. -->
--
+- `design/01-competency-browser.md`
+- `design/02-assessment-badge-viewer.md`
+- `design/03-training-viewer.md`
+- `design/04-version-history.md`
 
 ## Scope hints
 **Probably in:**
--
+- Home page: add competency description, last-updated date from document_versions, level quick-jump
+- Competency page: remove CompetencyTabs; add FA summary (collapsible); PF cards show pf_number + domain_classification + badge count; link to /history
+- PF page: disabled tabs for N/A levels with EmptyState variant="not-applicable"; PF domain/description in header
+- Badge detail: resolve instrument row text from evidence_required; co-signer indicator; BadgeStatusLegend wired in; broken-link warning state
+- Training page: P6/P7 EmptyState with exact fixed copy; sequencing-issue warning for forward prereq refs
+- Version history: add /[competency]/history route (competency-scoped); entity-scoped route /[entity_type]/[entity_id]/history
+
 **Probably out:**
--
+- Schema changes
+- Auth / admin editing
+- Per-engineer badge award tracking
+- Mobile pixel-perfect polish
+- i18n
 
 ## Open questions
-<!-- Must be resolved before PRD. Delete each line when answered. -->
 -
 
 ## Approval
