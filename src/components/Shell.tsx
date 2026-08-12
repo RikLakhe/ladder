@@ -15,14 +15,6 @@ const STATIC_NAV_LINKS = [
   { href: "/version-history", label: "Version History" },
 ];
 
-const navLinkStyle = {
-  display: "block",
-  padding: "8px 10px",
-  fontSize: 13,
-  color: "oklch(30% 0.02 260)",
-  borderRadius: 6,
-};
-
 export function Shell({
   competencies,
   children,
@@ -35,63 +27,116 @@ export function Shell({
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {adminBanner && (
-        <div
-          style={{
-            background: "oklch(93% 0.04 250)",
-            borderBottom: "1px solid oklch(85% 0.05 250)",
-            padding: "6px 20px",
-          }}
-        >
+        <div style={{
+          background: "var(--accent-soft)",
+          borderBottom: "1px solid var(--border)",
+          padding: "6px 20px",
+          fontSize: 13,
+          color: "var(--accent)",
+          fontWeight: 500,
+        }}>
           {adminBanner}
         </div>
       )}
-      <header
-        style={{
-          height: 56,
-          flex: "0 0 56px",
+
+      {/* Header */}
+      <header style={{
+        height: 60,
+        flex: "0 0 60px",
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        padding: "0 20px",
+        background: "var(--surface)",
+        borderBottom: "1px solid var(--border)",
+        position: "sticky",
+        top: 0,
+        zIndex: 10,
+      }}>
+        <Link href="/" style={{
           display: "flex",
           alignItems: "center",
-          gap: 16,
-          padding: "0 20px",
-          background: "#fff",
-          borderBottom: "1px solid oklch(90% 0.005 260)",
-        }}
-      >
-        <Link
-          href="/"
-          style={{
+          gap: 8,
+          fontWeight: 700,
+          fontSize: 15,
+          color: "var(--text-1)",
+          letterSpacing: "-0.02em",
+          textDecoration: "none",
+          flexShrink: 0,
+        }}>
+          <span style={{
+            width: 28,
+            height: 28,
+            background: "var(--accent)",
+            borderRadius: 7,
             display: "flex",
             alignItems: "center",
-            gap: 8,
-            fontWeight: 600,
-            fontSize: 14,
-            color: "oklch(20% 0.02 260)",
-          }}
-        >
+            justifyContent: "center",
+            color: "#fff",
+            fontSize: 13,
+            fontWeight: 800,
+            fontFamily: "var(--font-mono)",
+          }}>L</span>
           Ladder
         </Link>
-        <SearchBox />
-        <LevelBar />
+
+        <div style={{ flex: 1, maxWidth: 360 }}>
+          <SearchBox />
+        </div>
+
+        <div style={{ marginLeft: "auto" }}>
+          <LevelBar />
+        </div>
       </header>
+
+      {/* Body */}
       <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
-        <nav
-          style={{
-            width: 248,
-            flex: "0 0 248px",
-            background: "#fff",
-            borderRight: "1px solid oklch(90% 0.005 260)",
-            overflowY: "auto",
-            padding: "12px 8px",
-          }}
-        >
+        {/* Sidebar */}
+        <nav style={{
+          width: 248,
+          flex: "0 0 248px",
+          background: "var(--surface)",
+          borderRight: "1px solid var(--border)",
+          overflowY: "auto",
+          padding: "16px 10px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+        }}>
           {STATIC_NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} style={navLinkStyle}>
+            <Link
+              key={link.href}
+              href={link.href}
+              style={{
+                display: "block",
+                padding: "7px 10px",
+                fontSize: 13.5,
+                fontWeight: 500,
+                color: "var(--text-2)",
+                borderRadius: "var(--radius-sm)",
+                textDecoration: "none",
+                transition: "background .1s, color .1s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-1)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "";
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-2)";
+              }}
+            >
               {link.label}
             </Link>
           ))}
+
+          <div style={{ height: 1, background: "var(--border)", margin: "10px 4px" }} />
+
           <CompetencyNavList competencies={competencies} />
         </nav>
-        <main style={{ flex: 1, minWidth: 0 }}>
+
+        {/* Content */}
+        <main style={{ flex: 1, minWidth: 0, overflowY: "auto" }}>
           <ShellBreadcrumb />
           {children}
         </main>

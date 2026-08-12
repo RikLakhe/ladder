@@ -1,3 +1,4 @@
+import "./globals.css";
 import { cookies } from "next/headers";
 import { Shell } from "../components/Shell";
 import { AdminBanner } from "../components/AdminBanner";
