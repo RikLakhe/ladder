@@ -42,12 +42,12 @@ describe("B-1: resolved evidence entry renders as <details> with rowText visible
     expect(details).not.toBeNull();
   });
 
-  it("rowText 'Demonstrated X' is visible inside the <details> element", async () => {
+  it("rowText 'Demonstrated X' is visible in the <summary> — the always-visible part of <details>", async () => {
     const element = await BadgeDetailPage({
       params: Promise.resolve({ badgeCode: "TS-B1" }),
     });
     const { container } = render(element as React.ReactElement);
-    const details = container.querySelector("details");
-    expect(details?.textContent).toContain("Demonstrated X");
+    const summary = container.querySelector("details summary");
+    expect(summary?.textContent).toContain("Demonstrated X");
   });
 });
