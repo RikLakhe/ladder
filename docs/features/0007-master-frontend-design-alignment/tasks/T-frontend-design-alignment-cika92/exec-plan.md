@@ -1,26 +1,36 @@
 ---
-approved_by: ""
-approved_at: ""
-# planned_behaviors — machine-read count of RED→GREEN cycles (B-N). Leave empty to let
-# lane infer from B-N labels below; SET it when an AC becomes a regression guard so
-# `lane next` knows the remaining count (frontmatter edits need no re-approval).
-planned_behaviors: ""
+approved_by: "Rikesh"
+approved_at: "2026-08-13"
+planned_behaviors: "5"
+approved_sha256: "64765fbe3e833c4cf14431fe14a71b9d5310553445471d6ab9c89fc024833284"
 ---
 ## Exec Plan — Task T-frontend-design-alignment-cika92
-> Authored during planning, before any code. ★GATE: DEV/SA approve via `lane approve` BEFORE any code (lane writes the stamp). Resolve all ambiguities first.
+> Authored during planning, before any code. ★GATE: DEV/SA approve via `lane approve` BEFORE any code.
 
-**Will build:** (mapped to each AC)
--
-**Approach:** high-level only — NOT implementation prescription
-**Boundaries & mocks:** (from TSD Boundaries) what's FAKED (network/external services, clock, randomness, filesystem) vs REAL. Each fake = an injected port. Boundaries non-empty ⇒ name the smoke AC that hits the real one in a realistic environment.
--
-**Behaviors (TDD order):** B-1 first (tracer bullet), then B-2, B-3 … ; include the `e2e` behavior
--
+**Will build:**
+- AC-1/AC-2: Evidence list renders resolved entries as expandable `<details>` with row text; unresolved entries show "⚠ evidence link broken" warning (logic already in lib — display needs wiring)
+- AC-3: Co-signer indicator renders iff `cosignerRequired` true; tooltip text: "Co-signer (delivery/account manager) confirms work context; technical verifier certifies competency."
+- AC-4: `<BadgeStatusLegend>` renders once on page (already imported, verify placement)
+- AC-5: Badge header shows badge_code in monospace, name, `<TierChip tier={badge.tier}>`
+
+**Approach:** `src/app/badges/[badgeCode]/page.tsx` already has most structure. Primarily a display/styling pass: ensure evidence entries render correctly (resolved = `<details>`, broken = warning span), co-signer tooltip added, TierChip in header, BadgeStatusLegend present. No lib changes needed — evidence resolution already in `getEvidenceForBadge`.
+
+**Boundaries & mocks:** Postgres (read-only). Unit tests use fake evidence arrays. Integration hits seeded DB.
+
+**Behaviors (TDD order):**
+- B-1 (tracer bullet): resolved evidence entry renders row text inside a `<details>` element
+- B-2: unresolved evidence entry renders visible warning element containing "evidence link broken" text
+- B-3: co-signer indicator renders when `cosignerRequired=true`; absent when false; tooltip text matches spec
+- B-4: `<BadgeStatusLegend>` present in rendered page output
+- B-5 [e2e]: badge detail page for seeded badge shows resolved evidence, legend, conditional co-signer
+
 **PR will contain:**
--
-**Open questions / ambiguities:** (MUST be resolved before execution)
--
-**Path:** L (lean, default) | R (rich)
-**Escalation signals hit (≥2 → R):** ambiguities≥3 · blast-radius≥3 · security · amendments≥2 · prior-fail · self-flag
-**If overriding R→L:** risk acknowledged here + SA co-signs Verification.
+- `src/app/badges/[badgeCode]/page.tsx` — display corrections
+- `tests/T-frontend-design-alignment-cika92/`
+
+**Open questions / ambiguities:** None.
+
+**Path:** L
+
+**Escalation signals hit (≥2 → R):** 0
 - [ ] Refactor pass done (on green; tests unchanged) — before PR
