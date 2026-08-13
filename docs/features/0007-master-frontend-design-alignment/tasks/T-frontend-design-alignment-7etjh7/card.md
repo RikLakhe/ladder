@@ -1,11 +1,16 @@
-## Task T-frontend-design-alignment-7etjh7 — <title>
-**Parent:** story S-0007-master-frontend-design-alignment.nn · feature 0007-master-frontend-design-alignment (docs/features/0007-master-frontend-design-alignment-*/ — its PRD + TSD)
-**Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
-**Acceptance criteria:** (tag each `behavior`/`invariant`/`non-functional`/`e2e`; behavior ACs = observable outcome through an interface — NO "calls X / saves to table Y / uses lib Z")
-- [ ] AC-1 [behavior]: <observable outcome through interface>
-**End-to-end AC:** AC-<n> [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1  ← ordered; first = tracer bullet
-<!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
-**Test scope:** tests/T-frontend-design-alignment-7etjh7/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
-<!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
+---
+approved_by: "Rikesh"
+approved_at: "2026-08-13"
+approved_sha256: "45cc1529722b6068b5e1707796b4219327bceb1332c20768b5ac4fd34626da17"
+---
+## Task T-frontend-design-alignment-7etjh7 — Home Page Completeness
+**Parent:** story S-0007.01 · feature 0007-master-frontend-design-alignment
+**Slice:** Extend competency query to return description + last-updated date; add level quick-jump client component; render both on home page
+**Acceptance criteria:**
+- [ ] AC-1 [behavior]: Each competency card on `/` shows the competency description text below the name
+- [ ] AC-2 [behavior]: Each competency card shows a formatted last-updated date (or omits the date element when no version history exists for that competency)
+- [ ] AC-3 [behavior]: A level quick-jump control (P2–P7) renders on the home page; selecting a level navigates to the first competency's first PF at that level
+- [ ] AC-4 [e2e]: A user on `/` sees description and last-updated date for every competency card without navigating away; selecting a level from the quick-jump control navigates correctly
+**Tests:** AC-1, AC-2, AC-3, AC-4
+**Test scope:** tests/T-frontend-design-alignment-7etjh7/
 **Done =** reviewable PR, all tests pass, links to chain. One PR per task (default).
