@@ -1,11 +1,15 @@
-## Task T-frontend-design-alignment-avoe6n — <title>
-**Parent:** story S-0007-master-frontend-design-alignment.nn · feature 0007-master-frontend-design-alignment (docs/features/0007-master-frontend-design-alignment-*/ — its PRD + TSD)
-**Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
-**Acceptance criteria:** (tag each `behavior`/`invariant`/`non-functional`/`e2e`; behavior ACs = observable outcome through an interface — NO "calls X / saves to table Y / uses lib Z")
-- [ ] AC-1 [behavior]: <observable outcome through interface>
-**End-to-end AC:** AC-<n> [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1  ← ordered; first = tracer bullet
-<!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
-**Test scope:** tests/T-frontend-design-alignment-avoe6n/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
-<!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
+---
+approved_by: "Rikesh"
+approved_at: "2026-08-13"
+approved_sha256: "c5c239616943e4f567d102d9478c49ed08d534629b0b39cda04a46e24eec8da6"
+---
+## Task T-frontend-design-alignment-avoe6n — Training Viewer Corrections
+**Parent:** story S-0007.05 · feature 0007-master-frontend-design-alignment
+**Slice:** Wire P6/P7 no-simulated-training EmptyState and sequencing-issue warning into the training section of the PF page level tab
+**Acceptance criteria:**
+- [ ] AC-1 [behavior]: When no guided_exercise or autonomous_project units exist for the active level, `EmptyState variant="no-simulated-training"` renders with exact copy "Growth at this level is demonstrated through real project scope, not simulated exercises."
+- [ ] AC-2 [behavior]: Any training unit with `hasSequencingIssue=true` renders a visible "⚠ sequencing issue" indicator alongside its row
+- [ ] AC-3 [e2e]: A user on the training section for a P6 or P7 level (with no seeded exercises) sees the exact fixed copy, not a blank section or generic "no data"
+**Tests:** AC-1, AC-2, AC-3
+**Test scope:** tests/T-frontend-design-alignment-avoe6n/
 **Done =** reviewable PR, all tests pass, links to chain. One PR per task (default).
