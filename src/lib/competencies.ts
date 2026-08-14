@@ -3,8 +3,10 @@ import { Client } from "pg";
 export type CompetencyWithPfCount = {
   id: string;
   name: string;
+  description: string;
   domains: string[];
   pfCount: number;
+  lastUpdated: string | null;
 };
 
 export async function getCompetenciesWithPfCount(
@@ -14,17 +16,28 @@ export async function getCompetenciesWithPfCount(
   await client.connect();
   try {
     const result = await client.query(
-      `SELECT c.id, c.name, c.domains, COUNT(pf.id) AS pf_count
+      `SELECT c.id, c.name, c.description, c.domains,
+              COUNT(DISTINCT pf.id) AS pf_count,
+              (
+                SELECT MAX(dv.created_at)
+                FROM document_versions dv
+                WHERE dv.entity_id = c.id
+                   OR dv.entity_id IN (
+                     SELECT pf2.id FROM primary_functions pf2 WHERE pf2.competency_id = c.id
+                   )
+              ) AS last_updated
        FROM competencies c
        LEFT JOIN primary_functions pf ON pf.competency_id = c.id
-       GROUP BY c.id, c.name, c.domains
+       GROUP BY c.id, c.name, c.description, c.domains
        ORDER BY c.name`
     );
     return result.rows.map((row) => ({
       id: row.id,
       name: row.name,
+      description: row.description ?? "",
       domains: row.domains,
       pfCount: Number(row.pf_count),
+      lastUpdated: row.last_updated ? (row.last_updated as Date).toISOString() : null,
     }));
   } finally {
     await client.end();

@@ -59,8 +59,8 @@ describe("B-1: home page data lists every competency with its primary-function c
 
     const withPfsRow = rows.find((r) => r.id === withPfsId);
     const emptyRow = rows.find((r) => r.id === emptyId);
-    expect(withPfsRow).toEqual({ id: withPfsId, name: "Technical Skill", domains: [], pfCount: 2 });
-    expect(emptyRow).toEqual({ id: emptyId, name: "Leadership", domains: [], pfCount: 0 });
+    expect(withPfsRow).toMatchObject({ id: withPfsId, name: "Technical Skill", domains: [], pfCount: 2 });
+    expect(emptyRow).toMatchObject({ id: emptyId, name: "Leadership", domains: [], pfCount: 0 });
   });
 
   it("returns a competency's domains, which may hold multiple values", async () => {
