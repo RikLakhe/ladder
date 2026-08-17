@@ -79,9 +79,7 @@ describe("B-3: View History link on competency page navigates without dead link"
     expect(res.status).toBe(200);
     const html = await res.text();
     expect(html).toContain("View History");
-    expect(html).toContain(`/version-history`);
-    expect(html).toContain(`entityType=competency`);
-    expect(html).toContain(`entityId=${competencyId}`);
+    expect(html).toContain(`/competencies/${competencyId}/history`);
   });
 
   it("version-history page for the competency returns 200", async () => {
