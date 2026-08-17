@@ -55,8 +55,8 @@ describe("B-2: getPrimaryFunctionsWithBadgeCount returns correct badgeCount per 
 
     // pf1 gets 2 badges; pf2 gets 0
     await client.query(
-      "INSERT INTO badges (pf_id, name) VALUES ($1, $2), ($1, $3)",
-      [pf1Id, "Badge A", "Badge B"]
+      "INSERT INTO badges (pf_id, name, level) VALUES ($1, $2, $3), ($1, $4, $5)",
+      [pf1Id, "Badge A", "1", "Badge B", "2"]
     );
 
     const results = await getPrimaryFunctionsWithBadgeCount(ADMIN_URL, competencyId);
