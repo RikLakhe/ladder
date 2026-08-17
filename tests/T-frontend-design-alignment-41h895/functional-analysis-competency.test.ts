@@ -48,8 +48,8 @@ describe("B-3: getFunctionalAnalysisForCompetency", () => {
     const pfId = pfResult.rows[0].id;
 
     await client.query(
-      "INSERT INTO functional_analyses (pf_id, competency_id, content) VALUES ($1, $2, $3)",
-      [pfId, competencyId, "This competency covers analytical thinking."]
+      "INSERT INTO functional_analyses (pf_id, competency_id, content, level) VALUES ($1, $2, $3, $4)",
+      [pfId, competencyId, "This competency covers analytical thinking.", "1"]
     );
 
     const result = await getFunctionalAnalysisForCompetency(ADMIN_URL, competencyId);
