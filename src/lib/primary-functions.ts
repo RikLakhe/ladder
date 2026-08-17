@@ -55,3 +55,40 @@ export async function getPrimaryFunctionsForCompetency(
     await client.end();
   }
 }
+
+export type PrimaryFunctionWithBadgeCount = {
+  id: string;
+  pf_number: string | null;
+  name: string;
+  domain_classification: string | null;
+  badgeCount: number;
+};
+
+export async function getPrimaryFunctionsWithBadgeCount(
+  connectionString: string,
+  competencyId: string
+): Promise<PrimaryFunctionWithBadgeCount[]> {
+  const client = new Client({ connectionString });
+  await client.connect();
+  try {
+    const result = await client.query(
+      `SELECT pf.id, pf.pf_number, pf.name, pf.domain_classification,
+              COUNT(b.id)::int AS badge_count
+       FROM primary_functions pf
+       LEFT JOIN badges b ON b.pf_id = pf.id
+       WHERE pf.competency_id = $1
+       GROUP BY pf.id, pf.pf_number, pf.name, pf.domain_classification
+       ORDER BY pf.pf_number, pf.name`,
+      [competencyId]
+    );
+    return result.rows.map((row) => ({
+      id: row.id,
+      pf_number: row.pf_number,
+      name: row.name,
+      domain_classification: row.domain_classification,
+      badgeCount: row.badge_count,
+    }));
+  } finally {
+    await client.end();
+  }
+}
