@@ -54,8 +54,9 @@ export function TrainingListView({ units, level }: Props) {
               </span>
               {showStepper && (
                 <PrereqStepper
-                  prereqUnits={prereqUnits.map((u) => ({ id: u.id, name: u.name, sequenceOrder: u.sequenceOrder }))}
-                  currentUnit={{ id: unit.id, name: unit.name, sequenceOrder: unit.sequenceOrder }}
+                  allUnits={units.map((u) => ({ id: u.id, content: u.name, sequenceOrder: u.sequenceOrder }))}
+                  prereqIds={unit.prereqIds}
+                  currentSequenceOrder={unit.sequenceOrder}
                 />
               )}
             </li>

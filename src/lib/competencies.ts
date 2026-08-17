@@ -34,12 +34,12 @@ export async function getCompetenciesWithPfCount(
 export async function getCompetencyById(
   connectionString: string,
   id: string
-): Promise<{ id: string; name: string; domains: string[] } | null> {
+): Promise<{ id: string; name: string; domains: string[]; description: string | null } | null> {
   const client = new Client({ connectionString });
   await client.connect();
   try {
     const result = await client.query(
-      `SELECT id, name, domains FROM competencies WHERE id = $1`,
+      `SELECT id, name, domains, description FROM competencies WHERE id = $1`,
       [id]
     );
     if (result.rows.length === 0) return null;
@@ -47,6 +47,7 @@ export async function getCompetencyById(
       id: result.rows[0].id,
       name: result.rows[0].name,
       domains: result.rows[0].domains,
+      description: result.rows[0].description ?? null,
     };
   } finally {
     await client.end();

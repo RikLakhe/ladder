@@ -56,24 +56,14 @@ export default async function HomePage() {
               href={`/competencies/${competency.id}`}
               style={{ textDecoration: "none", display: "block" }}
             >
-              <article style={{
+              <article className="competency-card" style={{
                 background: "var(--surface)",
                 border: "1px solid var(--border)",
                 borderRadius: "var(--radius)",
                 padding: "20px 20px 18px",
                 boxShadow: "var(--shadow-sm)",
                 borderTop: `3px solid ${accent}`,
-                transition: "box-shadow .15s, transform .15s",
-              }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow)";
-                  (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-sm)";
-                  (e.currentTarget as HTMLElement).style.transform = "";
-                }}
-              >
+              }}>
                 <h2 style={{ margin: "0 0 6px", fontSize: "1rem", color: "var(--text-1)" }}>
                   {competency.name}
                 </h2>
@@ -90,7 +80,7 @@ export default async function HomePage() {
                     borderRadius: 4,
                     padding: "2px 8px",
                   }}>
-                    {competency.pfCount} {competency.pfCount === 1 ? "function" : "functions"}
+                    {competency.pfCount} primary functions
                   </span>
                 </div>
               </article>

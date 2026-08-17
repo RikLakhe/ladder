@@ -21,7 +21,7 @@ export function BadgeCard({ badge }: { badge: Badge }) {
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         {badge.badgeCode && (
           <code style={{
-            fontFamily: "var(--font-mono)",
+            fontFamily: "var(--font-mono), monospace",
             fontSize: "0.75rem",
             background: "var(--accent-soft)",
             color: "var(--accent)",
@@ -40,7 +40,7 @@ export function BadgeCard({ badge }: { badge: Badge }) {
           display: "flex",
           alignItems: "center",
           gap: 4,
-        }}>⚪ Not attempted</span>
+        }}>⚪ Not-attempted</span>
       </div>
 
       <h3 style={{ margin: 0, fontSize: "0.9375rem", fontWeight: 600, color: "var(--text-1)" }}>

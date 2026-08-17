@@ -1,40 +1,34 @@
 # Behavior Spec — T-frontend-design-alignment-41h895: Competency Page Completeness
-> Source: task card ACs + docs/features/0007-master-frontend-design-alignment/tasks/T-frontend-design-alignment-41h895/snapshot-TSD.md
-> One test at a time. B-1 = tracer bullet. Never write B-N+1 before B-N is GREEN.
-> Fill a behavior's Given/When/Then JUST BEFORE you `lane red` it — `lane red` checks
-> only the behavior it's about to prove, so later B-N may stay stubs until their turn.
-> B-N below seed from the card's drivable ACs (behavior / e2e) — a starting point, not
-> final. One AC may be several behaviors (split it); the Critic may surface more (add
-> them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
-> non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
+> Source: task card ACs + snapshot-TSD.md
 
-## B-1 (tracer bullet): AC-1 [behavior]: Competency page header shows competency name and description
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): AC-1 — getCompetencyById returns description
+- Given: `competencies` table has a row with `description = "Tests critical thinking"`
+- When: `getCompetencyById` is called with that competency's id
+- Then: returned object includes `description: "Tests critical thinking"`
 
-## B-2: AC-2 [behavior]: FA summary section renders collapsed by default; clicking it expands to show full functional analysis content
-- Given:
-- When:
-- Then:
+## B-2: AC-3 — getPrimaryFunctionsWithBadgeCount returns badge counts
+- Given: a PF with 3 badges and a PF with 0 badges exist for the same competency
+- When: `getPrimaryFunctionsWithBadgeCount` is called for that competency
+- Then: returns objects with `badgeCount: 3` and `badgeCount: 0`; each includes `pf_number` and `domain_classification`
 
-## B-3: AC-3 [behavior]: PF list renders as cards each showing pf_number, name, domain_classification, and badge count
-- Given:
-- When:
-- Then:
+## B-3: AC-2 — getFunctionalAnalysisForCompetency returns content or null
+- Given: one competency has a `functional_analyses` row with `content = "FA text"`, another has none
+- When: `getFunctionalAnalysisForCompetency` is called for each
+- Then: first returns `{ content: "FA text" }`; second returns `null`
 
-## B-4: AC-4 [behavior]: A "View history" link at the top of the page navigates to `/competencies/[id]/history`
-- Given:
-- When:
-- Then:
+## B-4: AC-2 — FACollapsible renders collapsed, expands on click
+- Given: `<FACollapsible content="FA text" />` rendered
+- When: component first renders
+- Then: content text is not visible (collapsed state)
+- When: user clicks the toggle
+- Then: content text becomes visible
 
-## B-5: AC-5 [behavior]: `CompetencyTabs` component is no longer rendered on this page
-- Given:
-- When:
-- Then:
+## B-5: AC-1,3,4,5 — competency page wires all data correctly
+- Given: competency with description, FA content, PFs with badge counts in DB
+- When: competency page renders
+- Then: header includes description text; FA section present; PF cards show pf_number, domain_classification, badge count; history link href ends with `/history`; no CompetencyTabs element in output
 
-## B-6: AC-6 [e2e]: A user clicking a competency from home lands on a page with description in header, FA toggle, PF cards with badge counts, and history link visible
-- Given:
-- When:
-- Then:
-
+## B-6 [e2e]: AC-6 — full competency page from seeded data
+- Given: seeded DB running, user navigates to `/competencies/[id]`
+- When: page loads
+- Then: page shows description in header, collapsible FA section, PF cards with badge counts, history link — no crash
