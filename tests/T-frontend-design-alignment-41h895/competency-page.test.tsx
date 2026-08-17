@@ -53,8 +53,8 @@ describe("B-5: competency page renders required elements", () => {
     expect(screen.getByText("PF-01")).toBeDefined();
     expect(screen.getByText("PF-02")).toBeDefined();
 
-    // domain_classification
-    expect(screen.getByText("Technical")).toBeDefined();
+    // domain_classification shown in PF cards
+    expect(screen.getAllByText("Technical").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText("Professional")).toBeDefined();
 
     // badgeCount
