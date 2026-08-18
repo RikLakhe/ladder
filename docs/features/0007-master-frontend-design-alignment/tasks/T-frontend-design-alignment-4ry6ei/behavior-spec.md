@@ -1,35 +1,27 @@
 # Behavior Spec — T-frontend-design-alignment-4ry6ei: PF Page Structure Correction
-> Source: task card ACs + docs/features/0007-master-frontend-design-alignment/tasks/T-frontend-design-alignment-4ry6ei/snapshot-TSD.md
-> One test at a time. B-1 = tracer bullet. Never write B-N+1 before B-N is GREEN.
-> Fill a behavior's Given/When/Then JUST BEFORE you `lane red` it — `lane red` checks
-> only the behavior it's about to prove, so later B-N may stay stubs until their turn.
-> B-N below seed from the card's drivable ACs (behavior / e2e) — a starting point, not
-> final. One AC may be several behaviors (split it); the Critic may surface more (add
-> them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
-> non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
+> Source: task card ACs + snapshot-TSD.md
 
-## B-1 (tracer bullet): AC-1 [behavior]: PF page header shows pf_number, name, and domain_classification
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): AC-1 — getPrimaryFunctionById returns pf_number and domain_classification
+- Given: `primary_functions` table has a row with `pf_number = "PF-3"` and `domain_classification = "Execution"`
+- When: `getPrimaryFunctionById` is called with that PF's id
+- Then: returned object includes `pf_number: "PF-3"` and `domain_classification: "Execution"`
 
-## B-2: AC-2 [behavior]: LevelTabStrip renders P2–P7; tabs with no standards row are disabled and visually distinct
-- Given:
-- When:
-- Then:
+## B-2: AC-4 — Standard/Badge/Training sections render inside active tab body
+- Given: PF page rendered with `?level=P4` where P4 has a standards row
+- When: page renders
+- Then: Standard section, Badge section, and Training section are all inside the active tab body; none appear outside the tab structure
 
-## B-3: AC-3 [behavior]: Clicking a disabled tab shows `EmptyState variant="not-applicable"` as the content body — not blank, not a crash
-- Given:
-- When:
-- Then:
+## B-3: AC-3 — N/A tab shows EmptyState not-applicable
+- Given: PF page rendered with `?level=P2` where P2 has no standards row
+- When: page renders
+- Then: tab body shows `<EmptyState variant="not-applicable">` content; no crash; no blank
 
-## B-4: AC-4 [behavior]: Standard, Badge, and Training sections render inside the active tab body, not at competency scope
-- Given:
-- When:
-- Then:
+## B-4: AC-1,2 — PF header shows pf_number + domain_classification; disabled tabs for N/A levels
+- Given: PF page rendered where some levels have no standards rows
+- When: page renders
+- Then: header shows pf_number and domain_classification; LevelTabStrip renders with those levels in disabled/inapplicableLevels prop
 
-## B-5: AC-5 [e2e]: A user navigating to a PF page sees P2–P7 tabs; clicking an N/A tab shows the empty state; clicking a valid tab shows Standard/Badge/Training content
-- Given:
-- When:
-- Then:
-
+## B-5 [e2e]: AC-5 — full PF page navigation
+- Given: seeded DB with a PF that has standards for some levels but not others
+- When: user navigates to PF page
+- Then: P2–P7 tab strip visible; clicking a valid level shows Standard/Badge/Training; clicking an N/A level shows EmptyState; header shows pf_number and domain_classification

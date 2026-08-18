@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { ShellCompetency } from "./Shell";
 
 export function CompetencyNavList({ competencies }: { competencies: ShellCompetency[] }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <div>
