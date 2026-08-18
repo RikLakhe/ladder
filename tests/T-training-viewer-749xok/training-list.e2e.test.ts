@@ -58,6 +58,11 @@ beforeAll(async () => {
   );
   pfId = pfRes.rows[0].id;
 
+  await client.query(
+    "INSERT INTO standards (pf_id, level, body) VALUES ($1, $2, $3)",
+    [pfId, "P3", "P3 standard."]
+  );
+
   // Seed two units at P3: unit_later (seq=5) first so we can use its id in unit_forward's prereqs
   const laterRes = await client.query(
     "INSERT INTO training_units (competency_id, type, level, sequence_order, content, prereqs) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
