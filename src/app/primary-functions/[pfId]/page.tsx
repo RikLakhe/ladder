@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getFunctionalAnalysesForPrimaryFunction } from "../../../lib/functional-analyses";
 import { getBadgesForPrimaryFunction } from "../../../lib/badges";
 import { getStandardsForPrimaryFunction } from "../../../lib/standards";
-import { getPrimaryFunctionById } from "../../../lib/primary-functions";
+import { getPrimaryFunctionById, computeInapplicableLevels } from "../../../lib/primary-functions";
 import { getTrainingUnitsForCompetencyAndLevel } from "../../../lib/training-units";
 import { TrainingSection } from "../../../components/TrainingSection";
+import { LevelTabStrip } from "../../../components/LevelTabStrip";
 import type { Level } from "../../../components/LevelTag";
 import { BadgeCard } from "../../../components/BadgeCard";
 
@@ -22,36 +24,36 @@ export default async function PrimaryFunctionPage({
 }) {
   const { pfId } = await params;
   const { level } = await searchParams;
+  const currentLevel = (level ?? "P4") as Level;
 
   const pf = await getPrimaryFunctionById(DATABASE_URL, pfId);
+  if (!pf) notFound();
 
-  const [standards, analyses, badges, trainingUnits] = await Promise.all([
-    getStandardsForPrimaryFunction(DATABASE_URL, pfId, level),
+  const [allStandards, analyses, badges, trainingUnits] = await Promise.all([
+    getStandardsForPrimaryFunction(DATABASE_URL, pfId),
     getFunctionalAnalysesForPrimaryFunction(DATABASE_URL, pfId),
-    getBadgesForPrimaryFunction(DATABASE_URL, pfId, level),
-    pf
-      ? getTrainingUnitsForCompetencyAndLevel(DATABASE_URL, pf.competency_id, level ?? "P4")
-      : Promise.resolve([]),
+    getBadgesForPrimaryFunction(DATABASE_URL, pfId, currentLevel),
+    getTrainingUnitsForCompetencyAndLevel(DATABASE_URL, pf.competency_id, currentLevel),
   ]);
 
-  const levelAnalyses = analyses.filter((analysis) => analysis.level === level);
-  const levelBadges = badges;
+  const levelsWithStandards = [...new Set(allStandards.map((s) => s.level))] as Level[];
+  const inapplicableLevels = computeInapplicableLevels(LEVELS, levelsWithStandards);
+
+  const standards = allStandards.filter((s) => s.level === currentLevel);
+  const levelAnalyses = analyses.filter((a) => a.level === currentLevel);
 
   return (
     <main>
-      <h1>Primary Function</h1>
-      <div role="tablist">
-        {LEVELS.map((tabLevel) => (
-          <Link
-            key={tabLevel}
-            href={`?level=${tabLevel}`}
-            role="tab"
-            aria-selected={tabLevel === level}
-          >
-            {tabLevel}
-          </Link>
-        ))}
-      </div>
+      <h1>
+        {pf.pf_number && <span>{pf.pf_number}</span>} {pf.name}
+        {pf.domain_classification && <span>{pf.domain_classification}</span>}
+      </h1>
+      <Link href={`/competencies/${pf.competency_id}`}>Back to Competency</Link>
+      <LevelTabStrip
+        currentLevel={currentLevel}
+        levels={LEVELS}
+        inapplicableLevels={inapplicableLevels}
+      />
       <section>
         <h2>Standard</h2>
         {standards.length === 0 ? (
@@ -82,11 +84,11 @@ export default async function PrimaryFunctionPage({
       </section>
       <section>
         <h2>Badges</h2>
-        {levelBadges.length === 0 ? (
+        {badges.length === 0 ? (
           <p>No badges defined.</p>
         ) : (
           <ul>
-            {levelBadges.map((badge) => (
+            {badges.map((badge) => (
               <li key={badge.id}>
                 {badge.badgeCode ? (
                   <Link href={`/primary-functions/${pfId}/badges/${badge.badgeCode}`}>
