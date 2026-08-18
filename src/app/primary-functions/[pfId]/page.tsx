@@ -25,7 +25,7 @@ export default async function PrimaryFunctionPage({
 }) {
   const { pfId } = await params;
   const { level } = await searchParams;
-  const currentLevel = (level ?? "P4") as Level;
+  const currentLevel = (level ?? "P2") as Level;
 
   const pf = await getPrimaryFunctionById(DATABASE_URL, pfId);
   if (!pf) notFound();
