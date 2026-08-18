@@ -45,7 +45,7 @@ beforeEach(() => {
     { id: "b-1", name: "Systems Badge", badgeCode: "SYS-P4", tier: null, certifies: null, level: "P4" },
   ]);
   vi.mocked(getTrainingUnitsForCompetencyAndLevel).mockResolvedValue([
-    { id: "tu-1", title: "System Design Fundamentals", url: null, type: "course", subtype: null, level: "P4", competency_id: "comp-1", prerequisite_of: null },
+    { id: "tu-1", name: "System Design Fundamentals", type: "concept_notes", level: "P4", sequenceOrder: 1, hasSequencingIssue: false, prereqIds: [] },
   ]);
 });
 
