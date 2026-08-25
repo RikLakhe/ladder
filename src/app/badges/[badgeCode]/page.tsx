@@ -28,7 +28,7 @@ export default async function BadgeDetailPage({
       <p>{badge.completionBar}</p>
       <p>{badge.verifierRole}</p>
       {badge.cosignerRequired && (
-        <span data-testid="cosigner-indicator">Co-signer required</span>
+        <span data-testid="cosigner-indicator" title="Co-signer (delivery/account manager) confirms work context; technical verifier certifies competency.">Co-signer required</span>
       )}
       {evidence.length > 0 && (
         <section>
