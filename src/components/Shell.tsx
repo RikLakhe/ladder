@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ShellBreadcrumb } from "./ShellBreadcrumb";
@@ -64,7 +66,7 @@ export function Shell({
           textDecoration: "none",
           flexShrink: 0,
         }}>
-          <span style={{
+          <span aria-hidden="true" style={{
             width: 28,
             height: 28,
             background: "var(--accent)",

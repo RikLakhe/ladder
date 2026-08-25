@@ -38,8 +38,7 @@ export default async function BadgeDetailPage({
               entry.resolved ? (
                 <li key={i}>
                   <details>
-                    <summary data-testid="evidence-resolved">{entry.instrumentId} / {entry.rowKey}</summary>
-                    <p>{entry.rowText}</p>
+                    <summary data-testid="evidence-resolved">{entry.rowText ?? `${entry.instrumentId} / ${entry.rowKey}`}</summary>
                   </details>
                 </li>
               ) : (

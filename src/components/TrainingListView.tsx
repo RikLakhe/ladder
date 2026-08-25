@@ -37,13 +37,9 @@ export function TrainingListView({ units, level }: Props) {
       {showEmptyState && <EmptyState variant="no-simulated-training" />}
       <ul>
         {sorted.map((unit) => {
-          const prereqUnits = unit.prereqIds
-            .map((pid) => units.find((u) => u.id === pid))
-            .filter((u): u is TrainingUnitRow => Boolean(u));
-
           const showStepper =
             (unit.type === "guided_exercise" || unit.type === "autonomous_project") &&
-            prereqUnits.length > 0;
+            unit.prereqIds.length > 0;
 
           return (
             <li key={unit.id} data-testid="training-unit-row">
@@ -54,8 +50,9 @@ export function TrainingListView({ units, level }: Props) {
               </span>
               {showStepper && (
                 <PrereqStepper
-                  prereqUnits={prereqUnits.map((u) => ({ id: u.id, name: u.name, sequenceOrder: u.sequenceOrder }))}
-                  currentUnit={{ id: unit.id, name: unit.name, sequenceOrder: unit.sequenceOrder }}
+                  allUnits={units.map((u) => ({ id: u.id, content: u.name, sequenceOrder: u.sequenceOrder }))}
+                  prereqIds={unit.prereqIds}
+                  currentSequenceOrder={unit.sequenceOrder}
                 />
               )}
             </li>

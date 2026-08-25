@@ -33,12 +33,9 @@ export function TrainingUnitView({ unit, allUnits }: Props) {
       )}
       {showStepper && (
         <PrereqStepper
-          prereqUnits={allUnits.filter((u) => unit.prereqs.includes(u.id)).map((u) => ({ id: u.id, name: u.content, sequenceOrder: u.sequenceOrder }))}
-          currentUnit={{
-            id: unit.id,
-            name: unit.content,
-            sequenceOrder: unit.sequenceOrder,
-          }}
+          allUnits={allUnits}
+          prereqIds={unit.prereqs}
+          currentSequenceOrder={unit.sequenceOrder}
         />
       )}
     </div>
