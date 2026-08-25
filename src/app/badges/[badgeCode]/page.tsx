@@ -1,5 +1,6 @@
 import { getBadgeByCode, getEvidenceForBadge } from "../../../lib/badges";
 import { BadgeStatusLegend } from "../../../components/BadgeStatusLegend";
+import { TierChip } from "../../../components/TierChip";
 
 const DATABASE_URL =
   process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
@@ -23,7 +24,7 @@ export default async function BadgeDetailPage({
     <main>
       <h1>{badge.name}</h1>
       <code>{badge.badgeCode}</code>
-      <p>{badge.tier}</p>
+      <TierChip tier={badge.tier} />
       <p>{badge.certifies}</p>
       <p>{badge.completionBar}</p>
       <p>{badge.verifierRole}</p>

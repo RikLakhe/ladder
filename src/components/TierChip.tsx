@@ -11,7 +11,7 @@ export function TierChip({ tier }: { tier: string | null | undefined }) {
   if (!tier) return null;
   const bg = LEVEL_COLOR[tier] ?? "var(--text-3)";
   return (
-    <span style={{
+    <span data-testid="tier-chip" style={{
       display: "inline-flex",
       alignItems: "center",
       fontFamily: "var(--font-mono)",
