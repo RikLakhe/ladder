@@ -1,7 +1,7 @@
 ---
 approved_by: "Rikesh"
 approved_at: "2026-08-13"
-planned_behaviors: "5"
+planned_behaviors: "3"
 approved_sha256: "64765fbe3e833c4cf14431fe14a71b9d5310553445471d6ab9c89fc024833284"
 ---
 ## Exec Plan — Task T-frontend-design-alignment-cika92
