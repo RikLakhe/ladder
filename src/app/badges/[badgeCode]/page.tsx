@@ -1,5 +1,6 @@
 import { getBadgeByCode, getEvidenceForBadge } from "../../../lib/badges";
 import { BadgeStatusLegend } from "../../../components/BadgeStatusLegend";
+import { TierChip } from "../../../components/TierChip";
 
 const DATABASE_URL =
   process.env.DATABASE_URL ?? "postgres://ladder:ladder@localhost:55432/ladder";
@@ -23,12 +24,12 @@ export default async function BadgeDetailPage({
     <main>
       <h1>{badge.name}</h1>
       <code>{badge.badgeCode}</code>
-      <p>{badge.tier}</p>
+      <TierChip tier={badge.tier} />
       <p>{badge.certifies}</p>
       <p>{badge.completionBar}</p>
       <p>{badge.verifierRole}</p>
       {badge.cosignerRequired && (
-        <span data-testid="cosigner-indicator">Co-signer required</span>
+        <span data-testid="cosigner-indicator" title="Co-signer (delivery/account manager) confirms work context; technical verifier certifies competency.">Co-signer required</span>
       )}
       {evidence.length > 0 && (
         <section>
@@ -38,8 +39,7 @@ export default async function BadgeDetailPage({
               entry.resolved ? (
                 <li key={i}>
                   <details>
-                    <summary data-testid="evidence-resolved">{entry.instrumentId} / {entry.rowKey}</summary>
-                    <p>{entry.rowText}</p>
+                    <summary data-testid="evidence-resolved">{entry.rowText ?? `${entry.instrumentId} / ${entry.rowKey}`}</summary>
                   </details>
                 </li>
               ) : (
