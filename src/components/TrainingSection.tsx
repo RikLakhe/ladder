@@ -1,6 +1,7 @@
 "use client";
 
 import type { TrainingUnitRow } from "../lib/training-units";
+import { EmptyState } from "./EmptyState";
 
 const TYPE_ORDER: Record<string, number> = {
   concept_notes: 0,
@@ -11,11 +12,21 @@ const TYPE_ORDER: Record<string, number> = {
   learning_path: 99,
 };
 
+const SIMULATED_TYPES = new Set(["guided_exercise", "autonomous_project"]);
+
 type Props = {
   units: TrainingUnitRow[];
+  level?: string;
 };
 
-export function TrainingSection({ units }: Props) {
+export function TrainingSection({ units, level }: Props) {
+  const isGrowthLevel = level === "P6" || level === "P7";
+  const hasSimulatedUnits = units.some((u) => SIMULATED_TYPES.has(u.type));
+
+  if (isGrowthLevel && !hasSimulatedUnits) {
+    return <EmptyState variant="no-simulated-training" />;
+  }
+
   if (units.length === 0) {
     return <p>No training units</p>;
   }
