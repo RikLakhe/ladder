@@ -46,15 +46,10 @@ describe("B-3 [e2e]: P6 training tab with no exercise units shows exact EmptySta
     );
     competencyId = compRes.rows[0].id;
 
-    const pfRes = await client.query(
-      "INSERT INTO primary_functions (competency_id, name) VALUES ($1, $2) RETURNING id",
-      [competencyId, "Growth Function"]
-    );
-
     // Only concept_notes at P6 — no guided_exercise or autonomous_project
     await client.query(
-      `INSERT INTO training_units (pf_id, name, type, level, sequence_order) VALUES ($1, $2, $3, $4, $5)`,
-      [pfRes.rows[0].id, "Background Reading", "concept_notes", "P6", 1]
+      `INSERT INTO training_units (competency_id, type, level, sequence_order, content, prereqs) VALUES ($1, $2, $3, $4, $5, $6)`,
+      [competencyId, "concept_notes", "P6", 1, "Background Reading", JSON.stringify([])]
     );
 
     devServer = spawn("npm", ["run", "dev", "--", "--port", PORT.toString()], {
