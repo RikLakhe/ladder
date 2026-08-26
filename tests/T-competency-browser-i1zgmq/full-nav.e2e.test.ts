@@ -106,7 +106,7 @@ describe("B-5: full Home -> Competency -> Primary Function -> level tab navigati
     expect(pfRes.status).toBe(200);
     const pfHtml = await pfRes.text();
     expect(pfHtml).toContain("Ladder");
-    expect(pfHtml).toContain('href="?level=P3"');
+    expect(pfHtml).toContain('role="tablist"');
 
     const levelRes = await fetch(
       `${BASE_URL}/primary-functions/${primaryFunctionId}?level=P3`

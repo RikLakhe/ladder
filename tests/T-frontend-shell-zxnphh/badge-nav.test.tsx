@@ -6,16 +6,17 @@ vi.mock("../../src/lib/competencies", () => ({
   getCompetencyById: vi.fn().mockResolvedValue({
     id: "demo",
     name: "Demo Competency",
+    description: null,
     domains: ["Engineering"],
   }),
 }));
 
 vi.mock("../../src/lib/primary-functions", () => ({
-  getPrimaryFunctionsForCompetency: vi.fn().mockResolvedValue([]),
+  getPrimaryFunctionsWithBadgeCount: vi.fn().mockResolvedValue([]),
 }));
 
-vi.mock("../../src/lib/standards", () => ({
-  getStandardsForPrimaryFunction: vi.fn().mockResolvedValue([]),
+vi.mock("../../src/lib/functional-analyses", () => ({
+  getFunctionalAnalysisForCompetency: vi.fn().mockResolvedValue(null),
 }));
 
 afterEach(cleanup);
@@ -30,14 +31,10 @@ describe("B-3: Badge card links navigate to badge detail", () => {
     expect(linkP4.getAttribute("href")).toBe("/badges/DEMO-P4");
   });
 
-  it("CompetencyPage assessment tab shows badge links for the competency's badges", async () => {
+  it("CompetencyPage renders without CompetencyTabs (assessment tab removed per AC-5)", async () => {
     const CompetencyPage = (await import("../../src/app/competencies/[id]/page")).default;
     const page = await CompetencyPage({ params: Promise.resolve({ id: "demo" }) });
     render(page);
-    fireEvent.click(screen.getByRole("button", { name: "Assessment" }));
-    const links = screen.getAllByRole("link", { name: /DEMO-P/i });
-    const hrefs = links.map((l) => l.getAttribute("href"));
-    expect(hrefs).toContain("/badges/DEMO-P3");
-    expect(hrefs).toContain("/badges/DEMO-P4");
+    expect(screen.queryByRole("button", { name: "Assessment" })).toBeNull();
   });
 });

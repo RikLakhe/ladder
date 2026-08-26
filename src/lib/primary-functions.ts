@@ -5,6 +5,13 @@ export type PrimaryFunction = {
   name: string;
 };
 
+export function computeInapplicableLevels<T extends string>(
+  allLevels: readonly T[],
+  levelsWithStandards: string[]
+): T[] {
+  return allLevels.filter((level) => !levelsWithStandards.includes(level));
+}
+
 export async function getAllPrimaryFunctions(
   connectionString: string
 ): Promise<PrimaryFunction[]> {
@@ -23,17 +30,28 @@ export async function getAllPrimaryFunctions(
 export async function getPrimaryFunctionById(
   connectionString: string,
   pfId: string
-): Promise<(PrimaryFunction & { competency_id: string }) | null> {
+): Promise<(PrimaryFunction & {
+  competency_id: string;
+  pf_number: string | null;
+  domain_classification: string | null;
+}) | null> {
   const client = new Client({ connectionString });
   await client.connect();
   try {
     const result = await client.query(
-      `SELECT id, name, competency_id FROM primary_functions WHERE id = $1`,
+      `SELECT id, name, competency_id, pf_number, domain_classification
+       FROM primary_functions WHERE id = $1`,
       [pfId]
     );
     if (result.rows.length === 0) return null;
     const row = result.rows[0];
-    return { id: row.id, name: row.name, competency_id: row.competency_id };
+    return {
+      id: row.id,
+      name: row.name,
+      competency_id: row.competency_id,
+      pf_number: row.pf_number ?? null,
+      domain_classification: row.domain_classification ?? null,
+    };
   } finally {
     await client.end();
   }
@@ -51,6 +69,43 @@ export async function getPrimaryFunctionsForCompetency(
       [competencyId]
     );
     return result.rows.map((row) => ({ id: row.id, name: row.name }));
+  } finally {
+    await client.end();
+  }
+}
+
+export type PrimaryFunctionWithBadgeCount = {
+  id: string;
+  pf_number: string | null;
+  name: string;
+  domain_classification: string | null;
+  badgeCount: number;
+};
+
+export async function getPrimaryFunctionsWithBadgeCount(
+  connectionString: string,
+  competencyId: string
+): Promise<PrimaryFunctionWithBadgeCount[]> {
+  const client = new Client({ connectionString });
+  await client.connect();
+  try {
+    const result = await client.query(
+      `SELECT pf.id, pf.pf_number, pf.name, pf.domain_classification,
+              COUNT(b.id)::int AS badge_count
+       FROM primary_functions pf
+       LEFT JOIN badges b ON b.pf_id = pf.id
+       WHERE pf.competency_id = $1
+       GROUP BY pf.id, pf.pf_number, pf.name, pf.domain_classification
+       ORDER BY pf.pf_number, pf.name`,
+      [competencyId]
+    );
+    return result.rows.map((row) => ({
+      id: row.id,
+      pf_number: row.pf_number,
+      name: row.name,
+      domain_classification: row.domain_classification,
+      badgeCount: row.badge_count,
+    }));
   } finally {
     await client.end();
   }

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ShellBreadcrumb } from "./ShellBreadcrumb";
@@ -64,7 +66,7 @@ export function Shell({
           textDecoration: "none",
           flexShrink: 0,
         }}>
-          <span style={{
+          <span aria-hidden={true} style={{
             width: 28,
             height: 28,
             background: "var(--accent)",
@@ -107,6 +109,7 @@ export function Shell({
             <Link
               key={link.href}
               href={link.href}
+              className="shell-nav-link"
               style={{
                 display: "block",
                 padding: "7px 10px",
@@ -115,15 +118,6 @@ export function Shell({
                 color: "var(--text-2)",
                 borderRadius: "var(--radius-sm)",
                 textDecoration: "none",
-                transition: "background .1s, color .1s",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-1)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "";
-                (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-2)";
               }}
             >
               {link.label}

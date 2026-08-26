@@ -60,6 +60,10 @@ beforeAll(async () => {
   pfId = pf.rows[0].id;
 
   await client.query(
+    "INSERT INTO standards (pf_id, level, body) VALUES ($1, $2, $3)",
+    [pfId, "P4", "P4 standard."]
+  );
+  await client.query(
     "INSERT INTO functional_analyses (pf_id, level, body) VALUES ($1, $2, $3)",
     [pfId, "P4", "Designs system boundaries."]
   );
