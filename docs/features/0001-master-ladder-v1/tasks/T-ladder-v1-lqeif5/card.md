@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "29ce1c2f79e56386f63d7266946c7c019ebd1530e0089ee204b1467ed20c8e93"
+---
 ## Task T-ladder-v1-lqeif5 — Data Model and Assessment Store
 **Story:** S-0001.02 · feature 0001-master-ladder-v1
 **Milestone:** M1 (v0.1.0)
