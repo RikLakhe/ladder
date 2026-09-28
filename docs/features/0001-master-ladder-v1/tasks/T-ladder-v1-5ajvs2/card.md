@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "fdad24689318383a798889d785bcb592eb1c4c2985a202dec7050c75b3efe7a6"
+---
 ## Task T-ladder-v1-5ajvs2 — Self-Assessment: Criteria Checks and Self-Rating
 **Story:** S-0001.08 · feature 0001-master-ladder-v1
 **Milestone:** M4 (v0.4.0)
