@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "5ac5bc88cbe309e006908b973298aeb1e51696ca45bada42990634ff9940e7ca"
+---
 ## Task T-ladder-v1-zo28dg — Production Readiness: Accessibility, Performance, Coming-Soon Polish
 **Story:** S-0001.10 · feature 0001-master-ladder-v1
 **Milestone:** M5 (v0.5.0) + M6 (v1.0.0)
