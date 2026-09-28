@@ -1,0 +1,12 @@
+## TSD S-0001.03 — Career Ladder Content Data  (PRD §S-0001.03)
+
+| Aspect | Spec |
+|--------|------|
+| Interfaces | **Export** `tracks: Track[]` from `src/content/tracks.ts`. Array contains exactly four elements. Universal domain constants are defined once as named constants and referenced by all tracks that include them — no structural duplication. |
+| Data / State | Static, build-time TypeScript. No runtime I/O. Four tracks: `dev`, `qa`, `data`, `ai`. Five domain IDs: `delivery`, `leadership`, `fcc`, `strategic-impact`, `technical-skill`. Dev track: all five domains with `comingSoon: false`; `technical-skill` has nine competencies (`writing-code`, `testing`, `debugging`, `observability`, `understanding-code`, `software-architecture`, `security`, `ai-assisted-engineering`, `ai-judgment-feature-delivery`). QA/Data/AI tracks: four universal domains with `comingSoon: false` plus `technical-skill` with `comingSoon: true` and `competencies: []`. Every non-coming-soon competency has level entries for all six levels (P2–P7). Every level has a non-empty `descriptor` string and at least one `Criterion`. Criterion IDs: universal domain criteria use prefix `shared/`; dev technical-skill criteria use prefix `dev/technical-skill/`; full format `{prefix}/{domainId}/{competencyId}/{level}/{0-based-index}`. |
+| Behavior | (B-1) `tracks` contains exactly 4 elements with IDs `dev`, `qa`, `data`, `ai`. (B-2) Every track exposes required fields; no field is undefined or null. (B-3) Every domain exposes required fields including `comingSoon` boolean. (B-4) Every non-coming-soon competency has level entries for all six LevelId values. (B-5) Every level entry has a non-empty descriptor. (B-6) Every level entry in a non-coming-soon domain has a non-empty criteria array. (B-7) Every criterion ID matches the format `{shared\|dev\|qa\|data\|ai}/{segment}/{segment}/{p2-p7}/{digit+}`. (B-8) Competency IDs are unique within any given domain. (B-9) Every domain with `comingSoon: true` has `competencies` equal to `[]`. (B-10) No runtime parsing or I/O occurs; all data is statically declared. |
+| Access | Build-time only via `src/lib/content.ts` utility functions. Components must not import `src/content/tracks.ts` directly. |
+| Boundaries | None. |
+| Tests | Unit (schema tests): all nine behavioral assertions above as individual test cases; all must pass before the content file is considered complete. |
+
+---
