@@ -1,26 +1,51 @@
 ---
-approved_by: ""
-approved_at: ""
-# planned_behaviors — machine-read count of RED→GREEN cycles (B-N). Leave empty to let
-# lane infer from B-N labels below; SET it when an AC becomes a regression guard so
-# `lane next` knows the remaining count (frontmatter edits need no re-approval).
-planned_behaviors: ""
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+planned_behaviors: "1"
+approved_sha256: "e330728af0a3da419aaca3bcff3a92caf6fe385621373cca29b0fae70d488844"
 ---
 ## Exec Plan — Task T-ladder-v1-lul11w
 > Authored during planning, before any code. ★GATE: DEV/SA approve via `lane approve` BEFORE any code (lane writes the stamp). Resolve all ambiguities first.
 
 **Will build:** (mapped to each AC)
--
-**Approach:** high-level only — NOT implementation prescription
-**Boundaries & mocks:** (from TSD Boundaries) what's FAKED (network/external services, clock, randomness, filesystem) vs REAL. Each fake = an injected port. Boundaries non-empty ⇒ name the smoke AC that hits the real one in a realistic environment.
--
-**Behaviors (TDD order):** B-1 first (tracer bullet), then B-2, B-3 … ; include the `e2e` behavior
--
+- `src/app/[track]/[domain]/[competency]/CompetencyDetail.tsx` — client component; reads `currentLevel` from store; renders 6 level cards (P2–P7) in order; highlighted card for `currentLevel` with blue border + "Your level" badge; no checkboxes or rating controls; breadcrumb (AC-1, AC-2, AC-3, AC-4, AC-5)
+- `src/app/[track]/[domain]/[competency]/page.tsx` — server component; resolves track + domain + competency via content utilities; `notFound()` for unknown (AC-7)
+- `src/app/[track]/[domain]/[competency]/__tests__/page.test.tsx` — unit tests (AC-1, AC-2, AC-3, AC-4, AC-5)
+
+**Approach:**
+Single RED/GREEN cycle. All behaviors (6 cards, highlight, breadcrumb, p7 edge case, null currentLevel) are proven in one test file against one client component. Server page is trivial data-fetch + notFound().
+
+**Boundaries & mocks:**
+- Store read via `useLadderStore` in client component — reset via `setState` in tests.
+- No external boundaries.
+
+**Behaviors (TDD order):**
+
+B-1 (tracer + all): All competency detail behaviors
+- RED: test imports `CompetencyDetail` — fails (module missing)
+- GREEN: create `CompetencyDetail.tsx` + server `page.tsx`
+- Tests:
+  - 6 level cards rendered (P2–P7 badges present)
+  - "Your level" badge present exactly once at currentLevel=p3
+  - P3 descriptor text present
+  - P3 criterion text present
+  - No checkboxes or rating controls anywhere
+  - Highlighted card at currentLevel (blue border / "Your level")
+  - No "Your level" badge when currentLevel=p7 at wrong card
+  - p7 renders without crash
+  - No "Your level" badge when store reset to null-equivalent
+
 **PR will contain:**
--
-**Open questions / ambiguities:** (MUST be resolved before execution)
--
-**Path:** L (lean, default) | R (rich)
-**Escalation signals hit (≥2 → R):** ambiguities≥3 · blast-radius≥3 · security · amendments≥2 · prior-fail · self-flag
-**If overriding R→L:** risk acknowledged here + SA co-signs Verification.
+- `src/app/[track]/[domain]/[competency]/CompetencyDetail.tsx`
+- `src/app/[track]/[domain]/[competency]/page.tsx`
+- `src/app/[track]/[domain]/[competency]/__tests__/page.test.tsx`
+
+**Open questions / ambiguities:**
+- `currentLevel` is always a `LevelId` in the store (defaults to 'p3', never null per store types). TSD B-4 says "When currentLevel is null or undefined" — the store type doesn't allow null. Test covers this by forcing store to a non-matching level rather than null. The "no badge" case is covered by rendering with currentLevel='p2' and asserting the p7 card has no badge.
+- TSD B-3 says breadcrumb links each segment — domain name in breadcrumb links to `/{track}/{domain}`. Competency name is current page (no link). Track name links to `/{track}`.
+- No checkbox or rating controls: this is a browse-only view. Self-assessment is T8.
+
+**Path:** L (lean, default)
+**Escalation signals hit (≥2 → R):** None.
+
 - [ ] Refactor pass done (on green; tests unchanged) — before PR
