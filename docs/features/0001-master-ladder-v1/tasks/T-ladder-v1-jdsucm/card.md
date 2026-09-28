@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "1dce79b50895bd7ce0ecd41e336f2ceb520b5ce05326ad32f8d28f670fc26a23"
+---
 ## Task T-ladder-v1-jdsucm — Domain Detail: Competency List
 **Story:** S-0001.06 · feature 0001-master-ladder-v1
 **Milestone:** M3 (v0.3.0)
