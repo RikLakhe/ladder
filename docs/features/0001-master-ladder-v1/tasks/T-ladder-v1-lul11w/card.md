@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "072381535a3ee058826e1452030967d5287c7270038e82dd2c07649e04396b83"
+---
 ## Task T-ladder-v1-lul11w — Competency Detail: Full Level Browse
 **Story:** S-0001.07 · feature 0001-master-ladder-v1
 **Milestone:** M3 (v0.3.0) — closes M3
