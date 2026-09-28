@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "3d5439a5c2575c846bd607fb6511291f73fcba6837ea8d338e9a6f01eebac1e2"
+---
 ## Task T-ladder-v1-d0zmot — Career Ladder Content Data
 **Story:** S-0001.03 · feature 0001-master-ladder-v1
 **Milestone:** M1 (v0.1.0) — closes M1
