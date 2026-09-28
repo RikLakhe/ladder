@@ -57,11 +57,13 @@
 
 ## Git Workflow
 
-- Branches: `main` (protected, production), `develop` (integration), `feature/T{n}-{slug}`, `release/v{semver}`, `hotfix/v{semver}`
-- Always cut feature branches from `develop`; PR back to `develop`; squash-merge only
-- CI runs `npm test` + `npm run build` on every PR to `main` and `develop`
+- `main` is the LANE integration branch and production branch — all task PRs merge here
+- Task branches are auto-named `T-<slug>` by `lane start`; pruned by `lane land` / `lane abandon`
+- `release/v{semver}` cut from `main` at milestones; merged back to `main` and tagged
+- `hotfix/v{semver}` cut from `main` for urgent production fixes only
+- CI runs `npm test` + `npm run build` on every PR to `main`
 - E2E tests (Playwright) run manually before release PRs; not in CI
-- Release process: cut `release/v{semver}` from `develop`, bump version in `package.json`, PR to `main`, tag, GitHub release, sync `develop`
+- Release process: cut `release/v{semver}` from `main`, bump version in `package.json`, PR to `main`, tag, GitHub release
 
 ## Release Milestones (v1)
 

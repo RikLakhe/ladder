@@ -7,17 +7,17 @@ Standing rules for all contributors. These apply permanently — to every featur
 ## Branching Model
 
 ```
-main          ← production-only. Protected. Never commit directly.
-develop       ← integration branch. All feature PRs merge here first.
-feature/T{n}-{slug}   ← one branch per task. Cut from develop.
-release/v{semver}     ← cut from develop at a milestone. Merges to main + tagged.
+main                  ← integration branch + production. Protected. PRs only.
+T-<slug>              ← LANE task branches, auto-named. Cut from main by lane start.
+release/v{semver}     ← cut from main at a milestone. Merges back to main + tagged.
 hotfix/v{semver}      ← cut from main for urgent production fixes only.
 ```
 
 **Rules:**
-- `main` and `develop` are protected — PRs only, at least 1 approval required, CI must pass.
-- Never force-push to `main` or `develop`.
-- Feature branches are deleted after merge.
+- `main` is the LANE integration branch — all task PRs merge here.
+- `main` is protected — PRs only, at least 1 approval required, CI must pass.
+- Never force-push to `main`.
+- Task branches are created by `lane start` and pruned by `lane land` or `lane abandon`.
 - Release branches are deleted after the GitHub release is created.
 
 ---

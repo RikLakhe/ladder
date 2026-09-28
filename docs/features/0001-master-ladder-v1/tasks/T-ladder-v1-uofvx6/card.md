@@ -1,11 +1,16 @@
-## Task T-ladder-v1-uofvx6 — <title>
-**Parent:** story S-0001-master-ladder-v1.nn · feature 0001-master-ladder-v1 (docs/features/0001-master-ladder-v1-*/ — its PRD + TSD)
-**Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
-**Acceptance criteria:** (tag each `behavior`/`invariant`/`non-functional`/`e2e`; behavior ACs = observable outcome through an interface — NO "calls X / saves to table Y / uses lib Z")
-- [ ] AC-1 [behavior]: <observable outcome through interface>
-**End-to-end AC:** AC-<n> [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1  ← ordered; first = tracer bullet
-<!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
-**Test scope:** tests/T-ladder-v1-uofvx6/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
-<!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
-**Done =** reviewable PR, all tests pass, links to chain. One PR per task (default).
+## Task T-ladder-v1-uofvx6 — Repository and Toolchain Foundation
+**Story:** S-0001.01 · feature 0001-master-ladder-v1
+**Milestone:** M1 (v0.1.0)
+**Slice:** Scaffolding — creates the toolchain all other tasks depend on
+**Acceptance criteria:**
+- [ ] AC-1 [behavior]: `npm test` exits 0 reporting at least one passing test; no Jest dependency in any config or lock file
+- [ ] AC-2 [behavior]: `npx tsc --noEmit` exits 0 with `strict: true`, `noImplicitAny: true`, `strictNullChecks: true` present in `tsconfig.json`
+- [ ] AC-3 [behavior]: `npm run build` exits 0 and produces a valid build artefact
+- [ ] AC-4 [behavior]: `vitest.config.ts` at project root specifies `environment: 'jsdom'` and a `setupFiles` entry; no `any` type in any file under `src/`
+- [ ] AC-5 [behavior]: `playwright.config.ts` exists with `testDir: './e2e'`; no Playwright step in CI workflow
+- [ ] AC-6 [behavior]: `.github/workflows/ci.yml` triggers on PRs to `main` and `develop`; runs `npm ci`, `npm test`, `npm run build` on Node 20 Linux
+- [ ] AC-7 [e2e]: A CI run on a feature PR shows all steps green
+**End-to-end AC:** AC-7 [e2e] — CI run observable and green on the feature PR
+**Tests:** N/A — scaffolding: this task creates the test runner; no Vitest-assertable behaviors exist before the toolchain is in place
+**Test scope:** src/__tests__/sanity.test.ts
+**Done =** reviewable PR, `npm test` + `npm run build` + `tsc --noEmit` all pass, CI green, `develop` branch exists and pushed.

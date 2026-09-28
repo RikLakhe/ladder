@@ -1,11 +1,17 @@
-## Task T-ladder-v1-lul11w — <title>
-**Parent:** story S-0001-master-ladder-v1.nn · feature 0001-master-ladder-v1 (docs/features/0001-master-ladder-v1-*/ — its PRD + TSD)
-**Slice:** a complete observable behavior end-to-end + tests (full vertical — a disconnected layer = smell)
-**Acceptance criteria:** (tag each `behavior`/`invariant`/`non-functional`/`e2e`; behavior ACs = observable outcome through an interface — NO "calls X / saves to table Y / uses lib Z")
-- [ ] AC-1 [behavior]: <observable outcome through interface>
-**End-to-end AC:** AC-<n> [e2e] — reachable through the running app (required: green component/unit ≠ reachable)
-**Tests:** AC-1  ← ordered; first = tracer bullet
-<!-- exception: Tests: N/A — reason: config | scaffolding | spike | refactor | tooling | integration -->
-**Test scope:** tests/T-ladder-v1-lul11w/   ← documentation: where this task's OWN tests live. Scope is NOT configured — red/green scope to the changed test files and `verify` derives it from the RED commits (ADR-0002); `review` runs the FULL suite. This line is a human pointer only.
-<!-- approval: written by `lane approve` as frontmatter (approved_by/at/sha256) after a human confirms — never hand-edit -->
-**Done =** reviewable PR, all tests pass, links to chain. One PR per task (default).
+## Task T-ladder-v1-lul11w — Competency Detail: Full Level Browse
+**Story:** S-0001.07 · feature 0001-master-ladder-v1
+**Milestone:** M3 (v0.3.0) — closes M3
+**Depends on:** T-ladder-v1-jdsucm
+**Slice:** Full vertical — competency detail route; all 6 level cards browseable with current-level highlight
+**Acceptance criteria:**
+- [ ] AC-1 [behavior]: Page renders exactly 6 level cards (P2–P7) in ascending order; each shows level badge, descriptor text, and criteria as plain text — no checkboxes or rating controls
+- [ ] AC-2 [behavior]: Card matching `currentLevel` has blue border + blue background + "Your level" badge exactly once; no other card carries those styles
+- [ ] AC-3 [behavior]: Breadcrumb displays `{track.name} / {domain} / {competency.name}` at top; each segment links to its route
+- [ ] AC-4 [behavior]: When `currentLevel` is `p7`, P7 card highlighted, page renders without runtime error, no next-level accessor crashes
+- [ ] AC-5 [behavior]: When `currentLevel` is null/undefined, no card shows "Your level" badge
+- [ ] AC-6 [invariant]: No `any` types; `tsc --noEmit` exits 0
+- [ ] AC-7 [e2e]: Engineer can browse all 6 level cards for any competency; current level is immediately visible
+**End-to-end AC:** AC-7 [e2e] — competency detail page browseable in browser with correct level highlight
+**Tests:** AC-1 through AC-5 — ordered; tracer bullet = AC-1 (6 cards rendered for dev/leadership/decision-making)
+**Test scope:** src/app/[track]/[domain]/[competency]/__tests__/page.test.tsx
+**Done =** reviewable PR, all 4 Vitest tests green (6 cards, badge once, P3 descriptor, P3 criterion), P7 edge case confirmed, `tsc --noEmit` clean.
