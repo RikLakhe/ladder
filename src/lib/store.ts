@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { AssessmentStore, TrackId, LevelId, SelfRating } from './types'
 
-const DEFAULT_STATE = {
+export const DEFAULT_STATE = {
   currentTrack: null as TrackId | null,
   currentLevel: 'p3' as LevelId,
   focusedView: false,
@@ -28,9 +28,8 @@ export const useLadderStore = create<AssessmentStore>()(
           assessments: {
             ...get().assessments,
             [key]: {
-              criteriaChecked: existing?.criteriaChecked ?? [],
-              ...existing,
               selfRating: rating,
+              criteriaChecked: existing?.criteriaChecked ?? [],
               updatedAt: new Date().toISOString(),
             },
           },
@@ -62,6 +61,3 @@ export const useLadderStore = create<AssessmentStore>()(
     }
   )
 )
-
-// Expose getInitialState for test resets
-useLadderStore.getInitialState = () => ({ ...DEFAULT_STATE })
