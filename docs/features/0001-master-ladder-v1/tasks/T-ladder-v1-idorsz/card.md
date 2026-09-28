@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "46d734bd9e8e5caa45a4e04fcaccc6a240259407107a4c45e189e540cf0445cd"
+---
 ## Task T-ladder-v1-idorsz — Track Domain Overview with Progress Rings
 **Story:** S-0001.05 · feature 0001-master-ladder-v1
 **Milestone:** M2 (v0.2.0) — closes M2
