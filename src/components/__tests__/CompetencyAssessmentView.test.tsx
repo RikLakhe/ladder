@@ -108,3 +108,34 @@ describe('B-1: CompetencyAssessmentView — assessment key isolation', () => {
     expect(state.assessments[otherKey]?.criteriaChecked).toEqual(['shared/leadership/mentoring/p3/0'])
   })
 })
+
+describe('B-1: CompetencyAssessmentView — focused view', () => {
+  it('focusedView=false: all 6 level badges visible', () => {
+    useLadderStore.setState({ ...DEFAULT_STATE, currentLevel: 'p3', focusedView: false })
+    render(<CompetencyAssessmentView competency={competency} trackId={trackId} domainId={domainId} />)
+    for (const label of ['P2', 'P3', 'P4', 'P5', 'P6', 'P7']) {
+      expect(screen.getByText(label)).toBeTruthy()
+    }
+  })
+
+  it('focusedView=true, currentLevel=p3: only P3 and P4 badges present; others absent from DOM', () => {
+    useLadderStore.setState({ ...DEFAULT_STATE, currentLevel: 'p3', focusedView: true })
+    render(<CompetencyAssessmentView competency={competency} trackId={trackId} domainId={domainId} />)
+    expect(screen.getByText('P3')).toBeTruthy()
+    expect(screen.getByText('P4')).toBeTruthy()
+    expect(screen.queryByText('P2')).toBeNull()
+    expect(screen.queryByText('P5')).toBeNull()
+    expect(screen.queryByText('P6')).toBeNull()
+    expect(screen.queryByText('P7')).toBeNull()
+  })
+
+  it('focusedView=true, currentLevel=p7: only P7 badge visible + highest-level message', () => {
+    useLadderStore.setState({ ...DEFAULT_STATE, currentLevel: 'p7', focusedView: true })
+    render(<CompetencyAssessmentView competency={competency} trackId={trackId} domainId={domainId} />)
+    expect(screen.getByText('P7')).toBeTruthy()
+    expect(screen.queryByText('P6')).toBeNull()
+    expect(
+      screen.getByText("You're at the highest level — P7 is the top of the Leapfrog career ladder.")
+    ).toBeTruthy()
+  })
+})
