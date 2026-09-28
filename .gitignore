@@ -1,29 +1,43 @@
-# Scaffolded by `lane init` (only when no .gitignore existed) — extend or trim freely.
-# Why it ships: vendored deps and local noise must never enter the TDD ledger, and
-# `lane start` refuses to claim a task while a vendored dir is untracked and unignored.
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Dependencies — provisioned by setup_cmd in every fresh worktree, never committed.
-# Bare names (no trailing slash) so the rule matches even before the dir is created — a
-# trailing-slash entry only matches a path git can already see is a directory.
-node_modules
-vendor
-.venv
-venv
-__pycache__
-*.pyc
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# Build output
-dist
-build
-coverage
-target
+# testing
+/coverage
+/playwright-report
+/test-results
 
-# Environment / secrets (lane green refuses untracked secret files regardless)
-.env
-.env.*
-!.env.example
+# next.js
+/.next/
+/out/
 
-# OS / editor noise
+# production
+/build
+
+# misc
 .DS_Store
-Thumbs.db
-*.log
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
