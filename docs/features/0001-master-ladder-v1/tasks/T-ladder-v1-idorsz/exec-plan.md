@@ -1,7 +1,7 @@
 ---
 approved_by: "Rikesh"
 approved_at: "2026-09-28"
-planned_behaviors: "3"
+planned_behaviors: "2"
 approved_sha256: "37d94956081972ecf39fcc378ef0c8c550180d6b0843edce84ceef950ef86e2d"
 ---
 ## Exec Plan — Task T-ladder-v1-idorsz
