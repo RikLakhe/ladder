@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "ac1564b9238ca1aa0edcae45a6ba7fffd365ade28a82f47a8b88e63acc56f5c7"
+---
 ## Task T-ladder-v1-5ln8k3 — Home Page: Track and Level Selection
 **Story:** S-0001.04 · feature 0001-master-ladder-v1
 **Milestone:** M2 (v0.2.0)
