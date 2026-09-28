@@ -1,0 +1,12 @@
+## TSD S-0001.08 — Self-Assessment: Criteria Checks and Self-Rating  (PRD §S-0001.08)
+
+| Aspect | Spec |
+|--------|------|
+| Interfaces | **CompetencyAssessmentView component**: accepts `competency: Competency`, `trackId: TrackId`, `domainId: string`; renders the interactive assessment UI. **TrackDomainList component**: accepts `track: Track`; renders domain cards with live progress rings. Assessment key: `{trackId}/{domainId}/{competency.id}`. Criterion ID: see TSD S-0001.02 Data/State. |
+| Data / State | Reads and writes `assessments`, `currentLevel` from assessment store. All writes use `setRating(key, rating)` or `toggleCriterion(key, criterionId)` with the formatted key. |
+| Behavior | (B-1) `CompetencyAssessmentView` renders one checkbox input paired with a label for each criterion across all levels. Checking a checkbox calls `toggleCriterion(assessmentKey, criterion.id)` on the store. (B-2) Renders three self-rating buttons (Developing, Meeting, Exceeding). Each button's `aria-pressed` attribute reflects whether `assessments[key].selfRating` equals that button's value. Clicking a button calls `setRating(assessmentKey, rating)`. (B-3) The card for `currentLevel` has blue border, blue background, and a "Your level" badge; no other level card carries those styles. (B-4) Assessment key is always `{trackId}/{domainId}/{competencyId}` — enforced at the type or utility level, not via ad-hoc string concatenation in components. (B-5) An operation on assessment key A has zero effect on the `criteriaChecked` or `selfRating` of any other key B. (B-6) `TrackDomainList` renders a clickable card with a `ProgressRing` for each non-coming-soon domain; progress percentage uses the same formula as TSD S-0001.05 B-7. Coming-soon domains render a badge only — no ring, no link. (B-7) All assessment writes persist to browser-local storage and are restored after page reload. |
+| Access | Any user visiting a competency detail page or track overview. |
+| Boundaries | Browser-local key-value storage (faked in unit tests). |
+| Tests | Unit (TrackDomainList): domain cards for dev track include leadership and delivery; at least 4 progress ring percentage elements present. Unit (CompetencyAssessmentView — fixture: dev/leadership/decision-making, currentLevel=p3): (1) at least 2 checkboxes for P3 criteria, (2) checking first checkbox adds criterion ID to store `criteriaChecked`, (3) all 3 rating buttons present, (4) clicking Meeting sets `selfRating='meeting'` in store, (5) P3 card shows "Your level" badge. |
+
+---
