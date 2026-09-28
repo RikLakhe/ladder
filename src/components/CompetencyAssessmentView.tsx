@@ -1,6 +1,7 @@
 'use client'
 
 import { useLadderStore } from '@/lib/store'
+import { getNextLevel } from '@/lib/content'
 import type { Competency, TrackId, LevelId, SelfRating } from '@/lib/types'
 
 const LEVEL_ORDER: LevelId[] = ['p2', 'p3', 'p4', 'p5', 'p6', 'p7']
@@ -25,6 +26,8 @@ export default function CompetencyAssessmentView({
   domainId,
 }: CompetencyAssessmentViewProps) {
   const currentLevel = useLadderStore((s) => s.currentLevel)
+  const focusedView = useLadderStore((s) => s.focusedView)
+  const setFocusedView = useLadderStore((s) => s.setFocusedView)
   const assessments = useLadderStore((s) => s.assessments)
   const toggleCriterion = useLadderStore((s) => s.toggleCriterion)
   const setRating = useLadderStore((s) => s.setRating)
@@ -34,15 +37,20 @@ export default function CompetencyAssessmentView({
   const checkedIds = assessment?.criteriaChecked ?? []
   const selfRating = assessment?.selfRating
 
-  // Current level first so its checkboxes are first in DOM
-  const orderedLevels = [
-    currentLevel,
-    ...LEVEL_ORDER.filter((l) => l !== currentLevel),
-  ]
+  const nextLevel = getNextLevel(currentLevel)
+
+  // In focused view: show currentLevel + nextLevel (or just currentLevel at p7)
+  // Current level always first so its checkboxes are first in DOM
+  const visibleLevels: LevelId[] = focusedView
+    ? nextLevel
+      ? [currentLevel, nextLevel]
+      : [currentLevel]
+    : [currentLevel, ...LEVEL_ORDER.filter((l) => l !== currentLevel)]
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap gap-2">
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2">
         {RATINGS.map(({ value, label }) => (
           <button
             key={value}
@@ -57,10 +65,27 @@ export default function CompetencyAssessmentView({
             {label}
           </button>
         ))}
+        </div>
+        <button
+          onClick={() => setFocusedView(!focusedView)}
+          className={`px-3 py-1.5 rounded border text-sm font-medium ${
+            focusedView
+              ? 'bg-blue-600 text-white border-blue-600'
+              : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400'
+          }`}
+        >
+          {focusedView ? 'Full view' : 'Focused view'}
+        </button>
       </div>
 
+      {focusedView && !nextLevel && (
+        <p className="text-blue-700 font-medium">
+          You&apos;re at the highest level — P7 is the top of the Leapfrog career ladder.
+        </p>
+      )}
+
       <div className="flex flex-col gap-4">
-        {orderedLevels.map((levelId) => {
+        {visibleLevels.map((levelId) => {
           const levelData = competency.levels.find((l) => l.level === levelId)
           const isCurrentLevel = currentLevel === levelId
 
