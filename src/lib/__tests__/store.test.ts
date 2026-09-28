@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { useLadderStore } from '../store'
+import { useLadderStore, DEFAULT_STATE } from '../store'
 
 beforeEach(() => {
-  useLadderStore.setState(useLadderStore.getInitialState())
+  useLadderStore.setState({ ...DEFAULT_STATE })
 })
 
 describe('B-1: default state', () => {
