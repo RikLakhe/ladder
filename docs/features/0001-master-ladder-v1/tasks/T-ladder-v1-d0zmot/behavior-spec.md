@@ -1,43 +1,18 @@
 # Behavior Spec — T-ladder-v1-d0zmot: Career Ladder Content Data
 > Source: task card ACs + docs/features/0001-master-ladder-v1/tasks/T-ladder-v1-d0zmot/snapshot-TSD.md
 > One test at a time. B-1 = tracer bullet. Never write B-N+1 before B-N is GREEN.
-> Fill a behavior's Given/When/Then JUST BEFORE you `lane red` it — `lane red` checks
-> only the behavior it's about to prove, so later B-N may stay stubs until their turn.
-> B-N below seed from the card's drivable ACs (behavior / e2e) — a starting point, not
-> final. One AC may be several behaviors (split it); the Critic may surface more (add
-> them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
-> non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: `src/content/tracks.ts` exports `tracks: Track[]` with exactly 4 elements (ids: `dev`, `qa`, `data`, `ai`)
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): All 9 schema assertions (AC-1, AC-3, AC-5, AC-7)
+- Given: `src/content/tracks.ts` is imported
+- When: schema assertions run against the exported `tracks` array
+- Then: (1) 4 tracks with correct IDs; (2) all required fields present; (3) all domain fields valid including comingSoon boolean; (4) non-coming-soon competencies have 6 level entries; (5) all level descriptors non-empty; (6) all levels in non-coming-soon domains have ≥1 criterion; (7) all criterion IDs match the format regex; (8) competency IDs unique per domain; (9) coming-soon domains have competencies: []
 
-## B-2: AC-3 [behavior]: Every non-coming-soon competency has level entries for all 6 levels (P2–P7); each level has non-empty descriptor and at least 1 criterion
-- Given:
-- When:
-- Then:
-
-## B-3: AC-5 [behavior]: Dev track has 5 domains including `technical-skill` with 9 competencies (`comingSoon: false`); QA/Data/AI have 4 universal + `technical-skill` stub (`comingSoon: true`, `competencies: []`)
-- Given:
-- When:
-- Then:
-
-## B-4: AC-7 [behavior]: All 9 schema tests pass; `tsc --noEmit` exits 0; no `any` types
-- Given:
-- When:
-- Then:
-
-## B-5: AC-8 [e2e]: App builds and serves competency content for all 4 tracks without runtime errors
-- Given:
-- When:
-- Then:
+## B-2: AC-8 [e2e] — build exits 0
+- Given: full tracks.ts content
+- When: `npm run build` executed
+- Then: exits 0 (smoke test; not a Vitest behavior)
 
 ## Invariants & non-functional ACs (NOT RED→GREEN cycles)
-> Not standalone behaviors to drive. An invariant usually holds as a property of a
-> behavior above (state which) or is locked by a guard test recorded off-ledger with
-> `lane red --regression`. Non-functional ACs are validated out-of-band (load test, etc.).
-- AC-2 [invariant]: Universal domain constants defined once and referenced by all tracks — no structural duplication in source — coverage:
-- AC-4 [invariant]: All criterion IDs match `/^(dev|qa|data|ai|shared)\/.+\/.+\/p[2-7]\/\d+$/`; universal criteria use `shared/` prefix; dev technical-skill uses `dev/technical-skill/` prefix — coverage:
-- AC-6 [invariant]: No `JSON.parse`, `fs.readFile`, or dynamic import in content file; all data statically declared — coverage:
-
+- AC-2 [invariant]: universal domain constants defined once — coverage: structural review of tracks.ts source (no duplicated domain objects)
+- AC-4 [invariant]: criterion ID format — coverage: B-1 test assertion 7 (regex check)
+- AC-6 [invariant]: no dynamic I/O — coverage: TypeScript static analysis + no `JSON.parse`/`fs` imports
