@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "390b4df278ca111d7544a8a9a9186a757ecee978440938d71421f0147d74faa9"
+---
 ## Task T-ladder-v1-uofvx6 — Repository and Toolchain Foundation
 **Story:** S-0001.01 · feature 0001-master-ladder-v1
 **Milestone:** M1 (v0.1.0)
