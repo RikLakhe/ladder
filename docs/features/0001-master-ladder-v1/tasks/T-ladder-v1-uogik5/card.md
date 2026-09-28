@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-28"
+approved_sha256: "72df02cd8d8030538f8f3993e202a83e835e3aa3d94bac23c98eb0df045e6c51"
+---
 ## Task T-ladder-v1-uogik5 — Focused View Toggle and SSR-Safe Hydration
 **Story:** S-0001.09 · feature 0001-master-ladder-v1
 **Milestone:** M4 (v0.4.0) — closes M4
