@@ -1,41 +1,25 @@
 # Behavior Spec — T-ladder-v1-jdsucm: Domain Detail: Competency List
 > Source: task card ACs + docs/features/0001-master-ladder-v1/tasks/T-ladder-v1-jdsucm/snapshot-TSD.md
-> One test at a time. B-1 = tracer bullet. Never write B-N+1 before B-N is GREEN.
-> Fill a behavior's Given/When/Then JUST BEFORE you `lane red` it — `lane red` checks
-> only the behavior it's about to prove, so later B-N may stay stubs until their turn.
-> B-N below seed from the card's drivable ACs (behavior / e2e) — a starting point, not
-> final. One AC may be several behaviors (split it); the Critic may surface more (add
-> them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
-> non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
 ## B-1 (tracer bullet): AC-1 [behavior]: `ExploreButtonClient` renders a button with accessible text equal to `label`; calls `onClick` exactly once on click
-- Given:
-- When:
-- Then:
+- Given: `ExploreButtonClient` rendered with a `label` string and `onClick` spy
+- When: component renders; button is clicked
+- Then: button element with accessible name = label is in DOM; onClick spy called exactly once
 
-## B-2: AC-2 [behavior]: `/dev/leadership` renders all leadership competency names; each card is a link with `href` matching `/{track}/{domain}/{competency-slug}`
-- Given:
-- When:
-- Then:
+## B-2: AC-2/AC-3/AC-4 [behavior]: Domain detail renders competency list with links (live) or "Coming soon" (coming-soon); breadcrumb contains track + domain name
+- Given: `DomainDetail` rendered with a live domain (dev/leadership) or coming-soon domain (qa/technical-skill)
+- When: component renders
+- Then: live → competency names in DOM + each card links to `/{track}/{domain}/{slug}`; breadcrumb has track + domain name; coming-soon → "Coming soon" text present + zero competency anchor links in DOM
 
-## B-3: AC-3 [behavior]: `/qa/technical-skill` renders "Coming soon" text; zero competency links in DOM under any code path
-- Given:
-- When:
-- Then:
+## B-3: AC-5 [behavior]: Invalid track or domain returns 404
+- Given: server page receives unknown track or domain slug
+- When: route resolves
+- Then: `notFound()` called — framework signals 404
 
-## B-4: AC-5 [behavior]: Invalid track or domain returns 404
-- Given:
-- When:
-- Then:
-
-## B-5: AC-6 [e2e]: Engineer navigates Home → Track overview → Domain detail → sees competency list with no dead ends
-- Given:
-- When:
-- Then:
+## B-4: AC-6 [e2e]: Home → Track overview → Domain detail → competency list, no dead ends
+- Given: app running in browser
+- When: user navigates the full path
+- Then: competency list visible — manual browser verification
 
 ## Invariants & non-functional ACs (NOT RED→GREEN cycles)
-> Not standalone behaviors to drive. An invariant usually holds as a property of a
-> behavior above (state which) or is locked by a guard test recorded off-ledger with
-> `lane red --regression`. Non-functional ACs are validated out-of-band (load test, etc.).
-- AC-4 [invariant]: When `domain.comingSoon === true` no anchor pointing to a competency slug is rendered — hard safety constraint, no exceptions — coverage:
-
+- AC-4 [invariant]: when `domain.comingSoon === true` no anchor to a competency slug is rendered — hard safety constraint — coverage: B-2 test explicitly counts zero links in coming-soon render
