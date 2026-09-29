@@ -41,17 +41,28 @@ export interface CompetencyAssessment {
   updatedAt: string
 }
 
+export interface WorkshopPosition {
+  track: TrackId
+  level: LevelId
+  scope: string | null
+  criterionIndex: number
+  totalCriteria: number
+  startedAt: string
+}
+
 export interface AssessmentStore {
   currentTrack: TrackId | null
   currentLevel: LevelId
   focusedView: boolean
   assessments: Record<string, CompetencyAssessment>
+  workshopPosition: WorkshopPosition | null
   setTrack: (track: TrackId) => void
   setLevel: (level: LevelId) => void
   toggleFocusedView: () => void
   setFocusedView: (value: boolean) => void
   setRating: (key: string, rating: SelfRating) => void
   toggleCriterion: (key: string, criterionId: string) => void
+  setWorkshopPosition: (pos: WorkshopPosition | null) => void
 }
 
 export const LEVELS = ['p2', 'p3', 'p4', 'p5', 'p6', 'p7'] as const

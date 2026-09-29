@@ -8,10 +8,10 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: `/dev/workshop` renders a full-screen wizard with header (track name + "X of N" + `<progress>` bar), non-clickable breadcrumb, criterion text card, single checkbox, and rating radio group (Developing / Meeting / Exceeding)
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): AC-1 [behavior]: WorkshopWizard renders track name header + "1 of N" counter + `<progress>` element
+- Given: `<WorkshopWizard track={devTrack} scope={null} />` with store at default state (currentLevel='p3', no assessments)
+- When: component mounts
+- Then: the track name ("Engineering") appears in the DOM; text matching "1 of {N}" is visible; a `<progress>` element is present
 
 ## B-2: AC-2 [behavior]: Criteria sequenced for `currentLevel`: universal domains first (Delivery → Leadership → FCC → Strategic Impact), then Technical Skills; coming-soon domains skipped
 - Given:

@@ -1,12 +1,13 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import type { AssessmentStore, TrackId, LevelId, SelfRating } from './types'
+import type { AssessmentStore, TrackId, LevelId, SelfRating, WorkshopPosition } from './types'
 
 export const DEFAULT_STATE = {
   currentTrack: null as TrackId | null,
   currentLevel: 'p3' as LevelId,
   focusedView: false,
   assessments: {} as AssessmentStore['assessments'],
+  workshopPosition: null as WorkshopPosition | null,
 }
 
 export const useLadderStore = create<AssessmentStore>()(
@@ -35,6 +36,8 @@ export const useLadderStore = create<AssessmentStore>()(
           },
         })
       },
+
+      setWorkshopPosition: (pos) => set({ workshopPosition: pos }),
 
       toggleCriterion: (key, criterionId) => {
         const existing = get().assessments[key]
