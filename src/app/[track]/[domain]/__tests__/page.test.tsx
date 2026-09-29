@@ -1,7 +1,12 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import DomainDetail from '../DomainDetail'
 import { getTrack } from '@/lib/content'
+import { useLadderStore, DEFAULT_STATE } from '@/lib/store'
+
+beforeEach(() => {
+  useLadderStore.setState({ ...DEFAULT_STATE })
+})
 
 describe('B-2: domain detail — live domain (dev/leadership)', () => {
   it('renders all competency names', () => {
@@ -31,6 +36,23 @@ describe('B-2: domain detail — live domain (dev/leadership)', () => {
     render(<DomainDetail track={track} domain={domain} />)
     expect(screen.getByText(track.name)).toBeTruthy()
     expect(screen.getByText(domain.name)).toBeTruthy()
+  })
+})
+
+describe('B-3: domain detail — competency cards include ProgressBar, no SVG rings', () => {
+  it('each competency card contains a progress-fill element', () => {
+    const track = getTrack('dev')!
+    const domain = track.domains.find((d) => d.id === 'leadership')!
+    const { container } = render(<DomainDetail track={track} domain={domain} />)
+    const fills = container.querySelectorAll('[data-testid="progress-fill"]')
+    expect(fills.length).toBeGreaterThanOrEqual(domain.competencies.length)
+  })
+
+  it('no circular SVG circle elements in competency list', () => {
+    const track = getTrack('dev')!
+    const domain = track.domains.find((d) => d.id === 'leadership')!
+    const { container } = render(<DomainDetail track={track} domain={domain} />)
+    expect(container.querySelectorAll('circle')).toHaveLength(0)
   })
 })
 
