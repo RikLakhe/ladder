@@ -13,6 +13,20 @@ const trackId = 'dev' as const
 const domainId = 'leadership'
 const assessmentKey = `${trackId}/${domainId}/${competency.id}`
 
+describe('B-4: CompetencyAssessmentView — pill-shaped rating buttons', () => {
+  it('each rating button has rounded-full class and aria-pressed attribute', () => {
+    const { container } = render(
+      <CompetencyAssessmentView competency={competency} trackId={trackId} domainId={domainId} />
+    )
+    const ratingLabels = ['Developing', 'Meeting', 'Exceeding']
+    for (const label of ratingLabels) {
+      const btn = screen.getByRole('button', { name: label })
+      expect(btn.classList.contains('rounded-full'), `${label} missing rounded-full`).toBe(true)
+      expect(btn.getAttribute('aria-pressed'), `${label} missing aria-pressed`).toMatch(/^(true|false)$/)
+    }
+  })
+})
+
 describe('B-1: CompetencyAssessmentView — checkboxes', () => {
   it('renders at least 2 checkboxes for P3 criteria', () => {
     render(<CompetencyAssessmentView competency={competency} trackId={trackId} domainId={domainId} />)
