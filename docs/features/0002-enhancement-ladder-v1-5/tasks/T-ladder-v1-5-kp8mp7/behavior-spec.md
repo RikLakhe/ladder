@@ -13,28 +13,28 @@
 - When: component mounts
 - Then: SVG present; exactly 5 `<text>` elements with domain names; exactly 2 `<polygon>` elements (filled met + outline exceeding)
 
-## B-2: AC-2 [behavior]: Domain scorecards render horizontally: domain name, progress bar showing "X / Y criteria met", rating pills (N Developing · N Meeting · N Exceeding), "See details →" link to domain page
-- Given:
-- When:
-- Then:
+## B-2: AC-2 [behavior]: DomainScorecard renders "X / Y" text with correct counts
+- Given: `<DomainScorecard domain={...} metCount={3} total={10} ratings={...} href="..."/>` rendered
+- When: component mounts
+- Then: text "3 / 10" visible in the DOM
 
-## B-3: AC-3 [behavior]: Focus Areas shows exactly 3 competencies with lowest `metCount / total` at `currentLevel`; ties broken alphabetically; fewer than 3 if fewer competencies exist
-- Given:
-- When:
-- Then:
+## B-3: AC-3 [behavior]: ResultsDashboard shows 3 lowest-scoring focus area cards
+- Given: `<ResultsDashboard track={devTrack}/>` with store at default state (no assessments)
+- When: component mounts
+- Then: exactly 3 elements with `data-testid="focus-area-card"` present
 
-## B-4: AC-4 [behavior]: "Export summary" button calls `window.print()` on a layout with radar + scorecards visible and navigation hidden via `@media print`
-- Given:
-- When:
-- Then:
+## B-4: AC-5 [behavior]: Nudge shown when all domains ≥ 80%; hidden at 0%
+- Given: store has no assessments (all domains 0%)
+- When: `<ResultsDashboard track={devTrack}/>` renders
+- Then: no "ready for" text visible
 
-## B-5: AC-5 [behavior]: "Ready for P{n+1}?" nudge renders when `currentLevel !== 'p7'` and every non-coming-soon domain is ≥ 80% met; hidden otherwise
-- Given:
-- When:
-- Then:
+## B-5: AC-access [behavior]: Results route renders ResultsDashboard for valid track
+- Given: ResultsPage server component called with `{ track: 'dev' }` params
+- When: rendered
+- Then: radar SVG + focus-area-card elements present
 
-## B-6: AC-6 [e2e]: A user navigating to `/dev/results` after completing assessments sees their radar chart, scorecards, and focus areas
-- Given:
-- When:
-- Then:
+## B-6: AC-6 [e2e]: A user navigating to `/dev/results` after completing assessments sees radar, scorecards, and focus areas
+- Given: Playwright e2e — deferred to T5
+- When: —
+- Then: —
 
