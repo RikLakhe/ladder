@@ -8,15 +8,18 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: `WorkshopWizard` handles `keydown`: `ArrowRight` / `Enter` (when focus not on an input/checkbox) = Next; `ArrowLeft` = Back; `Escape` = Skip
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): AC-1 [behavior]: WorkshopWizard keyboard navigation
+- Given: `<WorkshopWizard track={devTrack} scope={null} />` rendered at index 0
+- When: document keydown `ArrowRight` fired
+- Then: counter shows "2 of N" (Next triggered)
+- And: `ArrowLeft` at index>0 decrements (Back triggered)
+- And: `Escape` advances without checkbox change (Skip triggered)
+- And: `Enter` while checkbox is focused does NOT advance counter
 
-## B-2: AC-2 [behavior]: Each `MatrixHeatMap` cell has `aria-label="{domain.name}, {LEVEL}, {X} of {Y} criteria met"`
-- Given:
-- When:
-- Then:
+## B-2: AC-2 [behavior]: MatrixHeatMap cell aria-labels
+- Given: `<MatrixHeatMap track={devTrack} />` rendered
+- When: component mounts
+- Then: each `[data-testid="heat-cell"]` has `aria-label` containing domain name, level code, and "X of Y criteria met"
 
 ## B-3: AC-3 [behavior]: Wizard slide transitions are wrapped in `@media (prefers-reduced-motion: reduce) { transition: none; animation: none }` — no motion when preference is set
 - Given:

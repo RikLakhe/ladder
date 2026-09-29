@@ -66,6 +66,20 @@ export default function WorkshopWizard({ track, scope }: Props) {
   const pointerStartX = useRef<number | null>(null)
 
   useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      const active = document.activeElement
+      const activeTag = active?.tagName?.toLowerCase() ?? ''
+      const isFocusedOnInput = activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select'
+      if (e.key === 'ArrowRight') { advance(); return }
+      if (e.key === 'ArrowLeft') { goBack(); return }
+      if (e.key === 'Escape') { skip(); return }
+      if (e.key === 'Enter' && !isFocusedOnInput) { advance(); return }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [index, done, total])
+
+  useEffect(() => {
     if (!done && total > 0) {
       setWorkshopPosition({
         track: track.id,
