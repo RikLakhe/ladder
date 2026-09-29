@@ -18,10 +18,10 @@
 - When: the component mounts
 - Then: each level card div has class `border-l-4` and a `border-level-p{n}` class matching its level id (e.g. `border-level-p3` for P3)
 
-## B-3: AC-3 [behavior]: Domain detail competency list uses horizontal `<ProgressBar>` elements (width driven by percentage) instead of circular SVG rings
-- Given:
-- When:
-- Then:
+## B-3: AC-3 [behavior]: Domain detail competency cards include a ProgressBar element
+- Given: a domain detail page renders a live (non-coming-soon) domain with ≥1 competency
+- When: the component mounts
+- Then: each competency card contains a `[data-testid="progress-fill"]` element (ProgressBar), and zero circular `<circle>` SVG elements are present in the competency list
 
 ## B-4: AC-4 [behavior]: Primary CTA buttons site-wide (home navigate, track overview CTA) use `#038E43` (leapverse-100) as their background colour
 - Given:
