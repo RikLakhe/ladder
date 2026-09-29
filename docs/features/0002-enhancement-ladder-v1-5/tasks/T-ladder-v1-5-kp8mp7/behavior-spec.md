@@ -8,10 +8,10 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: `/dev/results` renders a radar chart with 5 axes (one per non-coming-soon domain); two overlaid SVG polygons — filled (% criteria met) and outline (% criteria exceeding) at `currentLevel`
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): AC-1 [behavior]: RadarChart renders SVG with 5 axis labels and 2 polygons
+- Given: `<RadarChart data={[...5 domains, all pct=0]}/>` rendered
+- When: component mounts
+- Then: SVG present; exactly 5 `<text>` elements with domain names; exactly 2 `<polygon>` elements (filled met + outline exceeding)
 
 ## B-2: AC-2 [behavior]: Domain scorecards render horizontally: domain name, progress bar showing "X / Y criteria met", rating pills (N Developing · N Meeting · N Exceeding), "See details →" link to domain page
 - Given:
