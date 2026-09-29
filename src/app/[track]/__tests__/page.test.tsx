@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import TrackOverview from '../TrackOverview'
 import { useLadderStore, DEFAULT_STATE } from '@/lib/store'
 import { getTrack } from '@/lib/content'
@@ -26,9 +26,10 @@ describe('B-4: track overview — dev track domain cards', () => {
   it('non-coming-soon domain cards are wrapped in a link to /{track}/{domain}', () => {
     const track = getTrack('dev')!
     render(<TrackOverview track={track} />)
-    const links = screen.getAllByRole('link')
-    expect(links.length).toBeGreaterThan(0)
-    links.forEach((link) => {
+    const details = document.querySelector('details')!
+    const domainLinks = within(details).getAllByRole('link')
+    expect(domainLinks.length).toBeGreaterThan(0)
+    domainLinks.forEach((link) => {
       expect(link.getAttribute('href')).toMatch(/^\/dev\//)
     })
   })
@@ -44,10 +45,11 @@ describe('B-4: track overview — qa track coming-soon card', () => {
   it('coming-soon card has no link', () => {
     const track = getTrack('qa')!
     render(<TrackOverview track={track} />)
-    // 4 non-coming-soon domains should have links; technical-skill should not
-    const links = screen.getAllByRole('link')
-    expect(links).toHaveLength(4)
-    links.forEach((link) => {
+    // Scope to <details> — only domain card links, not heat-map links
+    const details = document.querySelector('details')!
+    const domainLinks = within(details).getAllByRole('link')
+    expect(domainLinks).toHaveLength(4)
+    domainLinks.forEach((link) => {
       expect(link.getAttribute('href')).not.toContain('technical-skill')
     })
   })
@@ -58,6 +60,30 @@ describe('B-4: track overview — qa track coming-soon card', () => {
     // 4 non-coming-soon domains should each have a ring
     const rings = screen.getAllByTestId('progress-ring')
     expect(rings).toHaveLength(4)
+  })
+})
+
+describe('B-T2: TrackOverview composition — MatrixHeatMap + Workshop link + details disclosure', () => {
+  it('renders 30 heat cells from MatrixHeatMap for dev track', () => {
+    const track = getTrack('dev')!
+    render(<TrackOverview track={track} />)
+    const cells = screen.getAllByTestId('heat-cell')
+    expect(cells).toHaveLength(30)
+  })
+
+  it('renders "Start Workshop" link', () => {
+    const track = getTrack('dev')!
+    render(<TrackOverview track={track} />)
+    expect(screen.getByText('Start Workshop')).toBeInTheDocument()
+  })
+
+  it('domain cards are inside a <details> disclosure element', () => {
+    const track = getTrack('dev')!
+    render(<TrackOverview track={track} />)
+    const details = document.querySelector('details')!
+    expect(details).not.toBeNull()
+    const cards = within(details).getAllByTestId('domain-card')
+    expect(cards).toHaveLength(5)
   })
 })
 
