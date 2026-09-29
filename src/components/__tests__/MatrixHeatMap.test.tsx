@@ -28,3 +28,27 @@ describe('B-2: Current-level column shows "You" badge', () => {
     expect(th?.getAttribute('data-level')).toBe('p3')
   })
 })
+
+describe('B-3: Live cells have links; coming-soon cells do not', () => {
+  it('coming-soon domain cells have no <a> element; live domain cells have <a> with href', () => {
+    const qaTrack = getTrack('qa')!
+    const { container } = render(<MatrixHeatMap track={qaTrack} />)
+    // qa track last domain is comingSoon: true (technical-skill)
+    // Find all rows in tbody
+    const rows = container.querySelectorAll('tbody tr')
+    // Last row = technical-skill (comingSoon)
+    const lastRow = rows[rows.length - 1]
+    const comingSoonCells = lastRow.querySelectorAll('[data-testid="heat-cell"]')
+    comingSoonCells.forEach((cell) => {
+      expect(cell.closest('a')).toBeNull()
+    })
+    // First row = delivery (live)
+    const firstRow = rows[0]
+    const liveCells = firstRow.querySelectorAll('[data-testid="heat-cell"]')
+    liveCells.forEach((cell) => {
+      const anchor = cell.closest('a')
+      expect(anchor).not.toBeNull()
+      expect(anchor?.getAttribute('href')).toMatch(/^\/qa\/delivery/)
+    })
+  })
+})
