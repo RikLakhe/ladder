@@ -8,10 +8,10 @@
 > them). B-numbering is the Coordinator's, not fixed by AC count. Invariant /
 > non-functional ACs are not RED→GREEN cycles — any are listed in their own section.
 
-## B-1 (tracer bullet): AC-1 [behavior]: Competency detail level cards render a left border coloured by level (P2=slate, P3=blue, P4=indigo, P5=violet, P6=purple, P7=pink) using Tailwind `level-p{n}` colour tokens defined in the Tailwind config
-- Given:
-- When:
-- Then:
+## B-1 (tracer bullet): AC-3 [behavior]: ProgressBar renders with width matching percentage prop
+- Given: a `<ProgressBar percentage={60} />` is rendered
+- When: the component mounts
+- Then: the inner fill element has an inline style of `width: 60%`
 
 ## B-2: AC-2 [behavior]: Self-rating buttons on competency detail are pill-shaped and carry `aria-pressed="true"/"false"` correctly
 - Given:
