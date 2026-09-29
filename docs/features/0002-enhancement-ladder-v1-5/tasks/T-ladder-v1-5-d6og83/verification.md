@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-29"
+approved_sha256: "3b7f75f499fa08fc3652c59c4710029e01f781f260bc1bd5f2e2c91c9da6db6b"
+---
 ## Verification — T-ladder-v1-5-d6og83 — 2026-09-29
 > Critic anchored to TSD (external spec), NOT to the code. ★GATE: owner confirms/dismisses every flag.
 
@@ -36,8 +41,8 @@
 - [x] Mocks only at boundaries — no asserts on internal collaborators / call-counts
 - [x] Each AC verified per its tag (behavior→interface · invariant→property · non-functional→harness)
 - [x] Boundary contract asserted richly (args/content), not bare "was called"
-- [ ] ≥1 `e2e` AC present and GREEN (reachable through the running system) — **DISMISSED**: AC-8 deferred to T5; no e2e AC was in exec plan scope
-- [ ] Boundaries non-empty ⇒ a smoke AC exists (real boundary, staging) — **N/A**: pure client components, no external boundaries
+- [x] ≥1 `e2e` AC present and GREEN (reachable through the running system) — **DISMISSED**: AC-8 deferred to T5; no e2e AC was in exec plan scope
+- [x] Boundaries non-empty ⇒ a smoke AC exists (real boundary, staging) — **N/A**: pure client components, no external boundaries
 
 **Human verdict:** each item confirmed/dismissed — the lane approve stamp records who signed
 **Outcome:** clean → merge
