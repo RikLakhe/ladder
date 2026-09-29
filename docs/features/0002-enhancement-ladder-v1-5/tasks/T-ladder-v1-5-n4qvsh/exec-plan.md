@@ -1,7 +1,8 @@
 ---
-approved_by: ""
-approved_at: ""
+approved_by: "Rikesh"
+approved_at: "2026-09-29"
 planned_behaviors: "8"
+approved_sha256: "7524895e6f4d0fb51195327abd78364a5c829a361685a018f238422205be021b"
 ---
 ## Exec Plan — Task T-ladder-v1-5-n4qvsh
 > Authored during planning, before any code. ★GATE: DEV/SA approve via `lane approve` BEFORE any code (lane writes the stamp). Resolve all ambiguities first.
