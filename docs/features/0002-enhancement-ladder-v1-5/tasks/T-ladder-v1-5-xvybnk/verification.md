@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-29"
+approved_sha256: "27f2f6191a6c97f14208a7014a8d14ea8163470beab5c748633071a2e3eef137"
+---
 ## Verification — Task T-ladder-v1-5-xvybnk — 2026-09-29
 > Critic anchored to TSD S-0002.01, NOT to the code.
 
