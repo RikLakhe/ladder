@@ -23,10 +23,10 @@
 - When: the component mounts
 - Then: each competency card contains a `[data-testid="progress-fill"]` element (ProgressBar), and zero circular `<circle>` SVG elements are present in the competency list
 
-## B-4: AC-4 [behavior]: Primary CTA buttons site-wide (home navigate, track overview CTA) use `#038E43` (leapverse-100) as their background colour
-- Given:
-- When:
-- Then:
+## B-4: AC-2 [behavior]: Self-rating buttons in CompetencyAssessmentView are pill-shaped
+- Given: a `CompetencyAssessmentView` is rendered with a competency at currentLevel p3
+- When: the component mounts
+- Then: each self-rating button (Developing, Meeting, Exceeding) has `rounded-full` in its class list and carries `aria-pressed="true"` or `aria-pressed="false"`
 
 ## B-5: AC-5 [e2e]: A user navigating to `/dev/technical-skill/writing-code` sees colour-coded level cards and pill rating buttons
 - Given:
