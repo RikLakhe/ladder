@@ -8,6 +8,14 @@ const LEVEL_ORDER: LevelId[] = ['p2', 'p3', 'p4', 'p5', 'p6', 'p7']
 const LEVEL_LABEL: Record<LevelId, string> = {
   p2: 'P2', p3: 'P3', p4: 'P4', p5: 'P5', p6: 'P6', p7: 'P7',
 }
+const LEVEL_BORDER: Record<LevelId, string> = {
+  p2: 'border-level-p2',
+  p3: 'border-level-p3',
+  p4: 'border-level-p4',
+  p5: 'border-level-p5',
+  p6: 'border-level-p6',
+  p7: 'border-level-p7',
+}
 
 interface CompetencyDetailProps {
   track: Track
@@ -37,7 +45,7 @@ export default function CompetencyDetail({ track, domain, competency }: Competen
             <div
               key={levelId}
               data-level={levelId}
-              className={`rounded-lg border p-5 ${
+              className={`rounded-lg border-l-4 border p-5 ${LEVEL_BORDER[levelId]} ${
                 isCurrentLevel
                   ? 'border-blue-500 bg-blue-50'
                   : 'border-gray-200 bg-white'

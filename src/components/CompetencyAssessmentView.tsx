@@ -56,10 +56,10 @@ export default function CompetencyAssessmentView({
             key={value}
             aria-pressed={selfRating === value ? 'true' : 'false'}
             onClick={() => setRating(key, value)}
-            className={`px-4 py-2 rounded border text-sm font-medium ${
+            className={`px-4 py-2 rounded-full border text-sm font-medium ${
               selfRating === value
-                ? 'bg-blue-600 text-white border-blue-600'
-                : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400'
+                ? 'bg-leapverse-100 text-white border-leapverse-100'
+                : 'bg-white text-gray-700 border-gray-300 hover:border-leapverse-100'
             }`}
           >
             {label}

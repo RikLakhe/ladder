@@ -70,6 +70,28 @@ describe('B-1: CompetencyDetail — current level highlight', () => {
   })
 })
 
+describe('B-2: CompetencyDetail — level card left border colour tokens', () => {
+  it('each level card has border-l-4 and the matching border-level-p{n} class', () => {
+    const { container } = render(
+      <CompetencyDetail track={track} domain={domain} competency={competency} />
+    )
+    const levels: Array<[string, string]> = [
+      ['p2', 'border-level-p2'],
+      ['p3', 'border-level-p3'],
+      ['p4', 'border-level-p4'],
+      ['p5', 'border-level-p5'],
+      ['p6', 'border-level-p6'],
+      ['p7', 'border-level-p7'],
+    ]
+    for (const [levelId, cls] of levels) {
+      const card = container.querySelector(`[data-level="${levelId}"]`)
+      expect(card, `card for ${levelId}`).toBeTruthy()
+      expect(card!.classList.contains('border-l-4'), `border-l-4 on ${levelId}`).toBe(true)
+      expect(card!.classList.contains(cls), `${cls} on ${levelId}`).toBe(true)
+    }
+  })
+})
+
 describe('B-1: CompetencyDetail — breadcrumb', () => {
   it('breadcrumb shows track name, domain name, and competency name', () => {
     render(<CompetencyDetail track={track} domain={domain} competency={competency} />)
