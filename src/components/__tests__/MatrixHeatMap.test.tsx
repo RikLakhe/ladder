@@ -42,6 +42,18 @@ describe('B-4: Each live cell has title with domain, level, and criterion count'
   })
 })
 
+describe('B-2 (T5): MatrixHeatMap cell aria-labels include domain, level, and criterion count', () => {
+  it('each heat cell has aria-label matching /{domainName}.*{LEVEL}.*\\d+ of \\d+ criteria met/', () => {
+    const devTrack = getTrack('dev')!
+    render(<MatrixHeatMap track={devTrack} />)
+    const cells = screen.getAllByTestId('heat-cell')
+    cells.forEach((cell) => {
+      const label = cell.getAttribute('aria-label') ?? ''
+      expect(label).toMatch(/\d+ of \d+ criteria met/)
+    })
+  })
+})
+
 describe('B-3: Live cells have links; coming-soon cells do not', () => {
   it('coming-soon domain cells have no <a> element; live domain cells have <a> with href', () => {
     const qaTrack = getTrack('qa')!
