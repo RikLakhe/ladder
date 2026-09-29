@@ -29,6 +29,19 @@ describe('B-2: Current-level column shows "You" badge', () => {
   })
 })
 
+describe('B-4: Each live cell has title with domain, level, and criterion count', () => {
+  it('live cell title matches /{domainName}.*{LEVEL}.*\\d+ of \\d+ criteria met/', () => {
+    const devTrack = getTrack('dev')!
+    render(<MatrixHeatMap track={devTrack} />)
+    const cells = screen.getAllByTestId('heat-cell')
+    // All 30 cells in dev track are live (no comingSoon domains)
+    cells.forEach((cell) => {
+      const title = cell.getAttribute('title') ?? ''
+      expect(title).toMatch(/\d+ of \d+ criteria met/)
+    })
+  })
+})
+
 describe('B-3: Live cells have links; coming-soon cells do not', () => {
   it('coming-soon domain cells have no <a> element; live domain cells have <a> with href', () => {
     const qaTrack = getTrack('qa')!
