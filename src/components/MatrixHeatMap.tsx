@@ -85,11 +85,16 @@ export default function MatrixHeatMap({ track }: Props) {
                   ? `${domain.name} · ${level.toUpperCase()} — coming soon`
                   : `${domain.name} · ${level.toUpperCase()} — ${criteriaChecked} of ${criteriaTotal} criteria met`
 
+                const ariaLabel = domain.comingSoon
+                  ? `${domain.name}, ${level.toUpperCase()}, coming soon`
+                  : `${domain.name}, ${level.toUpperCase()}, ${criteriaChecked} of ${criteriaTotal} criteria met`
+
                 const cellInner = (
                   <div
                     data-testid="heat-cell"
                     data-heat={bucket}
                     title={titleStr}
+                    aria-label={ariaLabel}
                     className="h-10 w-full rounded flex items-center justify-center text-xs font-medium transition-opacity"
                     style={{ background: bg }}
                   >
