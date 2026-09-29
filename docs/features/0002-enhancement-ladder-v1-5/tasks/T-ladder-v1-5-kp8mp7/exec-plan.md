@@ -1,26 +1,44 @@
 ---
 approved_by: ""
 approved_at: ""
-# planned_behaviors — machine-read count of RED→GREEN cycles (B-N). Leave empty to let
-# lane infer from B-N labels below; SET it when an AC becomes a regression guard so
-# `lane next` knows the remaining count (frontmatter edits need no re-approval).
-planned_behaviors: ""
+planned_behaviors: "5"
 ---
 ## Exec Plan — Task T-ladder-v1-5-kp8mp7
 > Authored during planning, before any code. ★GATE: DEV/SA approve via `lane approve` BEFORE any code (lane writes the stamp). Resolve all ambiguities first.
 
-**Will build:** (mapped to each AC)
--
-**Approach:** high-level only — NOT implementation prescription
-**Boundaries & mocks:** (from TSD Boundaries) what's FAKED (network/external services, clock, randomness, filesystem) vs REAL. Each fake = an injected port. Boundaries non-empty ⇒ name the smoke AC that hits the real one in a realistic environment.
--
-**Behaviors (TDD order):** B-1 first (tracer bullet), then B-2, B-3 … ; include the `e2e` behavior
--
+**Will build:**
+- `src/components/RadarChart.tsx` — dual-polygon SVG; props `data: { domain: string; metPct: number; exceedingPct: number }[]`; 5 axes, filled polygon (met), outline polygon (exceeding)
+- `src/components/DomainScorecard.tsx` — props `domain, metCount, total, ratings, href`; name, "X / Y" text, rating pills
+- `src/components/FocusAreaCard.tsx` — props `competency, domain, metCount, total, href`; competency name + score + link
+- `src/components/ResultsDashboard.tsx` — `'use client'`; reads store; computes domain stats + focus areas (3 lowest-scoring) + nudge; Export button calls `window.print()`
+- `src/app/[track]/results/page.tsx` — server component; resolves track; `notFound()` if missing; passes track to ResultsDashboard
+
+**Approach:**
+RadarChart first (tracer). DomainScorecard (simple). ResultsDashboard composition last: domain stats from assessments + currentLevel; focus areas = 3 lowest `metCount/total` competencies (ties broken alphabetically); nudge when all non-coming-soon domains ≥ 80%.
+
+**Boundaries & mocks:** `window.print()` — browser API; not called in unit tests; Export button checked by label text only.
+
+**Behaviors (TDD order):**
+- B-1 (tracer): RadarChart renders SVG with 5 `<text>` axis labels and 2 `<polygon>` elements
+- B-2: DomainScorecard renders "X / Y" text with correct metCount and total
+- B-3: ResultsDashboard shows 3 lowest-scoring competencies in Focus Areas given seeded assessments
+- B-4: ResultsDashboard nudge shown when all non-coming-soon domains ≥ 80% met; hidden otherwise
+- B-5: Results route page renders ResultsDashboard for valid track
+
 **PR will contain:**
--
-**Open questions / ambiguities:** (MUST be resolved before execution)
--
-**Path:** L (lean, default) | R (rich)
-**Escalation signals hit (≥2 → R):** ambiguities≥3 · blast-radius≥3 · security · amendments≥2 · prior-fail · self-flag
-**If overriding R→L:** risk acknowledged here + SA co-signs Verification.
+- `src/components/RadarChart.tsx` (new)
+- `src/components/DomainScorecard.tsx` (new)
+- `src/components/FocusAreaCard.tsx` (new)
+- `src/components/ResultsDashboard.tsx` (new)
+- `src/app/[track]/results/page.tsx` (new)
+- `src/components/__tests__/RadarChart.test.tsx` (new)
+- `src/components/__tests__/ResultsDashboard.test.tsx` (new)
+- `src/app/[track]/results/__tests__/page.test.tsx` (new)
+
+**Open questions / ambiguities:**
+- Focus area ties broken alphabetically by competency.name — in sort comparator
+- RadarChart uses `<polygon>` not `<path>` for testable points attribute
+
+**Path:** L (lean, default)
+**Escalation signals hit:** None.
 - [ ] Refactor pass done (on green; tests unchanged) — before PR
