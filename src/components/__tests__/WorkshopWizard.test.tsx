@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { useLadderStore, DEFAULT_STATE } from '@/lib/store'
 import { getTrack } from '@/lib/content'
@@ -133,5 +133,49 @@ describe('B-6: Completion screen shows heading and CTAs after last criterion', (
     expect(screen.getByText(/Workshop complete/i)).toBeInTheDocument()
     expect(screen.getByText('See my results')).toBeInTheDocument()
     expect(screen.getByText('Review by domain')).toBeInTheDocument()
+  })
+})
+
+describe('B-1 (T5): WorkshopWizard keyboard navigation', () => {
+  afterEach(() => {
+    // cleanup any document listeners
+  })
+
+  it('ArrowRight fires Next (counter goes 1→2)', () => {
+    const devTrack = getTrack('dev')!
+    render(<WorkshopWizard track={devTrack} scope={null} />)
+    expect(screen.getByText(/1 of \d+/)).toBeInTheDocument()
+    fireEvent.keyDown(document, { key: 'ArrowRight' })
+    expect(screen.getByText(/2 of \d+/)).toBeInTheDocument()
+  })
+
+  it('ArrowLeft fires Back (counter goes 2→1)', () => {
+    const devTrack = getTrack('dev')!
+    render(<WorkshopWizard track={devTrack} scope={null} />)
+    fireEvent.keyDown(document, { key: 'ArrowRight' })
+    expect(screen.getByText(/2 of \d+/)).toBeInTheDocument()
+    fireEvent.keyDown(document, { key: 'ArrowLeft' })
+    expect(screen.getByText(/1 of \d+/)).toBeInTheDocument()
+  })
+
+  it('Escape fires Skip (counter advances, checkbox unchanged)', () => {
+    const devTrack = getTrack('dev')!
+    render(<WorkshopWizard track={devTrack} scope={null} />)
+    const checkbox = screen.getByRole('checkbox')
+    expect(checkbox).not.toBeChecked()
+    fireEvent.keyDown(document, { key: 'Escape' })
+    expect(screen.getByText(/2 of \d+/)).toBeInTheDocument()
+    const state = useLadderStore.getState()
+    const allChecked = Object.values(state.assessments).flatMap((a) => a.criteriaChecked)
+    expect(allChecked).toHaveLength(0)
+  })
+
+  it('Enter while checkbox focused does NOT advance counter', () => {
+    const devTrack = getTrack('dev')!
+    render(<WorkshopWizard track={devTrack} scope={null} />)
+    const checkbox = screen.getByRole('checkbox')
+    checkbox.focus()
+    fireEvent.keyDown(document, { key: 'Enter', target: checkbox })
+    expect(screen.getByText(/1 of \d+/)).toBeInTheDocument()
   })
 })
