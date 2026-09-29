@@ -175,7 +175,8 @@ describe('B-1 (T5): WorkshopWizard keyboard navigation', () => {
     render(<WorkshopWizard track={devTrack} scope={null} />)
     const checkbox = screen.getByRole('checkbox')
     checkbox.focus()
-    fireEvent.keyDown(document, { key: 'Enter', target: checkbox })
+    // document.activeElement is now the checkbox (input) — handler should not advance
+    fireEvent.keyDown(document, { key: 'Enter' })
     expect(screen.getByText(/1 of \d+/)).toBeInTheDocument()
   })
 })
