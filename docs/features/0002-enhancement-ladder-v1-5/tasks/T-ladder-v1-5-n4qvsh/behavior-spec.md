@@ -13,40 +13,43 @@
 - When: component mounts
 - Then: the track name ("Engineering") appears in the DOM; text matching "1 of {N}" is visible; a `<progress>` element is present
 
-## B-2: AC-2 [behavior]: Criteria sequenced for `currentLevel`: universal domains first (Delivery → Leadership → FCC → Strategic Impact), then Technical Skills; coming-soon domains skipped
-- Given:
-- When:
-- Then:
+## B-2: AC-2 [behavior]: Criterion card shows checkbox and 3 rating radio inputs
+- Given: `<WorkshopWizard track={devTrack} scope={null} />` at default state
+- When: component mounts
+- Then: one checkbox ("I do this regularly") + 3 radio inputs (Developing / Meeting / Exceeding) visible
 
-## B-3: AC-3 [behavior]: "Next →" advances criterion; "← Back" decrements (no-op at 0); "Skip" advances without toggling checkbox
-- Given:
-- When:
-- Then:
+## B-3: AC-3 [behavior]: Next/Back/Skip navigation
+- Given: `<WorkshopWizard track={devTrack} scope={null} />` at index 0
+- When: Next → clicked
+- Then: counter shows "2 of N"
+- And: Back at index 0 is no-op (counter stays "1 of N")
+- And: Skip advances without toggling checkbox or adding to criteriaChecked
 
-## B-4: AC-4 [behavior]: Checkbox and rating writes persist to `assessments` store via existing `toggleCriterion` / `setRating` actions
-- Given:
-- When:
-- Then:
+## B-4: AC-4 [behavior]: Checkbox writes to store via toggleCriterion
+- Given: `<WorkshopWizard track={devTrack} scope={null} />` at default state
+- When: checkbox clicked
+- Then: criterion ID appears in store `criteriaChecked`
 
-## B-5: AC-5 [behavior]: `workshopPosition` (`{ track, level, scope, criterionIndex, totalCriteria, startedAt }`) persists to localStorage on every advance; on return visit a "Continue?" banner shows with Continue / Restart actions
-- Given:
-- When:
-- Then:
+## B-5: AC-5 [behavior]: Resume banner when workshopPosition matches
+- Given: store has `workshopPosition` with track='dev', level='p3', criterionIndex=3
+- When: `<WorkshopWizard track={devTrack} scope={null} />` mounts
+- Then: "You left off at criterion" banner is visible
 
-## B-6: AC-6 [behavior]: Completing all criteria shows completion screen with "Workshop complete" heading, summary counts, and CTAs "See my results" → `/dev/results` and "Review by domain" → `/dev`; sets `workshopPosition = null`
-- Given:
-- When:
-- Then:
+## B-6: AC-6 [behavior]: Completion screen after last criterion
+- Given: `<WorkshopWizard track={devTrack} scope={competencyId} />` scoped to a single competency
+- When: Next clicked past last criterion
+- Then: "Workshop complete" heading visible; "See my results" and "Review by domain" CTA links present
 
-## B-7: AC-7 [behavior]: Swipe left (pointer delta > 60px) = Next; swipe right = Back
-- Given:
-- When:
-- Then:
+## B-7: AC-7 [behavior]: Swipe gesture
+- Given: `<WorkshopWizard track={devTrack} scope={null} />` at index 0
+- When: pointerDown at x=200, pointerUp at x=80 (left swipe, delta -120)
+- Then: counter shows "2 of N"
+- And: right swipe from index 1 returns to index 0
 
-## B-8: AC-9 [e2e]: A user navigating to `/dev/workshop` can step through criteria, check/rate each, and reach the completion screen
-- Given:
-- When:
-- Then:
+## B-8: AC-access [behavior]: `/[track]/workshop` route renders WorkshopWizard for valid track
+- Given: WorkshopPage server component called with params `{ track: 'dev' }` and empty searchParams
+- When: rendered
+- Then: `<progress>` element and "1 of N" counter appear
 
 ## Invariants & non-functional ACs (NOT RED→GREEN cycles)
 > Not standalone behaviors to drive. An invariant usually holds as a property of a
