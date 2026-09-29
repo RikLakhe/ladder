@@ -1,3 +1,8 @@
+---
+approved_by: "Rikesh"
+approved_at: "2026-09-29"
+approved_sha256: "82d638cd58d7cdc5440cefd381782d1ad4132a2ed013133ab63b505d38a92942"
+---
 ## Verification — T-ladder-v1-5-kp8mp7 — 2026-09-29
 > Critic anchored to TSD (external spec), NOT to the code. ★GATE: owner confirms/dismisses every flag.
 
