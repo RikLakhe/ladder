@@ -16,3 +16,15 @@ describe('B-1: MatrixHeatMap renders 30 heat cells for dev track', () => {
     expect(cells).toHaveLength(30)
   })
 })
+
+describe('B-2: Current-level column shows "You" badge', () => {
+  it('renders exactly one "You" badge and its column header has data-level matching currentLevel', () => {
+    useLadderStore.setState({ ...DEFAULT_STATE, currentLevel: 'p3' })
+    const devTrack = getTrack('dev')!
+    render(<MatrixHeatMap track={devTrack} />)
+    const badges = screen.getAllByText('You')
+    expect(badges).toHaveLength(1)
+    const th = badges[0].closest('[data-level]')
+    expect(th?.getAttribute('data-level')).toBe('p3')
+  })
+})
