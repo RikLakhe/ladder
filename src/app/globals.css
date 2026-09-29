@@ -46,6 +46,20 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Leapfrog brand — leapverse green tint ramp */
+  --color-leapverse-10: #B4FFD6;
+  --color-leapverse-40: #79D9A5;
+  --color-leapverse-70: #3EB474;
+  --color-leapverse-100: #038E43;
+
+  /* Level accent colours for competency card borders */
+  --color-level-p2: #64748b;
+  --color-level-p3: #3b82f6;
+  --color-level-p4: #6366f1;
+  --color-level-p5: #8b5cf6;
+  --color-level-p6: #a855f7;
+  --color-level-p7: #ec4899;
 }
 
 :root {

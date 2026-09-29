@@ -13,10 +13,10 @@
 - When: the component mounts
 - Then: the inner fill element has an inline style of `width: 60%`
 
-## B-2: AC-2 [behavior]: Self-rating buttons on competency detail are pill-shaped and carry `aria-pressed="true"/"false"` correctly
-- Given:
-- When:
-- Then:
+## B-2: AC-1 [behavior]: Level cards in CompetencyDetail have left border coloured by level
+- Given: a competency detail page renders all 6 level cards
+- When: the component mounts
+- Then: each level card div has class `border-l-4` and a `border-level-p{n}` class matching its level id (e.g. `border-level-p3` for P3)
 
 ## B-3: AC-3 [behavior]: Domain detail competency list uses horizontal `<ProgressBar>` elements (width driven by percentage) instead of circular SVG rings
 - Given:
